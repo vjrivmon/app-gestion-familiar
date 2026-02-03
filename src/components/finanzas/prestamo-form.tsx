@@ -137,7 +137,7 @@ export function PrestamoForm({ open, onClose, onSave }: PrestamoFormProps) {
               </div>
               {importe > 0 && !mismaPersana && (
                 <p className="text-center text-sm text-[var(--text-secondary)] dark:text-[var(--text-muted)] mt-3">
-                  💸 <strong>{NOMBRES_MAP[deQuien]}</strong> presta <strong>{formatMoney(importe)}</strong> a <strong>{NOMBRES_MAP[aQuien]}</strong>
+                   <strong>{NOMBRES_MAP[deQuien]}</strong> presta <strong>{formatMoney(importe)}</strong> a <strong>{NOMBRES_MAP[aQuien]}</strong>
                 </p>
               )}
             </div>

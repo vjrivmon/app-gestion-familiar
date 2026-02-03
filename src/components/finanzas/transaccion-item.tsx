@@ -122,7 +122,7 @@ export function TransaccionItem({ tipo, data, onEdit, onDelete }: TransaccionIte
                 ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
                 : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
             )}>
-              {data.tipo_dinero === 'efectivo' ? '💵' : '💳'}
+              {data.tipo_dinero === 'efectivo' ? '' : ''}
             </span>
             
             {/* Es fijo badge (solo ingresos) */}

@@ -55,7 +55,7 @@ export function GraficoDistribucion({
         className={cn('flex items-center justify-center text-[var(--text-muted)] flex-col gap-2', className)}
         style={{ height: altura }}
       >
-        <span className="text-4xl">📊</span>
+        <span className="text-4xl"></span>
         <span>Sin gastos este mes</span>
       </div>
     )

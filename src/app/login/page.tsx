@@ -36,7 +36,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm space-y-8">
         {/* Logo/Title */}
         <div className="text-center">
-          <div className="text-6xl mb-4">🛒</div>
+          <div className="text-6xl mb-4"></div>
           <h1 className="text-[28px] font-bold text-[var(--text-primary)]">App de Pus</h1>
           <p className="text-[var(--text-secondary)] mt-2">
             Compra inteligente para ti e Irene

@@ -16,9 +16,9 @@ interface BecaItemProps {
 }
 
 const ESTADO_CONFIG: Record<EstadoBeca, { emoji: string; label: string; color: string }> = {
-  pendiente: { emoji: '🟡', label: 'Pendiente', color: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' },
-  mensual: { emoji: '🔄', label: 'Mensual', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' },
-  cobrada: { emoji: '✅', label: 'Cobrada', color: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' },
+  pendiente: { emoji: '', label: 'Pendiente', color: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' },
+  mensual: { emoji: '', label: 'Mensual', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' },
+  cobrada: { emoji: '', label: 'Cobrada', color: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' },
 }
 
 /**

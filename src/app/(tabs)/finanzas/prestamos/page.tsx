@@ -102,7 +102,7 @@ export default function PrestamosPage() {
           
           {balanceNeto.deudorPersona === null ? (
             <div className="flex items-center gap-2">
-              <span className="text-2xl">✅</span>
+              <span className="text-2xl"></span>
               <p className="text-xl font-bold text-green-600">
                 Equilibrado
               </p>
@@ -138,7 +138,7 @@ export default function PrestamosPage() {
         {!loading && prestamosFiltrados.length === 0 && (
           <div className="text-center py-12">
             <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
-              <span className="text-3xl">💸</span>
+              <span className="text-3xl"></span>
             </div>
             <h3 className="text-lg font-semibold mb-2">
               {filtro === 'todos' 
@@ -172,7 +172,7 @@ export default function PrestamosPage() {
         {/* Explicación */}
         <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
           <p className="text-sm text-blue-700 dark:text-blue-300">
-            💡 <strong>¿Cómo funciona?</strong>
+            <strong>¿Cómo funciona?</strong>
             <br />
             Cuando alguien presta dinero al otro, el balance neto muestra quién debe dinero.
             Marca como "pagado" cuando se devuelva el dinero.

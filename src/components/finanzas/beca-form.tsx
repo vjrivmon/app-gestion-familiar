@@ -27,9 +27,9 @@ interface BecaFormProps {
 }
 
 const ESTADOS: { value: EstadoBeca; label: string; emoji: string }[] = [
-  { value: 'pendiente', label: 'Pendiente', emoji: '🟡' },
-  { value: 'mensual', label: 'Mensual', emoji: '🔄' },
-  { value: 'cobrada', label: 'Cobrada', emoji: '✅' },
+  { value: 'pendiente', label: 'Pendiente', emoji: '' },
+  { value: 'mensual', label: 'Mensual', emoji: '' },
+  { value: 'cobrada', label: 'Cobrada', emoji: '' },
 ]
 
 export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
@@ -262,7 +262,7 @@ export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
               <div className="px-4 mb-8">
                 <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl">
                   <p className="text-sm text-blue-700 dark:text-blue-300">
-                    💡 Total esperado: <strong>{formatMoney(importe * numPagos)}</strong>
+                    Total esperado: <strong>{formatMoney(importe * numPagos)}</strong>
                     <br />
                     ({numPagos} pagos de {formatMoney(importe)})
                   </p>

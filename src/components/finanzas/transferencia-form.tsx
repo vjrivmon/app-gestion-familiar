@@ -184,7 +184,7 @@ export function TransferenciaForm({
               {/* Warning si son iguales */}
               {de === a && (
                 <p className="text-amber-600 text-sm mt-2">
-                  ⚠️ El origen y destino deben ser diferentes
+                  El origen y destino deben ser diferentes
                 </p>
               )}
             </div>

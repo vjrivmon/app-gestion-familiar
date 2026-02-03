@@ -33,7 +33,7 @@ export default function MenuPage() {
             </div>
             <div className="grid grid-cols-2 gap-2">
               <button className="flex items-center gap-2 p-3 bg-background rounded-lg text-left">
-                <span className="text-lg">🍽️</span>
+                <span className="text-lg"></span>
                 <div className="flex-1 min-w-0">
                   <p className="text-[13px] text-[var(--text-muted)]">Comida</p>
                   <p className="text-[15px] truncate text-[var(--text-secondary)]">Sin planificar</p>

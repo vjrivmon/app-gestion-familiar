@@ -72,7 +72,7 @@ export function BalanceCard({ onDetailClick, className }: BalanceCardProps) {
         <div className="mb-4">
           {balance.enPaz ? (
             <p className="text-[var(--text-secondary)]">
-              Estáis en paz 🤝
+              Estáis en paz 
             </p>
           ) : (
             <p className="text-[var(--text-secondary)]">

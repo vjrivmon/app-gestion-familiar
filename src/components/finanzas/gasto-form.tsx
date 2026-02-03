@@ -34,8 +34,8 @@ interface GastoFormProps {
 }
 
 const TIPO_DINERO_OPTIONS = [
-  { value: 'efectivo' as TipoDinero, label: 'Efectivo', emoji: '💵' },
-  { value: 'digital' as TipoDinero, label: 'Digital', emoji: '💳' }
+  { value: 'efectivo' as TipoDinero, label: 'Efectivo', emoji: '' },
+  { value: 'digital' as TipoDinero, label: 'Digital', emoji: '' }
 ]
 
 export function GastoForm({ open, onClose, gasto, onSave }: GastoFormProps) {

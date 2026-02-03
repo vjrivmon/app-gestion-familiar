@@ -46,7 +46,7 @@ export default function GraficosPage() {
             <span className="sr-only">Volver</span>
           </button>
           <h1 className="text-lg font-semibold flex-1 text-center mr-6">
-            📊 Análisis Financiero
+            Análisis Financiero
           </h1>
         </div>
         
@@ -139,7 +139,7 @@ export default function GraficosPage() {
         {/* Nota informativa */}
         <div className="bg-accent/5 border border-accent/20 rounded-xl p-4 text-center">
           <p className="text-sm text-[var(--text-secondary)] dark:text-[var(--text-muted)]">
-            💡 Los gráficos se actualizan automáticamente al añadir transacciones
+            Los gráficos se actualizan automáticamente al añadir transacciones
           </p>
         </div>
       </div>

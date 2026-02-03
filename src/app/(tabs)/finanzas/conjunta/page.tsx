@@ -105,11 +105,11 @@ export default function CuentaConjuntaPage() {
           {/* Desglose efectivo/digital */}
           <div className="flex gap-4 text-sm">
             <div>
-              <span className="text-purple-200">💵 Efectivo:</span>{' '}
+              <span className="text-purple-200"> Efectivo:</span>{' '}
               <span className="font-medium">{formatMoney(saldoEfectivo)}</span>
             </div>
             <div>
-              <span className="text-purple-200">💳 Digital:</span>{' '}
+              <span className="text-purple-200"> Digital:</span>{' '}
               <span className="font-medium">{formatMoney(saldoDigital)}</span>
             </div>
           </div>

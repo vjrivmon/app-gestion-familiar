@@ -135,7 +135,7 @@ export default function MetasPage() {
         {metas.length > 0 && metas.length < 3 && (
           <div className="mt-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
             <p className="text-sm text-purple-700 dark:text-purple-300">
-              💡 <strong>Consejo:</strong> Divide grandes objetivos en metas más pequeñas. 
+              <strong>Consejo:</strong> Divide grandes objetivos en metas más pequeñas. 
               Es más motivador ver progresos frecuentes.
             </p>
           </div>

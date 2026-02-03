@@ -194,7 +194,7 @@ export function AporteMetaForm({ open, onClose, meta, onAportar }: AporteMetaFor
                 {completaraLaMeta && (
                   <div className="mt-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
                     <p className="text-green-700 dark:text-green-300 text-sm font-medium text-center">
-                      🎉 ¡Este aporte completará tu meta!
+                      ¡Este aporte completará tu meta!
                     </p>
                   </div>
                 )}

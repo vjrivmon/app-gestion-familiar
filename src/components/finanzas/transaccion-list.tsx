@@ -209,7 +209,7 @@ export function ResumenTotales({ tipo, totalMes, totalFisico, totalDigital }: Re
       
       <div className="flex gap-4">
         <div className="flex items-center gap-2">
-          <span className="text-lg">💵</span>
+          <span className="text-lg"></span>
           <div>
             <p className="text-xs text-[var(--text-secondary)]">Efectivo</p>
             <p className="text-sm font-medium tabular-nums">
@@ -219,7 +219,7 @@ export function ResumenTotales({ tipo, totalMes, totalFisico, totalDigital }: Re
         </div>
         
         <div className="flex items-center gap-2">
-          <span className="text-lg">💳</span>
+          <span className="text-lg"></span>
           <div>
             <p className="text-xs text-[var(--text-secondary)]">Digital</p>
             <p className="text-sm font-medium tabular-nums">

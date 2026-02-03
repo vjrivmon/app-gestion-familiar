@@ -118,7 +118,7 @@ export default function TareasPage() {
         ) : showInitialSetup ? (
           // Setup inicial
           <div className="card p-6 text-center space-y-4">
-            <span className="text-5xl">🏠</span>
+            <span className="text-5xl"></span>
             <h2 className="text-xl font-bold">¡Configura tu hogar!</h2>
             <p className="text-[var(--text-secondary)]">
               Hemos preparado 12 tareas comunes del hogar para empezar. 
@@ -180,7 +180,7 @@ export default function TareasPage() {
             {/* Lista de tareas */}
             {tareasOverdue.length > 0 && (
               <TareaSection 
-                title="⚠️ Atrasadas" 
+                title="Atrasadas" 
                 tareas={tareasOverdue}
                 completingId={completingId}
                 onComplete={handleCompleteTarea}
@@ -190,7 +190,7 @@ export default function TareasPage() {
             
             {tareasWarning.length > 0 && (
               <TareaSection 
-                title="⏰ Próximas" 
+                title=" Próximas" 
                 tareas={tareasWarning}
                 completingId={completingId}
                 onComplete={handleCompleteTarea}
@@ -200,7 +200,7 @@ export default function TareasPage() {
             
             {tareasOk.length > 0 && (
               <TareaSection 
-                title="✅ Al día" 
+                title=" Al día" 
                 tareas={tareasOk}
                 completingId={completingId}
                 onComplete={handleCompleteTarea}

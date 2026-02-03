@@ -36,8 +36,8 @@ interface IngresoFormProps {
 }
 
 const TIPO_DINERO_OPTIONS = [
-  { value: 'efectivo' as TipoDinero, label: 'Efectivo', emoji: '💵' },
-  { value: 'digital' as TipoDinero, label: 'Digital', emoji: '💳' }
+  { value: 'efectivo' as TipoDinero, label: 'Efectivo', emoji: '' },
+  { value: 'digital' as TipoDinero, label: 'Digital', emoji: '' }
 ]
 
 const TIPO_INGRESO_OPTIONS = [
