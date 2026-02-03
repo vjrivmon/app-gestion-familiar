@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Plus, TrendingUp, TrendingDown, Wallet, PiggyBank, ArrowLeftRight, Target, Calculator, Settings, GraduationCap } from 'lucide-react'
+import { Plus, TrendingUp, TrendingDown, Wallet, PiggyBank, ArrowLeftRight, Target, Calculator, Settings, GraduationCap, Calendar } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { formatMoney } from '@/lib/utils/money'
 import { useMesActual } from '@/hooks/use-mes-actual'
@@ -345,6 +345,7 @@ function MasTab() {
     { icon: PiggyBank, label: 'Préstamos', href: '/finanzas/prestamos' },
     { icon: Target, label: 'Metas de ahorro', href: '/finanzas/metas' },
     { icon: Calculator, label: 'Calculadora piso', href: '/finanzas/calculadora' },
+    { icon: Calendar, label: 'Histórico anual', href: '/finanzas/historico' },
   ]
 
   return (
