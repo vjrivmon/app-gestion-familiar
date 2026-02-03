@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Plus, TrendingUp, TrendingDown, Wallet, PiggyBank, ArrowLeftRight, Target, Calculator, Settings, GraduationCap, Calendar } from 'lucide-react'
+import { Plus, TrendingUp, TrendingDown, Wallet, PiggyBank, ArrowLeftRight, Target, Calculator, Settings, GraduationCap, Calendar, BarChart3 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { formatMoney } from '@/lib/utils/money'
 import { useMesActual } from '@/hooks/use-mes-actual'
@@ -15,6 +15,7 @@ import { GastoForm } from '@/components/finanzas/gasto-form'
 import { BalanceCard } from '@/components/finanzas/balance-card'
 import { PatrimonioCard } from '@/components/finanzas/patrimonio-card'
 import { ResumenMesCard } from '@/components/finanzas/resumen-mes-card'
+import { GraficoEvolucion } from '@/components/graficos/grafico-evolucion'
 import type { Ingreso, Gasto } from '@/types/finanzas'
 
 const TABS = [
@@ -121,6 +122,23 @@ function BalanceTab({ mesState }: BalanceTabProps) {
 
       {/* Patrimonio */}
       <PatrimonioCard onConfigClick={handleConfigClick} />
+
+      {/* Mini gráfico de evolución */}
+      <div className="card">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-accent" />
+            <span className="font-medium text-sm">Evolución (3 meses)</span>
+          </div>
+          <a 
+            href="/finanzas/graficos"
+            className="text-xs text-accent font-medium"
+          >
+            Ver más →
+          </a>
+        </div>
+        <GraficoEvolucion meses={3} altura={100} mini />
+      </div>
 
       {/* Link a configuración */}
       <button
@@ -339,6 +357,7 @@ function GastosTab({ mesState }: GastosTabProps) {
 
 function MasTab() {
   const items = [
+    { icon: BarChart3, label: 'Análisis y Gráficos', href: '/finanzas/graficos' },
     { icon: Wallet, label: 'Cuenta Conjunta', href: '/finanzas/conjunta' },
     { icon: ArrowLeftRight, label: 'Transferencias', href: '/finanzas/conjunta#transferencias' },
     { icon: GraduationCap, label: 'Becas y Ayudas', href: '/finanzas/becas' },
