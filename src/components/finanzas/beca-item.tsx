@@ -106,7 +106,7 @@ export function BecaItem({ beca, onEdit, onDelete, onCobrar }: BecaItemProps) {
       >
         {/* Icono */}
         <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
-          <span className="text-xl">🎓</span>
+          <span className="text-xl"></span>
         </div>
         
         {/* Contenido central */}

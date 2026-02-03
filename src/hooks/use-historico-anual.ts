@@ -58,27 +58,27 @@ interface UseHistoricoAnualReturn {
 const TEMP_HOGAR_ID = '00000000-0000-0000-0000-000000000001'
 
 const CATEGORIAS_INGRESO_INFO: Record<CategoriaIngreso, { nombre: string; icono: string }> = {
-  nomina: { nombre: 'Nómina', icono: '💰' },
-  pagas_extra: { nombre: 'Pagas Extra', icono: '🎁' },
-  freelance: { nombre: 'Freelance', icono: '💻' },
-  becas: { nombre: 'Becas/Ayudas', icono: '🎓' },
-  efectivo: { nombre: 'Efectivo', icono: '💵' },
-  transferencia: { nombre: 'Transferencia', icono: '🔄' },
-  otros: { nombre: 'Otros', icono: '📝' }
+  nomina: { nombre: 'Nómina', icono: '' },
+  pagas_extra: { nombre: 'Pagas Extra', icono: '' },
+  freelance: { nombre: 'Freelance', icono: '' },
+  becas: { nombre: 'Becas/Ayudas', icono: '' },
+  efectivo: { nombre: 'Efectivo', icono: '' },
+  transferencia: { nombre: 'Transferencia', icono: '' },
+  otros: { nombre: 'Otros', icono: '' }
 }
 
 const CATEGORIAS_GASTO_INFO: Record<CategoriaGasto, { nombre: string; icono: string }> = {
-  alquiler: { nombre: 'Alquiler', icono: '🏠' },
-  suministros: { nombre: 'Suministros', icono: '💡' },
-  internet_movil: { nombre: 'Internet/Móvil', icono: '📱' },
-  supermercado: { nombre: 'Supermercado', icono: '🛒' },
-  transporte: { nombre: 'Transporte', icono: '🚗' },
-  ocio: { nombre: 'Ocio', icono: '🎬' },
-  ropa: { nombre: 'Ropa', icono: '👕' },
-  salud: { nombre: 'Salud', icono: '💊' },
-  suscripciones: { nombre: 'Suscripciones', icono: '📺' },
-  ia: { nombre: 'IA', icono: '🤖' },
-  otros: { nombre: 'Otros', icono: '📝' }
+  alquiler: { nombre: 'Alquiler', icono: '' },
+  suministros: { nombre: 'Suministros', icono: '' },
+  internet_movil: { nombre: 'Internet/Móvil', icono: '' },
+  supermercado: { nombre: 'Supermercado', icono: '' },
+  transporte: { nombre: 'Transporte', icono: '' },
+  ocio: { nombre: 'Ocio', icono: '' },
+  ropa: { nombre: 'Ropa', icono: '' },
+  salud: { nombre: 'Salud', icono: '' },
+  suscripciones: { nombre: 'Suscripciones', icono: '' },
+  ia: { nombre: 'IA', icono: '' },
+  otros: { nombre: 'Otros', icono: '' }
 }
 
 /**

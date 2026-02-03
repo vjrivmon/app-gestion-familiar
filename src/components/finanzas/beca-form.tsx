@@ -156,7 +156,7 @@ export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
               </div>
               {importe > 0 && (
                 <p className="text-center text-sm text-positive mt-2 font-medium">
-                  🎓 {formatMoney(importe)}
+                   {formatMoney(importe)}
                 </p>
               )}
             </div>

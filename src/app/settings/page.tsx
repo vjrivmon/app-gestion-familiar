@@ -239,8 +239,8 @@ export default function SettingsPage() {
         
         {/* Info adicional */}
         <div className="text-center text-sm text-[var(--text-muted)] pt-4">
-          <p>App de Pus 🐾</p>
-          <p>Hecho con ❤️ para Vicente e Irene</p>
+          <p>App de Pus </p>
+          <p>Hecho con  para Vicente e Irene</p>
         </div>
       </div>
     </div>

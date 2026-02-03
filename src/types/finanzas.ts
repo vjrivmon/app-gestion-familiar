@@ -91,28 +91,28 @@ export const PAGADORES_INDIVIDUALES: Pagador[] = ['m1', 'm2']
 
 // Categorías de Ingreso con iconos
 export const CATEGORIAS_INGRESO: { value: CategoriaIngreso; label: string; icon: string }[] = [
-  { value: 'nomina', label: 'Nómina', icon: '💰' },
-  { value: 'pagas_extra', label: 'Pagas Extra', icon: '🎁' },
-  { value: 'freelance', label: 'Freelance', icon: '💻' },
-  { value: 'becas', label: 'Becas/Ayudas', icon: '🎓' },
-  { value: 'efectivo', label: 'Efectivo', icon: '💵' },
-  { value: 'transferencia', label: 'Transferencia', icon: '🔄' },
-  { value: 'otros', label: 'Otros', icon: '📝' },
+  { value: 'nomina', label: 'Nómina', icon: '' },
+  { value: 'pagas_extra', label: 'Pagas Extra', icon: '' },
+  { value: 'freelance', label: 'Freelance', icon: '' },
+  { value: 'becas', label: 'Becas/Ayudas', icon: '' },
+  { value: 'efectivo', label: 'Efectivo', icon: '' },
+  { value: 'transferencia', label: 'Transferencia', icon: '' },
+  { value: 'otros', label: 'Otros', icon: '' },
 ]
 
 // Categorías de Gasto con iconos
 export const CATEGORIAS_GASTO: { value: CategoriaGasto; label: string; icon: string }[] = [
-  { value: 'alquiler', label: 'Alquiler', icon: '🏠' },
-  { value: 'suministros', label: 'Suministros', icon: '💡' },
-  { value: 'internet_movil', label: 'Internet/Móvil', icon: '📱' },
-  { value: 'supermercado', label: 'Supermercado', icon: '🛒' },
-  { value: 'transporte', label: 'Transporte', icon: '🚗' },
-  { value: 'ocio', label: 'Ocio', icon: '🎬' },
-  { value: 'ropa', label: 'Ropa', icon: '👕' },
-  { value: 'salud', label: 'Salud', icon: '💊' },
-  { value: 'suscripciones', label: 'Suscripciones', icon: '📺' },
-  { value: 'ia', label: 'IA', icon: '🤖' },
-  { value: 'otros', label: 'Otros', icon: '📝' },
+  { value: 'alquiler', label: 'Alquiler', icon: '' },
+  { value: 'suministros', label: 'Suministros', icon: '' },
+  { value: 'internet_movil', label: 'Internet/Móvil', icon: '' },
+  { value: 'supermercado', label: 'Supermercado', icon: '' },
+  { value: 'transporte', label: 'Transporte', icon: '' },
+  { value: 'ocio', label: 'Ocio', icon: '' },
+  { value: 'ropa', label: 'Ropa', icon: '' },
+  { value: 'salud', label: 'Salud', icon: '' },
+  { value: 'suscripciones', label: 'Suscripciones', icon: '' },
+  { value: 'ia', label: 'IA', icon: '' },
+  { value: 'otros', label: 'Otros', icon: '' },
 ]
 
 // Helper para obtener info de categoría
