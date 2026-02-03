@@ -2,23 +2,23 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import type { ConfigHogar, SaldosIniciales, ConfigCompraPiso, CONFIG_HOGAR_DEFAULT } from '@/types/config'
+import { useSupabase } from '@/providers/supabase-provider'
+import type { ConfigHogar, SaldosIniciales, ConfigCompraPiso } from '@/types/config'
 
 interface UseConfigHogarReturn {
-  config: ConfigHogar | null
+  config: ConfigHogar
+  hogarId: string | null
   loading: boolean
   error: string | null
+  hasHogar: boolean
   
   // Funciones
-  getConfig: () => ConfigHogar
   updateSaldosIniciales: (saldos: SaldosIniciales, fecha?: string) => Promise<boolean>
   updateConfigCompraPiso: (config: ConfigCompraPiso) => Promise<boolean>
   updateNombres: (nombres: { m1: string; m2: string }) => Promise<boolean>
+  crearHogar: () => Promise<string | null>
   refetch: () => Promise<void>
 }
-
-// TODO: Obtener hogar_id del contexto de autenticación
-const TEMP_HOGAR_ID = '00000000-0000-0000-0000-000000000001'
 
 const DEFAULT_CONFIG: ConfigHogar = {
   nombres: {
@@ -33,81 +33,145 @@ const DEFAULT_CONFIG: ConfigHogar = {
 }
 
 export function useConfigHogar(): UseConfigHogarReturn {
-  const [config, setConfig] = useState<ConfigHogar | null>(null)
+  const { user } = useSupabase()
+  const [config, setConfig] = useState<ConfigHogar>(DEFAULT_CONFIG)
+  const [hogarId, setHogarId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   
   const supabase = createClient()
   
-  // Fetch configuración del hogar
+  // Fetch hogar_id del usuario y luego su config
   const fetchConfig = useCallback(async () => {
+    if (!user) {
+      setLoading(false)
+      return
+    }
+    
     setLoading(true)
     setError(null)
     
     try {
-      const { data, error: fetchError } = await supabase
-        .from('hogares')
-        .select('config')
-        .eq('id', TEMP_HOGAR_ID)
+      // Primero obtener el hogar_id del perfil del usuario
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('hogar_id')
+        .eq('id', user.id)
         .single()
       
-      if (fetchError) throw fetchError
+      if (profileError && profileError.code !== 'PGRST116') {
+        // PGRST116 = no rows returned, eso es OK
+        throw profileError
+      }
+      
+      if (!profile?.hogar_id) {
+        // Usuario sin hogar - usar defaults
+        setHogarId(null)
+        setConfig(DEFAULT_CONFIG)
+        setLoading(false)
+        return
+      }
+      
+      setHogarId(profile.hogar_id)
+      
+      // Obtener config del hogar
+      const { data: hogar, error: hogarError } = await supabase
+        .from('hogares')
+        .select('config')
+        .eq('id', profile.hogar_id)
+        .single()
+      
+      if (hogarError) throw hogarError
       
       // Merge con defaults
       const mergedConfig: ConfigHogar = {
         ...DEFAULT_CONFIG,
-        ...(data?.config || {})
+        ...(hogar?.config || {})
       }
       
       setConfig(mergedConfig)
     } catch (err) {
-      console.error('Error fetching config:', err)
-      setError(err instanceof Error ? err.message : 'Error al cargar configuración')
-      // Usar config por defecto en caso de error
+      // No loguear error si es simplemente que no hay hogar
+      if (err && typeof err === 'object' && 'code' in err && err.code === 'PGRST116') {
+        setConfig(DEFAULT_CONFIG)
+      } else {
+        console.error('Error fetching config:', err)
+        setError(err instanceof Error ? err.message : 'Error al cargar configuración')
+      }
       setConfig(DEFAULT_CONFIG)
     } finally {
       setLoading(false)
     }
-  }, [supabase])
+  }, [supabase, user])
   
-  // Cargar al montar
+  // Cargar al montar o cuando cambie el usuario
   useEffect(() => {
     fetchConfig()
   }, [fetchConfig])
   
+  // Crear hogar para el usuario
+  const crearHogar = useCallback(async (): Promise<string | null> => {
+    if (!user) return null
+    
+    try {
+      // Crear hogar
+      const { data: nuevoHogar, error: createError } = await supabase
+        .from('hogares')
+        .insert({
+          nombre: 'Mi Hogar',
+          miembro_1_id: user.id,
+          config: DEFAULT_CONFIG
+        })
+        .select('id')
+        .single()
+      
+      if (createError) throw createError
+      
+      // Actualizar perfil del usuario con hogar_id
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ hogar_id: nuevoHogar.id })
+        .eq('id', user.id)
+      
+      if (updateError) throw updateError
+      
+      setHogarId(nuevoHogar.id)
+      await fetchConfig()
+      
+      return nuevoHogar.id
+    } catch (err) {
+      console.error('Error creando hogar:', err)
+      setError(err instanceof Error ? err.message : 'Error al crear hogar')
+      return null
+    }
+  }, [supabase, user, fetchConfig])
+  
   // Helper para actualizar config en BD
   const updateConfig = useCallback(async (updates: Partial<ConfigHogar>): Promise<boolean> => {
+    if (!hogarId) {
+      // Crear hogar primero
+      const newHogarId = await crearHogar()
+      if (!newHogarId) return false
+    }
+    
     try {
-      const newConfig: ConfigHogar = {
-        ...DEFAULT_CONFIG,
-        ...config,
-        ...updates
-      }
+      const newConfig = { ...config, ...updates }
       
       const { error: updateError } = await supabase
         .from('hogares')
         .update({ config: newConfig })
-        .eq('id', TEMP_HOGAR_ID)
+        .eq('id', hogarId)
       
       if (updateError) throw updateError
       
       setConfig(newConfig)
-      
-      // Haptic feedback
-      if (navigator.vibrate) navigator.vibrate(10)
-      
       return true
     } catch (err) {
       console.error('Error updating config:', err)
-      setError(err instanceof Error ? err.message : 'Error al actualizar configuración')
+      setError(err instanceof Error ? err.message : 'Error al guardar')
       return false
     }
-  }, [supabase, config])
-  
-  // Getter con valores por defecto
-  const getConfig = useCallback((): ConfigHogar => {
-    return config || DEFAULT_CONFIG
-  }, [config])
+  }, [supabase, hogarId, config, crearHogar])
   
   // Actualizar saldos iniciales
   const updateSaldosIniciales = useCallback(async (
@@ -120,7 +184,7 @@ export function useConfigHogar(): UseConfigHogarReturn {
     })
   }, [updateConfig])
   
-  // Actualizar configuración de compra de piso
+  // Actualizar config compra piso
   const updateConfigCompraPiso = useCallback(async (
     configPiso: ConfigCompraPiso
   ): Promise<boolean> => {
@@ -133,19 +197,19 @@ export function useConfigHogar(): UseConfigHogarReturn {
   const updateNombres = useCallback(async (
     nombres: { m1: string; m2: string }
   ): Promise<boolean> => {
-    return updateConfig({
-      nombres
-    })
+    return updateConfig({ nombres })
   }, [updateConfig])
   
   return {
     config,
+    hogarId,
     loading,
     error,
-    getConfig,
+    hasHogar: !!hogarId,
     updateSaldosIniciales,
     updateConfigCompraPiso,
     updateNombres,
+    crearHogar,
     refetch: fetchConfig
   }
 }
