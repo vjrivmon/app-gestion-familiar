@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Plus, TrendingUp, TrendingDown, Wallet, PiggyBank, ArrowLeftRight, Target, Calculator } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { Plus, TrendingUp, TrendingDown, Wallet, PiggyBank, ArrowLeftRight, Target, Calculator, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { formatMoney } from '@/lib/utils/money'
 import { useMesActual } from '@/hooks/use-mes-actual'
@@ -11,6 +12,9 @@ import { MonthPicker } from '@/components/ui/month-picker'
 import { TransaccionList, ResumenTotales } from '@/components/finanzas/transaccion-list'
 import { IngresoForm } from '@/components/finanzas/ingreso-form'
 import { GastoForm } from '@/components/finanzas/gasto-form'
+import { BalanceCard } from '@/components/finanzas/balance-card'
+import { PatrimonioCard } from '@/components/finanzas/patrimonio-card'
+import { ResumenMesCard } from '@/components/finanzas/resumen-mes-card'
 import type { Ingreso, Gasto } from '@/types/finanzas'
 
 const TABS = [
@@ -73,28 +77,24 @@ interface BalanceTabProps {
 }
 
 function BalanceTab({ mesState }: BalanceTabProps) {
-  const { ingresos, totalMes: totalIngresos } = useIngresos(mesState.mes, mesState.año)
-  const { gastos, totalMes: totalGastos } = useGastos(mesState.mes, mesState.año)
+  const router = useRouter()
+  const { totalMes: totalIngresos } = useIngresos(mesState.mes, mesState.año)
+  const { totalMes: totalGastos } = useGastos(mesState.mes, mesState.año)
   
-  const balance = totalIngresos - totalGastos
+  const handleConfigClick = () => {
+    router.push('/finanzas/config')
+  }
   
   return (
     <div className="space-y-4">
-      {/* Balance card */}
-      <div className="card bg-accent text-white">
-        <div className="flex justify-between items-start mb-4">
-          <div>
-            <p className="text-white/70 text-sm">Balance de pareja</p>
-            <p className="text-3xl font-bold">0,00€</p>
-          </div>
-          <ArrowLeftRight className="w-8 h-8 text-white/50" />
-        </div>
-        <p className="text-white/90 text-sm">
-          Estáis en paz 🤝
-        </p>
-      </div>
+      {/* Balance de pareja */}
+      <BalanceCard 
+        onDetailClick={() => {
+          // TODO: navegar a historial de balance
+        }}
+      />
 
-      {/* Quick stats */}
+      {/* Quick stats del mes */}
       <div className="grid grid-cols-2 gap-3">
         <div className="card">
           <TrendingUp className="w-6 h-6 text-positive mb-2" />
@@ -112,36 +112,29 @@ function BalanceTab({ mesState }: BalanceTabProps) {
         </div>
       </div>
 
-      {/* Balance del mes */}
-      <div className="card">
-        <div className="flex items-center gap-2 mb-2">
-          <Wallet className="w-5 h-5 text-accent" />
-          <span className="font-semibold">Balance {mesState.nombreMesCorto}</span>
-        </div>
-        <p className={cn(
-          'text-2xl font-bold',
-          balance >= 0 ? 'text-positive' : 'text-negative'
-        )}>
-          {balance >= 0 ? '+' : ''}{formatMoney(balance)}
-        </p>
-        <p className="text-gray-500 text-sm mt-1">
-          {balance >= 0 
-            ? 'Ahorrado este mes' 
-            : 'Gastado más de lo ingresado'}
-        </p>
-      </div>
+      {/* Resumen del mes */}
+      <ResumenMesCard
+        mes={mesState.mes}
+        año={mesState.año}
+        nombreMes={mesState.nombreMesCorto}
+      />
 
       {/* Patrimonio */}
-      <div className="card">
-        <div className="flex items-center gap-2 mb-3">
-          <PiggyBank className="w-5 h-5 text-accent" />
-          <span className="font-semibold">Patrimonio Total</span>
+      <PatrimonioCard onConfigClick={handleConfigClick} />
+
+      {/* Link a configuración */}
+      <button
+        onClick={handleConfigClick}
+        className="w-full card flex items-center justify-between active:bg-gray-50 dark:active:bg-gray-800"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center">
+            <Settings className="w-5 h-5 text-accent" />
+          </div>
+          <span className="font-medium">Configurar saldos iniciales</span>
         </div>
-        <p className="text-2xl font-bold">0,00€</p>
-        <p className="text-gray-500 text-sm mt-1">
-          Configura los saldos iniciales
-        </p>
-      </div>
+        <span className="text-gray-400">›</span>
+      </button>
     </div>
   )
 }
