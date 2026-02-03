@@ -340,7 +340,8 @@ function GastosTab({ mesState }: GastosTabProps) {
 function MasTab() {
   const items = [
     { icon: Wallet, label: 'Cuenta Conjunta', href: '/finanzas/conjunta' },
-    { icon: ArrowLeftRight, label: 'Préstamos', href: '/finanzas/prestamos' },
+    { icon: ArrowLeftRight, label: 'Transferencias', href: '/finanzas/conjunta#transferencias' },
+    { icon: PiggyBank, label: 'Préstamos', href: '/finanzas/prestamos' },
     { icon: Target, label: 'Metas de ahorro', href: '/finanzas/metas' },
     { icon: Calculator, label: 'Calculadora piso', href: '/finanzas/calculadora' },
   ]
