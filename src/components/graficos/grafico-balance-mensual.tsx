@@ -47,7 +47,7 @@ export function GraficoBalanceMensual({
   if (loading) {
     return (
       <div 
-        className={cn('animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg', className)}
+        className={cn('animate-pulse bg-[var(--border)] dark:bg-surface rounded-lg', className)}
         style={{ height: altura }}
       />
     )
@@ -56,7 +56,7 @@ export function GraficoBalanceMensual({
   if (datos.length === 0) {
     return (
       <div 
-        className={cn('flex items-center justify-center text-gray-400', className)}
+        className={cn('flex items-center justify-center text-[var(--text-muted)]', className)}
         style={{ height: altura }}
       >
         Sin datos

@@ -26,7 +26,7 @@ export function TareasCarousel({
     return (
       <div className={cn(
         'flex items-center justify-center h-[72px]',
-        'text-gray-500 text-sm',
+        'text-[var(--text-secondary)] text-sm',
         className
       )}>
         No hay tareas configuradas

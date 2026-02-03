@@ -97,7 +97,7 @@ export function PrestamoItem({ prestamo, onDelete, onMarcarPagado }: PrestamoIte
         {...handlers}
         onClick={handleClick}
         className={cn(
-          'relative bg-white dark:bg-surface',
+          'relative bg-surface dark:bg-surface',
           'flex items-center gap-3 px-4 min-h-[72px] py-3',
           'active:bg-gray-50 dark:active:bg-gray-800',
           'transition-all duration-200',
@@ -108,14 +108,14 @@ export function PrestamoItem({ prestamo, onDelete, onMarcarPagado }: PrestamoIte
         {/* Avatares con flecha */}
         <div className="flex items-center gap-1 flex-shrink-0">
           <PersonaAvatar persona={prestamo.de_quien} size="md" />
-          <span className="text-gray-400 text-sm">→</span>
+          <span className="text-[var(--text-muted)] text-sm">→</span>
           <PersonaAvatar persona={prestamo.a_quien} size="md" />
         </div>
         
         {/* Contenido central */}
         <div className="flex-1 min-w-0">
           <p className="text-[15px] font-medium">
-            <span className="text-gray-600 dark:text-gray-400">
+            <span className="text-[var(--text-secondary)] dark:text-[var(--text-muted)]">
               {NOMBRES_MAP[prestamo.de_quien]} prestó a {NOMBRES_MAP[prestamo.a_quien]}
             </span>
           </p>
@@ -133,13 +133,13 @@ export function PrestamoItem({ prestamo, onDelete, onMarcarPagado }: PrestamoIte
             </span>
             
             {/* Fecha */}
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-[var(--text-secondary)]">
               {fechaFormateada}
             </span>
             
             {/* Fecha de pago */}
             {fechaPagoFormateada && (
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-[var(--text-secondary)]">
                 • Pagado {fechaPagoFormateada}
               </span>
             )}
@@ -147,7 +147,7 @@ export function PrestamoItem({ prestamo, onDelete, onMarcarPagado }: PrestamoIte
           
           {/* Concepto si existe */}
           {prestamo.concepto && (
-            <p className="text-xs text-gray-500 mt-1 truncate">
+            <p className="text-xs text-[var(--text-secondary)] mt-1 truncate">
               {prestamo.concepto}
             </p>
           )}
@@ -176,7 +176,7 @@ export function PrestamoItem({ prestamo, onDelete, onMarcarPagado }: PrestamoIte
           <div className="text-right min-w-[60px]">
             <p className={cn(
               'text-[17px] font-semibold tabular-nums',
-              prestamo.pagado ? 'text-gray-400 line-through' : 'text-accent'
+              prestamo.pagado ? 'text-[var(--text-muted)] line-through' : 'text-accent'
             )}>
               {formatMoney(prestamo.importe)}
             </p>
@@ -192,17 +192,17 @@ export function PrestamoItem({ prestamo, onDelete, onMarcarPagado }: PrestamoIte
  */
 export function PrestamoItemSkeleton() {
   return (
-    <div className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-surface animate-pulse">
+    <div className="flex items-center gap-3 px-4 py-3 bg-surface dark:bg-surface animate-pulse">
       <div className="flex items-center gap-1">
-        <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700" />
-        <div className="w-4 h-4 bg-gray-200 dark:bg-gray-700 rounded" />
-        <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700" />
+        <div className="w-8 h-8 rounded-full bg-[var(--border)] dark:bg-surface" />
+        <div className="w-4 h-4 bg-[var(--border)] dark:bg-surface rounded" />
+        <div className="w-8 h-8 rounded-full bg-[var(--border)] dark:bg-surface" />
       </div>
       <div className="flex-1">
-        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2" />
-        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
+        <div className="h-4 bg-[var(--border)] dark:bg-surface rounded w-3/4 mb-2" />
+        <div className="h-3 bg-[var(--border)] dark:bg-surface rounded w-1/3" />
       </div>
-      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16" />
+      <div className="h-4 bg-[var(--border)] dark:bg-surface rounded w-16" />
     </div>
   )
 }

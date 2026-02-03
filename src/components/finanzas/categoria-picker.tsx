@@ -48,15 +48,15 @@ export function CategoriaPicker({
         onClick={() => setIsOpen(true)}
         className={cn(
           'flex items-center gap-2 px-3 py-2',
-          'bg-gray-100 dark:bg-gray-800 rounded-lg',
-          'active:bg-gray-200 dark:active:bg-gray-700',
+          'bg-[var(--border)] dark:bg-surface-elevated rounded-lg',
+          'active:bg-[var(--border)] dark:active:bg-gray-700',
           'transition-colors duration-75',
           className
         )}
       >
         <span className="text-xl">{categoriaActual.icon}</span>
         <span className="text-[15px]">{categoriaActual.label}</span>
-        <ChevronDown className="w-4 h-4 text-gray-400 ml-auto" />
+        <ChevronDown className="w-4 h-4 text-[var(--text-muted)] ml-auto" />
       </button>
 
       {/* Sheet/Modal */}
@@ -71,7 +71,7 @@ export function CategoriaPicker({
           {/* Sheet */}
           <div className={cn(
             'fixed bottom-0 left-0 right-0 z-50',
-            'bg-white dark:bg-surface',
+            'bg-surface dark:bg-surface',
             'rounded-t-[12px] shadow-xl',
             'max-h-[70vh] overflow-auto',
             'pb-[env(safe-area-inset-bottom)]',
@@ -99,7 +99,7 @@ export function CategoriaPicker({
                   onClick={() => handleSelect(categoria.value)}
                   className={cn(
                     'w-full flex items-center gap-3 px-4 py-3',
-                    'active:bg-gray-100 dark:active:bg-gray-800',
+                    'active:bg-[var(--border)] dark:active:bg-gray-800',
                     'transition-colors duration-75'
                   )}
                 >
@@ -152,7 +152,7 @@ export function CategoriaIcon({
     <span className={cn('flex items-center gap-1.5', className)}>
       <span className={sizeClasses[size]}>{categoria.icon}</span>
       {showLabel && (
-        <span className="text-sm text-gray-600 dark:text-gray-400">
+        <span className="text-sm text-[var(--text-secondary)] dark:text-[var(--text-muted)]">
           {categoria.label}
         </span>
       )}

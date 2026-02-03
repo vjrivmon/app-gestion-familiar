@@ -57,11 +57,11 @@ export function TransaccionList({
   if (loading) {
     return (
       <div className="space-y-4">
-        <div className="bg-white dark:bg-surface rounded-xl overflow-hidden">
+        <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden">
           <TransaccionItemSkeleton />
           <TransaccionItemSkeleton />
         </div>
-        <div className="bg-white dark:bg-surface rounded-xl overflow-hidden">
+        <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden">
           <TransaccionItemSkeleton />
         </div>
       </div>
@@ -113,7 +113,7 @@ function PersonaGroup({ persona, items, tipo, onEdit, onDelete }: PersonaGroupPr
       <div className="flex items-center justify-between px-4 pb-2">
         <div className="flex items-center gap-2">
           <PersonaAvatar persona={persona} size="sm" />
-          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+          <span className="text-sm font-medium text-[var(--text-secondary)] dark:text-[var(--text-muted)]">
             {NOMBRES[persona]}
           </span>
         </div>
@@ -126,7 +126,7 @@ function PersonaGroup({ persona, items, tipo, onEdit, onDelete }: PersonaGroupPr
       </div>
       
       {/* Items */}
-      <div className="bg-white dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-100 dark:divide-gray-800">
+      <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-100 dark:divide-gray-800">
         {items.map(item => (
           <TransaccionItem
             key={item.id}
@@ -164,11 +164,11 @@ function EmptyState({ tipo }: EmptyStateProps) {
         )} />
       </div>
       
-      <p className="text-gray-500 text-center mb-2">
+      <p className="text-[var(--text-secondary)] text-center mb-2">
         No hay {tipo === 'ingreso' ? 'ingresos' : 'gastos'} este mes
       </p>
       
-      <p className="text-sm text-gray-400 text-center">
+      <p className="text-sm text-[var(--text-muted)] text-center">
         Pulsa el botón + para añadir uno
       </p>
     </div>
@@ -196,7 +196,7 @@ export function ResumenTotales({ tipo, totalMes, totalFisico, totalDigital }: Re
         : 'bg-red-50 dark:bg-red-900/20'
     )}>
       <div className="flex items-center justify-between mb-3">
-        <span className="text-sm text-gray-600 dark:text-gray-400">
+        <span className="text-sm text-[var(--text-secondary)] dark:text-[var(--text-muted)]">
           Total {isIngreso ? 'ingresos' : 'gastos'}
         </span>
         <span className={cn(
@@ -211,7 +211,7 @@ export function ResumenTotales({ tipo, totalMes, totalFisico, totalDigital }: Re
         <div className="flex items-center gap-2">
           <span className="text-lg">💵</span>
           <div>
-            <p className="text-xs text-gray-500">Efectivo</p>
+            <p className="text-xs text-[var(--text-secondary)]">Efectivo</p>
             <p className="text-sm font-medium tabular-nums">
               {formatMoney(totalFisico)}
             </p>
@@ -221,7 +221,7 @@ export function ResumenTotales({ tipo, totalMes, totalFisico, totalDigital }: Re
         <div className="flex items-center gap-2">
           <span className="text-lg">💳</span>
           <div>
-            <p className="text-xs text-gray-500">Digital</p>
+            <p className="text-xs text-[var(--text-secondary)]">Digital</p>
             <p className="text-sm font-medium tabular-nums">
               {formatMoney(totalDigital)}
             </p>

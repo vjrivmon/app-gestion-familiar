@@ -82,7 +82,7 @@ export function PrestamoForm({ open, onClose, onSave }: PrestamoFormProps) {
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-40" />
         <Drawer.Content className={cn(
           'fixed bottom-0 left-0 right-0 z-50',
-          'bg-gray-100 dark:bg-black',
+          'bg-background',
           'rounded-t-[12px]',
           'h-[80vh] max-h-[80vh]',
           'flex flex-col',
@@ -99,7 +99,7 @@ export function PrestamoForm({ open, onClose, onSave }: PrestamoFormProps) {
               onClick={onClose}
               className="w-10 h-10 -ml-2 flex items-center justify-center"
             >
-              <X className="w-6 h-6 text-gray-500" />
+              <X className="w-6 h-6 text-[var(--text-secondary)]" />
             </button>
             
             <h2 className="text-lg font-semibold">Nuevo préstamo</h2>
@@ -112,7 +112,7 @@ export function PrestamoForm({ open, onClose, onSave }: PrestamoFormProps) {
                 'transition-colors duration-150',
                 isValid && !saving
                   ? 'text-white bg-accent active:bg-accent/80'
-                  : 'text-gray-400 bg-gray-200 cursor-not-allowed'
+                  : 'text-[var(--text-muted)] bg-[var(--border)] cursor-not-allowed'
               )}
             >
               {saving ? 'Guardando...' : 'Guardar'}
@@ -122,8 +122,8 @@ export function PrestamoForm({ open, onClose, onSave }: PrestamoFormProps) {
           {/* Scrollable content */}
           <div className="flex-1 overflow-y-auto">
             {/* Importe destacado */}
-            <div className="bg-white dark:bg-surface px-4 py-6 mb-4">
-              <label className="block text-sm text-gray-500 mb-2 text-center">
+            <div className="bg-surface dark:bg-surface px-4 py-6 mb-4">
+              <label className="block text-sm text-[var(--text-secondary)] mb-2 text-center">
                 Importe del préstamo
               </label>
               <div className="flex justify-center">
@@ -136,7 +136,7 @@ export function PrestamoForm({ open, onClose, onSave }: PrestamoFormProps) {
                 />
               </div>
               {importe > 0 && !mismaPersana && (
-                <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-3">
+                <p className="text-center text-sm text-[var(--text-secondary)] dark:text-[var(--text-muted)] mt-3">
                   💸 <strong>{NOMBRES_MAP[deQuien]}</strong> presta <strong>{formatMoney(importe)}</strong> a <strong>{NOMBRES_MAP[aQuien]}</strong>
                 </p>
               )}
@@ -176,7 +176,7 @@ export function PrestamoForm({ open, onClose, onSave }: PrestamoFormProps) {
                 
                 <div className="flex flex-col items-center">
                   <span className="text-2xl">→</span>
-                  <span className="text-sm text-gray-500">presta</span>
+                  <span className="text-sm text-[var(--text-secondary)]">presta</span>
                 </div>
                 
                 <div className="text-center">
@@ -209,7 +209,7 @@ export function PrestamoForm({ open, onClose, onSave }: PrestamoFormProps) {
                   placeholder="Motivo del préstamo"
                   className={cn(
                     'w-full bg-transparent text-[17px]',
-                    'placeholder:text-gray-400',
+                    'placeholder:text-[var(--text-muted)]',
                     'focus:outline-none'
                   )}
                 />
@@ -223,7 +223,7 @@ export function PrestamoForm({ open, onClose, onSave }: PrestamoFormProps) {
                   value={fecha}
                   onChange={(e) => setFecha(e.target.value)}
                   className={cn(
-                    'bg-transparent text-gray-500 text-[17px]',
+                    'bg-transparent text-[var(--text-secondary)] text-[17px]',
                     'focus:outline-none'
                   )}
                 />

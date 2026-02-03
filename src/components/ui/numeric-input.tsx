@@ -121,13 +121,13 @@ export function NumericInput({
         disabled={disabled}
         className={cn(
           // Base
-          'w-full rounded-lg border border-gray-200 bg-white',
+          'w-full rounded-lg border border-gray-200 bg-surface',
           'transition-colors duration-150',
-          'placeholder:text-gray-400',
+          'placeholder:text-[var(--text-muted)]',
           // Focus
           'focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent',
           // Disabled
-          'disabled:bg-gray-100 disabled:cursor-not-allowed',
+          'disabled:bg-[var(--border)] disabled:cursor-not-allowed',
           // Dark mode
           'dark:bg-surface dark:border-gray-700 dark:text-white',
           // Size
@@ -139,7 +139,7 @@ export function NumericInput({
       />
       {showCurrency && (
         <span className={cn(
-          'absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none',
+          'absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] pointer-events-none',
           size === 'lg' && 'text-lg'
         )}>
           €

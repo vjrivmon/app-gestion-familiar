@@ -40,7 +40,7 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
   return (
     <div 
       className={cn(
-        'bg-white dark:bg-surface rounded-xl p-4 shadow-sm',
+        'bg-surface dark:bg-surface rounded-xl p-4 shadow-sm',
         'border-l-4 transition-all',
         completada && 'ring-2 ring-green-500/30'
       )}
@@ -60,7 +60,7 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
           {diasRestantes !== null && !completada && (
             <p className={cn(
               'text-sm flex items-center gap-1 mt-0.5',
-              vencida ? 'text-red-500' : diasRestantes <= 7 ? 'text-orange-500' : 'text-gray-500'
+              vencida ? 'text-red-500' : diasRestantes <= 7 ? 'text-orange-500' : 'text-[var(--text-secondary)]'
             )}>
               <Clock className="w-3.5 h-3.5" />
               {vencida 
@@ -78,7 +78,7 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
       
       {/* Barra de progreso */}
       <div className="mb-3">
-        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+        <div className="h-4 bg-[var(--border)] dark:bg-surface rounded-full overflow-hidden">
           <div 
             className="h-full rounded-full transition-all duration-500 relative"
             style={{ 
@@ -97,7 +97,7 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
       {/* Importes y porcentaje */}
       <div className="flex items-baseline justify-between mb-4">
         <p className="text-lg font-bold">
-          {formatMoney(meta.actual)} <span className="text-gray-400 font-normal text-sm">/ {formatMoney(meta.objetivo)}</span>
+          {formatMoney(meta.actual)} <span className="text-[var(--text-muted)] font-normal text-sm">/ {formatMoney(meta.objetivo)}</span>
         </p>
         <span 
           className="text-lg font-bold"
@@ -109,7 +109,7 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
       
       {/* Faltan X€ */}
       {!completada && (
-        <p className="text-sm text-gray-500 mb-4">
+        <p className="text-sm text-[var(--text-secondary)] mb-4">
           Faltan <span className="font-medium">{formatMoney(Math.max(0, meta.objetivo - meta.actual))}</span> para completar
         </p>
       )}
@@ -130,7 +130,7 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
             'flex items-center justify-center gap-2',
             'transition-colors',
             completada
-              ? 'bg-gray-100 dark:bg-gray-800 text-gray-500'
+              ? 'bg-[var(--border)] dark:bg-surface-elevated text-[var(--text-secondary)]'
               : 'text-white',
           )}
           style={{ backgroundColor: completada ? undefined : meta.color }}
@@ -144,8 +144,8 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
           onClick={onEditar}
           className={cn(
             'py-2.5 px-3 rounded-lg',
-            'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400',
-            'active:bg-gray-200 dark:active:bg-gray-700',
+            'bg-[var(--border)] dark:bg-surface-elevated text-[var(--text-secondary)] dark:text-[var(--text-muted)]',
+            'active:bg-[var(--border)] dark:active:bg-gray-700',
             'transition-colors'
           )}
           aria-label="Editar meta"
@@ -176,17 +176,17 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
  */
 export function MetaCardSkeleton() {
   return (
-    <div className="bg-white dark:bg-surface rounded-xl p-4 shadow-sm border-l-4 border-gray-200 animate-pulse">
-      <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-2/3 mb-3" />
-      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-full mb-3" />
+    <div className="bg-surface dark:bg-surface rounded-xl p-4 shadow-sm border-l-4 border-gray-200 animate-pulse">
+      <div className="h-6 bg-[var(--border)] dark:bg-surface rounded w-2/3 mb-3" />
+      <div className="h-4 bg-[var(--border)] dark:bg-surface rounded-full mb-3" />
       <div className="flex justify-between mb-4">
-        <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
-        <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-12" />
+        <div className="h-5 bg-[var(--border)] dark:bg-surface rounded w-1/3" />
+        <div className="h-5 bg-[var(--border)] dark:bg-surface rounded w-12" />
       </div>
       <div className="flex gap-2">
-        <div className="flex-1 h-10 bg-gray-200 dark:bg-gray-700 rounded-lg" />
-        <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-lg" />
-        <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-lg" />
+        <div className="flex-1 h-10 bg-[var(--border)] dark:bg-surface rounded-lg" />
+        <div className="w-10 h-10 bg-[var(--border)] dark:bg-surface rounded-lg" />
+        <div className="w-10 h-10 bg-[var(--border)] dark:bg-surface rounded-lg" />
       </div>
     </div>
   )
@@ -204,7 +204,7 @@ export function MetasEmptyState({ onCrear }: { onCrear: () => void }) {
       <h3 className="text-xl font-semibold mb-2">
         ¡Empieza a ahorrar!
       </h3>
-      <p className="text-gray-500 mb-6 max-w-xs mx-auto">
+      <p className="text-[var(--text-secondary)] mb-6 max-w-xs mx-auto">
         Crea tu primera meta de ahorro y ve tu progreso crecer poco a poco.
       </p>
       <button

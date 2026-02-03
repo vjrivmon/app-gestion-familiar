@@ -62,9 +62,9 @@ export default function MetasPage() {
   }
   
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-black">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white dark:bg-surface p-4 pt-2 shadow-sm">
+      <div className="bg-surface dark:bg-surface p-4 pt-2 shadow-sm">
         <div className="flex items-center gap-3">
           <button
             onClick={() => router.back()}
@@ -86,9 +86,9 @@ export default function MetasPage() {
             <p className="text-sm opacity-90 mb-1">Progreso global</p>
             
             {/* Barra de progreso */}
-            <div className="h-3 bg-white/20 rounded-full overflow-hidden mb-2">
+            <div className="h-3 bg-surface/20 rounded-full overflow-hidden mb-2">
               <div 
-                className="h-full bg-white rounded-full transition-all duration-500"
+                className="h-full bg-surface rounded-full transition-all duration-500"
                 style={{ width: `${progresoGlobal}%` }}
               />
             </div>

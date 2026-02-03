@@ -96,7 +96,7 @@ export function MetaForm({ open, onClose, meta, onSave }: MetaFormProps) {
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-40" />
         <Drawer.Content className={cn(
           'fixed bottom-0 left-0 right-0 z-50',
-          'bg-gray-100 dark:bg-black',
+          'bg-background',
           'rounded-t-[12px]',
           'h-[85vh] max-h-[85vh]',
           'flex flex-col',
@@ -113,7 +113,7 @@ export function MetaForm({ open, onClose, meta, onSave }: MetaFormProps) {
               onClick={onClose}
               className="w-10 h-10 -ml-2 flex items-center justify-center"
             >
-              <X className="w-6 h-6 text-gray-500" />
+              <X className="w-6 h-6 text-[var(--text-secondary)]" />
             </button>
             
             <h2 className="text-lg font-semibold">
@@ -128,7 +128,7 @@ export function MetaForm({ open, onClose, meta, onSave }: MetaFormProps) {
                 'transition-colors duration-150',
                 isValid && !saving
                   ? 'text-white bg-accent active:bg-accent/80'
-                  : 'text-gray-400 bg-gray-200 cursor-not-allowed'
+                  : 'text-[var(--text-muted)] bg-[var(--border)] cursor-not-allowed'
               )}
             >
               {saving ? 'Guardando...' : 'Guardar'}
@@ -138,7 +138,7 @@ export function MetaForm({ open, onClose, meta, onSave }: MetaFormProps) {
           {/* Scrollable content */}
           <div className="flex-1 overflow-y-auto">
             {/* Preview de la meta */}
-            <div className="bg-white dark:bg-surface px-4 py-6 mb-4">
+            <div className="bg-surface dark:bg-surface px-4 py-6 mb-4">
               <div className="max-w-xs mx-auto">
                 {/* Mini preview card */}
                 <div 
@@ -148,7 +148,7 @@ export function MetaForm({ open, onClose, meta, onSave }: MetaFormProps) {
                   <p className="font-semibold text-lg mb-2">
                     {nombre || 'Mi meta de ahorro'}
                   </p>
-                  <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div className="h-3 bg-[var(--border)] dark:bg-surface rounded-full overflow-hidden">
                     <div 
                       className="h-full rounded-full transition-all"
                       style={{ 
@@ -157,7 +157,7 @@ export function MetaForm({ open, onClose, meta, onSave }: MetaFormProps) {
                       }}
                     />
                   </div>
-                  <p className="text-sm text-gray-500 mt-2">
+                  <p className="text-sm text-[var(--text-secondary)] mt-2">
                     0€ / {objetivo > 0 ? formatMoney(objetivo, false) : '0,00'}€
                   </p>
                 </div>
@@ -167,7 +167,7 @@ export function MetaForm({ open, onClose, meta, onSave }: MetaFormProps) {
             {/* Objetivo */}
             <GroupedList title="Objetivo de ahorro" className="px-4 mb-4">
               <div className="px-4 py-4">
-                <label className="block text-sm text-gray-500 mb-2">
+                <label className="block text-sm text-[var(--text-secondary)] mb-2">
                   ¿Cuánto quieres ahorrar?
                 </label>
                 <NumericInput
@@ -191,7 +191,7 @@ export function MetaForm({ open, onClose, meta, onSave }: MetaFormProps) {
                   placeholder="Nombre de la meta (ej: Vacaciones)"
                   className={cn(
                     'w-full bg-transparent text-[17px]',
-                    'placeholder:text-gray-400',
+                    'placeholder:text-[var(--text-muted)]',
                     'focus:outline-none'
                   )}
                 />
@@ -238,7 +238,7 @@ export function MetaForm({ open, onClose, meta, onSave }: MetaFormProps) {
                   <span
                     className={cn(
                       'absolute top-[2px] left-[2px] w-[27px] h-[27px]',
-                      'bg-white rounded-full shadow-sm',
+                      'bg-surface rounded-full shadow-sm',
                       'transition-transform duration-200',
                       usarFechaLimite && 'translate-x-[20px]'
                     )}
@@ -255,7 +255,7 @@ export function MetaForm({ open, onClose, meta, onSave }: MetaFormProps) {
                     onChange={(e) => setFechaLimite(e.target.value)}
                     min={new Date().toISOString().split('T')[0]}
                     className={cn(
-                      'bg-transparent text-gray-500 text-[17px]',
+                      'bg-transparent text-[var(--text-secondary)] text-[17px]',
                       'focus:outline-none'
                     )}
                   />

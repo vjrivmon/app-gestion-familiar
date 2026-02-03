@@ -100,8 +100,8 @@ export function MonthPicker({
         disabled={!canGoPrev}
         className={cn(
           'flex items-center justify-center rounded-full',
-          'bg-gray-100 dark:bg-gray-800',
-          'active:bg-gray-200 dark:active:bg-gray-700',
+          'bg-[var(--border)] dark:bg-surface-elevated',
+          'active:bg-[var(--border)] dark:active:bg-gray-700',
           'transition-colors duration-75',
           'disabled:opacity-30 disabled:cursor-not-allowed',
           s.button
@@ -137,8 +137,8 @@ export function MonthPicker({
         disabled={!canGoNext}
         className={cn(
           'flex items-center justify-center rounded-full',
-          'bg-gray-100 dark:bg-gray-800',
-          'active:bg-gray-200 dark:active:bg-gray-700',
+          'bg-[var(--border)] dark:bg-surface-elevated',
+          'active:bg-[var(--border)] dark:active:bg-gray-700',
           'transition-colors duration-75',
           'disabled:opacity-30 disabled:cursor-not-allowed',
           s.button

@@ -70,9 +70,9 @@ export default function CuentaConjuntaPage() {
   const loading = loadingCuenta || loadingTransf
   
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-black pb-24">
+    <div className="min-h-screen bg-background pb-24">
       {/* Header */}
-      <div className="bg-white dark:bg-surface shadow-sm sticky top-0 z-10">
+      <div className="bg-surface dark:bg-surface shadow-sm sticky top-0 z-10">
         <div className="flex items-center px-4 h-14">
           <button
             onClick={() => router.back()}
@@ -91,7 +91,7 @@ export default function CuentaConjuntaPage() {
         {/* Card: Saldo actual */}
         <div className="card bg-gradient-to-br from-purple-500 to-purple-600 text-white">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-surface/20 flex items-center justify-center">
               <Wallet className="w-6 h-6" />
             </div>
             <div>
@@ -119,14 +119,14 @@ export default function CuentaConjuntaPage() {
         <div className="grid grid-cols-2 gap-3">
           <div className="card">
             <TrendingUp className="w-5 h-5 text-positive mb-1" />
-            <p className="text-gray-500 text-xs">Ingresos {mesState.nombreMesCorto}</p>
+            <p className="text-[var(--text-secondary)] text-xs">Ingresos {mesState.nombreMesCorto}</p>
             <p className="text-lg font-bold text-positive">
               +{formatMoney(totalIngresosMes)}
             </p>
           </div>
           <div className="card">
             <TrendingDown className="w-5 h-5 text-negative mb-1" />
-            <p className="text-gray-500 text-xs">Gastos {mesState.nombreMesCorto}</p>
+            <p className="text-[var(--text-secondary)] text-xs">Gastos {mesState.nombreMesCorto}</p>
             <p className="text-lg font-bold text-negative">
               -{formatMoney(totalGastosMes)}
             </p>
@@ -151,7 +151,7 @@ export default function CuentaConjuntaPage() {
               </div>
               <span className={cn(
                 'font-semibold',
-                aportaciones.m1 > 0 ? 'text-positive' : 'text-gray-400'
+                aportaciones.m1 > 0 ? 'text-positive' : 'text-[var(--text-muted)]'
               )}>
                 {formatMoney(aportaciones.m1)}
               </span>
@@ -167,7 +167,7 @@ export default function CuentaConjuntaPage() {
               </div>
               <span className={cn(
                 'font-semibold',
-                aportaciones.m2 > 0 ? 'text-positive' : 'text-gray-400'
+                aportaciones.m2 > 0 ? 'text-positive' : 'text-[var(--text-muted)]'
               )}>
                 {formatMoney(aportaciones.m2)}
               </span>
@@ -194,11 +194,11 @@ export default function CuentaConjuntaPage() {
         <div className="card">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold">Gastos de la conjunta</h2>
-            <span className="text-sm text-gray-500">{mesState.nombreMesCorto}</span>
+            <span className="text-sm text-[var(--text-secondary)]">{mesState.nombreMesCorto}</span>
           </div>
           
           {gastosMes.length === 0 ? (
-            <p className="text-gray-400 text-sm text-center py-4">
+            <p className="text-[var(--text-muted)] text-sm text-center py-4">
               Sin gastos este mes
             </p>
           ) : (
@@ -210,7 +210,7 @@ export default function CuentaConjuntaPage() {
                 >
                   <div>
                     <p className="font-medium text-sm">{gasto.concepto}</p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-[var(--text-secondary)]">
                       {new Date(gasto.fecha).toLocaleDateString('es-ES', {
                         day: 'numeric',
                         month: 'short'
@@ -223,7 +223,7 @@ export default function CuentaConjuntaPage() {
                 </div>
               ))}
               {gastosMes.length > 5 && (
-                <p className="text-sm text-gray-500 text-center pt-2">
+                <p className="text-sm text-[var(--text-secondary)] text-center pt-2">
                   +{gastosMes.length - 5} más
                 </p>
               )}
@@ -255,14 +255,14 @@ export default function CuentaConjuntaPage() {
                       )}
                       style={{ height: `${height}%` }}
                     />
-                    <span className="text-[10px] text-gray-500">{mes.nombreMes}</span>
+                    <span className="text-[10px] text-[var(--text-secondary)]">{mes.nombreMes}</span>
                   </div>
                 )
               })}
             </div>
             
             {/* Leyenda */}
-            <div className="flex justify-between text-xs text-gray-500">
+            <div className="flex justify-between text-xs text-[var(--text-secondary)]">
               <span>{formatMoney(evolucion[0]?.saldo || 0)}</span>
               <span className="font-medium text-purple-600">
                 {formatMoney(evolucion[evolucion.length - 1]?.saldo || 0)}

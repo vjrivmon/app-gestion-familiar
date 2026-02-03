@@ -168,7 +168,7 @@ export default function SettingsPage() {
             onClick={handleCopyCode}
             leftIcon={codeCopied ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5" />}
             rightContent={
-              <span className="font-mono text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+              <span className="font-mono text-sm bg-[var(--border)] dark:bg-surface-elevated px-2 py-1 rounded">
                 {inviteCode}
               </span>
             }
@@ -238,7 +238,7 @@ export default function SettingsPage() {
         </GroupedList>
         
         {/* Info adicional */}
-        <div className="text-center text-sm text-gray-400 pt-4">
+        <div className="text-center text-sm text-[var(--text-muted)] pt-4">
           <p>App de Pus 🐾</p>
           <p>Hecho con ❤️ para Vicente e Irene</p>
         </div>

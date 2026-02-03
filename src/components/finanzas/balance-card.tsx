@@ -93,7 +93,7 @@ export function BalanceCard({ onDetailClick, className }: BalanceCardProps) {
             disabled={liquidando || liquidado}
             className={cn(
               'flex-1 py-2.5 px-4 rounded-lg font-semibold text-sm',
-              'bg-white/20 active:bg-white/30',
+              'bg-surface/20 active:bg-surface/30',
               'transition-all duration-150',
               'flex items-center justify-center gap-2',
               'disabled:opacity-70'
@@ -121,7 +121,7 @@ export function BalanceCard({ onDetailClick, className }: BalanceCardProps) {
             onClick={onDetailClick}
             className={cn(
               'py-2.5 px-4 rounded-lg font-semibold text-sm',
-              'bg-white/20 active:bg-white/30',
+              'bg-surface/20 active:bg-surface/30',
               'transition-all duration-150',
               'flex items-center gap-1',
               balance.enPaz && 'flex-1 justify-center'

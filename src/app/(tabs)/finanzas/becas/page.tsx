@@ -81,9 +81,9 @@ export default function BecasPage() {
   }
   
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-black">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white dark:bg-surface p-4 pt-2 shadow-sm">
+      <div className="bg-surface dark:bg-surface p-4 pt-2 shadow-sm">
         <div className="flex items-center gap-3 mb-4">
           <button
             onClick={() => router.back()}
@@ -98,7 +98,7 @@ export default function BecasPage() {
         </div>
         
         {/* Filtro por estado */}
-        <div className="flex bg-gray-200/70 dark:bg-gray-800 rounded-[9px] p-[2px]">
+        <div className="flex bg-[var(--border)] rounded-[9px] p-[2px]">
           {FILTROS.map(f => (
             <button
               key={f.value}
@@ -106,8 +106,8 @@ export default function BecasPage() {
               className={cn(
                 'flex-1 py-[6px] text-[13px] font-medium rounded-[7px] transition-all',
                 filtro === f.value 
-                  ? 'bg-white dark:bg-gray-700 shadow-sm' 
-                  : 'text-gray-500 dark:text-gray-400'
+                  ? 'bg-surface text-primary shadow-sm' 
+                  : 'text-[var(--text-secondary)]'
               )}
             >
               {f.label}
@@ -119,14 +119,14 @@ export default function BecasPage() {
       {/* Resumen */}
       <div className="p-4">
         <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="bg-white dark:bg-surface rounded-xl p-4">
-            <p className="text-sm text-gray-500 mb-1">Pendiente</p>
+          <div className="bg-surface dark:bg-surface rounded-xl p-4">
+            <p className="text-sm text-[var(--text-secondary)] mb-1">Pendiente</p>
             <p className="text-xl font-bold text-yellow-600">
               {formatMoney(totalPendiente)}
             </p>
           </div>
-          <div className="bg-white dark:bg-surface rounded-xl p-4">
-            <p className="text-sm text-gray-500 mb-1">Mensual</p>
+          <div className="bg-surface dark:bg-surface rounded-xl p-4">
+            <p className="text-sm text-[var(--text-secondary)] mb-1">Mensual</p>
             <p className="text-xl font-bold text-blue-600">
               {formatMoney(totalMensual)}
             </p>
@@ -135,7 +135,7 @@ export default function BecasPage() {
         
         {/* Loading */}
         {loading && (
-          <div className="bg-white dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
             {[1, 2, 3].map(i => <BecaItemSkeleton key={i} />)}
           </div>
         )}
@@ -149,7 +149,7 @@ export default function BecasPage() {
             <h3 className="text-lg font-semibold mb-2">
               {filtro === 'todas' ? 'Sin becas registradas' : `Sin becas ${filtro}s`}
             </h3>
-            <p className="text-gray-500 mb-4">
+            <p className="text-[var(--text-secondary)] mb-4">
               {filtro === 'todas' 
                 ? 'Registra tus becas y ayudas para hacer seguimiento'
                 : 'No hay becas con este estado'}
@@ -160,10 +160,10 @@ export default function BecasPage() {
         {/* Lista agrupada por persona */}
         {!loading && personasConBecas.map(persona => (
           <div key={persona} className="mb-4">
-            <h3 className="text-sm font-medium text-gray-500 px-1 mb-2">
+            <h3 className="text-sm font-medium text-[var(--text-secondary)] px-1 mb-2">
               {NOMBRES_MAP[persona]}
             </h3>
-            <div className="bg-white dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
+            <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
               {becasAgrupadas[persona].map(beca => (
                 <BecaItem
                   key={beca.id}

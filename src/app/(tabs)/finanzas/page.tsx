@@ -34,13 +34,13 @@ export default function FinanzasPage() {
   const mesState = useMesActual()
   
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-black">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white dark:bg-surface p-4 pt-2 shadow-sm">
+      <div className="bg-surface p-4 pt-2 shadow-sm">
         <h1 className="text-[28px] font-bold mb-4">Finanzas</h1>
         
-        {/* Segmented Control */}
-        <div className="flex bg-gray-200/70 dark:bg-gray-800 rounded-[9px] p-[2px]">
+        {/* Segmented Control - iOS style */}
+        <div className="flex bg-[var(--border)] rounded-[9px] p-[2px]">
           {TABS.map(tab => (
             <button
               key={tab.id}
@@ -48,8 +48,8 @@ export default function FinanzasPage() {
               className={cn(
                 'flex-1 py-[6px] text-[13px] font-medium rounded-[7px] transition-all',
                 activeTab === tab.id 
-                  ? 'bg-white dark:bg-gray-700 shadow-sm' 
-                  : 'text-gray-500 dark:text-gray-400'
+                  ? 'bg-surface text-primary shadow-sm' 
+                  : 'text-[var(--text-secondary)]'
               )}
             >
               {tab.label}
@@ -99,14 +99,14 @@ function BalanceTab({ mesState }: BalanceTabProps) {
       <div className="grid grid-cols-2 gap-3">
         <div className="card">
           <TrendingUp className="w-6 h-6 text-positive mb-2" />
-          <p className="text-gray-500 text-xs">Ingresos {mesState.nombreMesCorto}</p>
+          <p className="text-[var(--text-secondary)] text-xs">Ingresos {mesState.nombreMesCorto}</p>
           <p className="text-xl font-bold text-positive">
             +{formatMoney(totalIngresos)}
           </p>
         </div>
         <div className="card">
           <TrendingDown className="w-6 h-6 text-negative mb-2" />
-          <p className="text-gray-500 text-xs">Gastos {mesState.nombreMesCorto}</p>
+          <p className="text-[var(--text-secondary)] text-xs">Gastos {mesState.nombreMesCorto}</p>
           <p className="text-xl font-bold text-negative">
             -{formatMoney(totalGastos)}
           </p>
@@ -151,7 +151,7 @@ function BalanceTab({ mesState }: BalanceTabProps) {
           </div>
           <span className="font-medium">Configurar saldos iniciales</span>
         </div>
-        <span className="text-gray-400">›</span>
+        <span className="text-[var(--text-muted)]">›</span>
       </button>
     </div>
   )
@@ -379,7 +379,7 @@ function MasTab() {
             <Icon className="w-5 h-5 text-accent" />
           </div>
           <span className="font-medium flex-1">{label}</span>
-          <span className="text-gray-400">›</span>
+          <span className="text-[var(--text-muted)]">›</span>
         </a>
       ))}
     </div>

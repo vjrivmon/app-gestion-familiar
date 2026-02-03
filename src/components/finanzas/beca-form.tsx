@@ -99,7 +99,7 @@ export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-40" />
         <Drawer.Content className={cn(
           'fixed bottom-0 left-0 right-0 z-50',
-          'bg-gray-100 dark:bg-black',
+          'bg-background',
           'rounded-t-[12px]',
           'h-[85vh] max-h-[85vh]',
           'flex flex-col',
@@ -116,7 +116,7 @@ export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
               onClick={onClose}
               className="w-10 h-10 -ml-2 flex items-center justify-center"
             >
-              <X className="w-6 h-6 text-gray-500" />
+              <X className="w-6 h-6 text-[var(--text-secondary)]" />
             </button>
             
             <h2 className="text-lg font-semibold">
@@ -131,7 +131,7 @@ export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
                 'transition-colors duration-150',
                 isValid && !saving
                   ? 'text-white bg-accent active:bg-accent/80'
-                  : 'text-gray-400 bg-gray-200 cursor-not-allowed'
+                  : 'text-[var(--text-muted)] bg-[var(--border)] cursor-not-allowed'
               )}
             >
               {saving ? 'Guardando...' : 'Guardar'}
@@ -141,8 +141,8 @@ export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
           {/* Scrollable content */}
           <div className="flex-1 overflow-y-auto">
             {/* Importe destacado */}
-            <div className="bg-white dark:bg-surface px-4 py-6 mb-4">
-              <label className="block text-sm text-gray-500 mb-2 text-center">
+            <div className="bg-surface dark:bg-surface px-4 py-6 mb-4">
+              <label className="block text-sm text-[var(--text-secondary)] mb-2 text-center">
                 Importe
               </label>
               <div className="flex justify-center">
@@ -172,7 +172,7 @@ export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
                   placeholder="Nombre de la beca o ayuda"
                   className={cn(
                     'w-full bg-transparent text-[17px]',
-                    'placeholder:text-gray-400',
+                    'placeholder:text-[var(--text-muted)]',
                     'focus:outline-none'
                   )}
                 />
@@ -180,7 +180,7 @@ export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
               
               {/* Persona */}
               <div className="px-4 py-3">
-                <label className="block text-sm text-gray-500 mb-2">
+                <label className="block text-sm text-[var(--text-secondary)] mb-2">
                   Destinatario
                 </label>
                 <PersonaPicker
@@ -199,7 +199,7 @@ export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
                     <button
                       type="button"
                       onClick={() => setNumPagos(Math.max(1, numPagos - 1))}
-                      className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center"
+                      className="w-8 h-8 rounded-full bg-[var(--border)] dark:bg-surface flex items-center justify-center"
                     >
                       -
                     </button>
@@ -207,7 +207,7 @@ export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
                     <button
                       type="button"
                       onClick={() => setNumPagos(numPagos + 1)}
-                      className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center"
+                      className="w-8 h-8 rounded-full bg-[var(--border)] dark:bg-surface flex items-center justify-center"
                     >
                       +
                     </button>
@@ -219,7 +219,7 @@ export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
             {/* Estado */}
             <GroupedList title="Estado" className="px-4 mb-4">
               <div className="px-4 py-3">
-                <div className="flex bg-gray-200/70 dark:bg-gray-800 rounded-lg p-[3px]">
+                <div className="flex bg-[var(--border)] rounded-lg p-[3px]">
                   {ESTADOS.map((opt) => (
                     <button
                       key={opt.value}
@@ -229,8 +229,8 @@ export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
                         'flex-1 py-2 px-2 rounded-md text-sm font-medium',
                         'transition-all duration-150',
                         estado === opt.value
-                          ? 'bg-white dark:bg-gray-700 shadow-sm'
-                          : 'text-gray-600 dark:text-gray-400'
+                          ? 'bg-surface text-primary shadow-sm'
+                          : 'text-[var(--text-secondary)] dark:text-[var(--text-muted)]'
                       )}
                     >
                       <span className="mr-1">{opt.emoji}</span>
@@ -249,7 +249,7 @@ export function BecaForm({ open, onClose, beca, onSave }: BecaFormProps) {
                     value={fechaCobro || new Date().toISOString().split('T')[0]}
                     onChange={(e) => setFechaCobro(e.target.value)}
                     className={cn(
-                      'bg-transparent text-gray-500 text-[17px]',
+                      'bg-transparent text-[var(--text-secondary)] text-[17px]',
                       'focus:outline-none'
                     )}
                   />

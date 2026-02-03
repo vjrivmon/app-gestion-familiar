@@ -34,9 +34,9 @@ export default function GraficosPage() {
   const meses = getMeses()
   
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-black pb-24">
+    <div className="min-h-screen bg-background pb-24">
       {/* Header */}
-      <div className="bg-white dark:bg-surface shadow-sm sticky top-0 z-10">
+      <div className="bg-surface dark:bg-surface shadow-sm sticky top-0 z-10">
         <div className="flex items-center px-4 h-14">
           <button
             onClick={() => router.back()}
@@ -52,7 +52,7 @@ export default function GraficosPage() {
         
         {/* Selector de período */}
         <div className="px-4 pb-3">
-          <div className="flex bg-gray-200/70 dark:bg-gray-800 rounded-[9px] p-[2px]">
+          <div className="flex bg-[var(--border)] rounded-[9px] p-[2px]">
             {PERIODOS.map(p => (
               <button
                 key={p.id}
@@ -60,8 +60,8 @@ export default function GraficosPage() {
                 className={cn(
                   'flex-1 py-[6px] text-[12px] font-medium rounded-[7px] transition-all',
                   periodo === p.id 
-                    ? 'bg-white dark:bg-gray-700 shadow-sm' 
-                    : 'text-gray-500 dark:text-gray-400'
+                    ? 'bg-surface text-primary shadow-sm' 
+                    : 'text-[var(--text-secondary)]'
                 )}
               >
                 {p.label}
@@ -80,7 +80,7 @@ export default function GraficosPage() {
             </div>
             <div>
               <h2 className="font-semibold text-sm">Evolución Patrimonio</h2>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-[var(--text-secondary)]">
                 Total acumulado por persona
               </p>
             </div>
@@ -96,7 +96,7 @@ export default function GraficosPage() {
             </div>
             <div>
               <h2 className="font-semibold text-sm">Ingresos vs Gastos</h2>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-[var(--text-secondary)]">
                 Comparativa mensual
               </p>
             </div>
@@ -112,7 +112,7 @@ export default function GraficosPage() {
             </div>
             <div>
               <h2 className="font-semibold text-sm">Distribución de Gastos</h2>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-[var(--text-secondary)]">
                 Por categoría este mes
               </p>
             </div>
@@ -128,7 +128,7 @@ export default function GraficosPage() {
             </div>
             <div>
               <h2 className="font-semibold text-sm">Ahorro por Persona</h2>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-[var(--text-secondary)]">
                 Ingresos - Gastos mensuales
               </p>
             </div>
@@ -138,7 +138,7 @@ export default function GraficosPage() {
         
         {/* Nota informativa */}
         <div className="bg-accent/5 border border-accent/20 rounded-xl p-4 text-center">
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-[var(--text-secondary)] dark:text-[var(--text-muted)]">
             💡 Los gráficos se actualizan automáticamente al añadir transacciones
           </p>
         </div>

@@ -45,7 +45,7 @@ export function PatrimonioCard({ onConfigClick, className }: PatrimonioCardProps
         {onConfigClick && (
           <button
             onClick={onConfigClick}
-            className="p-2 -mr-2 text-gray-400 active:text-gray-600 transition-colors"
+            className="p-2 -mr-2 text-[var(--text-muted)] active:text-[var(--text-secondary)] transition-colors"
             aria-label="Configurar saldos"
           >
             <Settings className="w-5 h-5" />
@@ -56,7 +56,7 @@ export function PatrimonioCard({ onConfigClick, className }: PatrimonioCardProps
       {/* Patrimonio total */}
       {loading ? (
         <div className="flex items-center justify-center py-4">
-          <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+          <Loader2 className="w-6 h-6 animate-spin text-[var(--text-muted)]" />
         </div>
       ) : (
         <>
@@ -70,7 +70,7 @@ export function PatrimonioCard({ onConfigClick, className }: PatrimonioCardProps
           {/* Tabla de desglose */}
           <div className="space-y-1">
             {/* Header de tabla */}
-            <div className="grid grid-cols-4 gap-2 text-xs text-gray-500 pb-1 border-b border-gray-100 dark:border-gray-800">
+            <div className="grid grid-cols-4 gap-2 text-xs text-[var(--text-secondary)] pb-1 border-b border-gray-100 dark:border-gray-800">
               <span></span>
               <span className="text-center">Físico</span>
               <span className="text-center">Digital</span>
@@ -86,13 +86,13 @@ export function PatrimonioCard({ onConfigClick, className }: PatrimonioCardProps
                 <span className="font-medium truncate">{nombre}</span>
                 <span className={cn(
                   'text-center tabular-nums',
-                  data.fisico >= 0 ? 'text-gray-600 dark:text-gray-400' : 'text-negative'
+                  data.fisico >= 0 ? 'text-[var(--text-secondary)] dark:text-[var(--text-muted)]' : 'text-negative'
                 )}>
                   {formatMoney(data.fisico)}
                 </span>
                 <span className={cn(
                   'text-center tabular-nums',
-                  data.digital >= 0 ? 'text-gray-600 dark:text-gray-400' : 'text-negative'
+                  data.digital >= 0 ? 'text-[var(--text-secondary)] dark:text-[var(--text-muted)]' : 'text-negative'
                 )}>
                   {formatMoney(data.digital)}
                 </span>

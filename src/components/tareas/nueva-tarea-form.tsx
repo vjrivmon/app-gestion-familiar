@@ -94,14 +94,14 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
         <div className="flex justify-between items-center pt-2">
           <h2 className="text-xl font-bold">Nueva tarea</h2>
           <button onClick={onClose} className="p-2 -mr-2">
-            <X className="w-6 h-6 text-gray-400" />
+            <X className="w-6 h-6 text-[var(--text-muted)]" />
           </button>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Nombre */}
           <div>
-            <label className="block text-sm font-medium text-gray-500 mb-2">
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
               Nombre de la tarea
             </label>
             <input
@@ -112,7 +112,7 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
               className={cn(
                 'w-full px-4 py-3 rounded-xl',
                 'bg-[var(--background)] border border-gray-200 dark:border-gray-700',
-                'text-[17px] placeholder:text-gray-400',
+                'text-[17px] placeholder:text-[var(--text-muted)]',
                 'focus:outline-none focus:ring-2 focus:ring-accent/50'
               )}
               autoFocus
@@ -121,7 +121,7 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
           
           {/* Selector de icono */}
           <div>
-            <label className="block text-sm font-medium text-gray-500 mb-2">
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
               Icono
             </label>
             <div className="flex flex-wrap gap-2">
@@ -136,7 +136,7 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
                     'transition-all',
                     icono === emoji
                       ? 'bg-accent text-white scale-110 ring-2 ring-accent ring-offset-2'
-                      : 'bg-gray-100 dark:bg-gray-800 active:scale-95'
+                      : 'bg-[var(--border)] dark:bg-surface-elevated active:scale-95'
                   )}
                 >
                   {emoji}
@@ -147,7 +147,7 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
           
           {/* Frecuencia */}
           <div>
-            <label className="block text-sm font-medium text-gray-500 mb-2">
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
               Frecuencia
             </label>
             
@@ -163,7 +163,7 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
                       'transition-all',
                       frecuencia === f.value
                         ? 'bg-accent text-white'
-                        : 'bg-gray-100 dark:bg-gray-800 active:scale-95'
+                        : 'bg-[var(--border)] dark:bg-surface-elevated active:scale-95'
                     )}
                   >
                     {f.label}
@@ -186,7 +186,7 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
                     'focus:outline-none focus:ring-2 focus:ring-accent/50'
                   )}
                 />
-                <span className="text-gray-600">días</span>
+                <span className="text-[var(--text-secondary)]">días</span>
               </div>
             )}
             
@@ -206,12 +206,12 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
           
           {/* Preview */}
           <div className="card p-3 flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-2xl">
+            <div className="w-12 h-12 rounded-xl bg-[var(--border)] dark:bg-surface-elevated flex items-center justify-center text-2xl">
               {icono}
             </div>
             <div>
               <p className="font-semibold">{nombre || 'Nueva tarea'}</p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-[var(--text-secondary)]">
                 Cada {showCustomFrecuencia ? (parseInt(frecuenciaCustom) || '?') : frecuencia} días
               </p>
             </div>

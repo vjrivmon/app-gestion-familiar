@@ -126,7 +126,7 @@ export function TareaDetailSheet({
           onClick={onClose}
           className="absolute top-4 right-4 p-2"
         >
-          <X className="w-6 h-6 text-gray-400" />
+          <X className="w-6 h-6 text-[var(--text-muted)]" />
         </button>
         
         {/* Header con icono grande */}
@@ -155,7 +155,7 @@ export function TareaDetailSheet({
         {/* Info */}
         <div className="grid grid-cols-2 gap-3">
           <div className="card p-3">
-            <div className="flex items-center gap-2 text-gray-500 mb-1">
+            <div className="flex items-center gap-2 text-[var(--text-secondary)] mb-1">
               <Clock className="w-4 h-4" />
               <span className="text-xs">Frecuencia</span>
             </div>
@@ -163,7 +163,7 @@ export function TareaDetailSheet({
           </div>
           
           <div className="card p-3">
-            <div className="flex items-center gap-2 text-gray-500 mb-1">
+            <div className="flex items-center gap-2 text-[var(--text-secondary)] mb-1">
               <Calendar className="w-4 h-4" />
               <span className="text-xs">Última vez</span>
             </div>
@@ -175,16 +175,16 @@ export function TareaDetailSheet({
         
         {/* Historial */}
         <div>
-          <h3 className="text-sm font-semibold text-gray-500 mb-2">
+          <h3 className="text-sm font-semibold text-[var(--text-secondary)] mb-2">
             Últimas veces completada
           </h3>
           
           {loadingHistorial ? (
             <div className="flex items-center justify-center py-4">
-              <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
+              <Loader2 className="w-5 h-5 animate-spin text-[var(--text-muted)]" />
             </div>
           ) : historial.length === 0 ? (
-            <p className="text-gray-400 text-sm py-3">
+            <p className="text-[var(--text-muted)] text-sm py-3">
               Aún no se ha completado esta tarea
             </p>
           ) : (
@@ -197,7 +197,7 @@ export function TareaDetailSheet({
                   <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
                     <Check className="w-4 h-4 text-green-600" />
                   </div>
-                  <span className="text-gray-600 dark:text-gray-400">
+                  <span className="text-[var(--text-secondary)] dark:text-[var(--text-muted)]">
                     {new Date(h.completada_at).toLocaleDateString('es-ES', {
                       weekday: 'short',
                       day: 'numeric',

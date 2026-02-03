@@ -43,7 +43,7 @@ export function GraficoDistribucion({
   if (loading) {
     return (
       <div 
-        className={cn('animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg', className)}
+        className={cn('animate-pulse bg-[var(--border)] dark:bg-surface rounded-lg', className)}
         style={{ height: altura }}
       />
     )
@@ -52,7 +52,7 @@ export function GraficoDistribucion({
   if (datos.length === 0) {
     return (
       <div 
-        className={cn('flex items-center justify-center text-gray-400 flex-col gap-2', className)}
+        className={cn('flex items-center justify-center text-[var(--text-muted)] flex-col gap-2', className)}
         style={{ height: altura }}
       >
         <span className="text-4xl">📊</span>

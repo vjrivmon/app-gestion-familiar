@@ -120,7 +120,7 @@ export default function TareasPage() {
           <div className="card p-6 text-center space-y-4">
             <span className="text-5xl">🏠</span>
             <h2 className="text-xl font-bold">¡Configura tu hogar!</h2>
-            <p className="text-gray-500">
+            <p className="text-[var(--text-secondary)]">
               Hemos preparado 12 tareas comunes del hogar para empezar. 
               Puedes añadir o eliminar las que quieras después.
             </p>
@@ -264,7 +264,7 @@ function TareaSection({
 }: TareaSectionProps) {
   return (
     <div className="space-y-2">
-      <h3 className="text-sm font-semibold text-gray-500">{title}</h3>
+      <h3 className="text-sm font-semibold text-[var(--text-secondary)]">{title}</h3>
       <div className="space-y-2">
         {tareas.map((tarea) => (
           <TareaCard
@@ -312,7 +312,7 @@ function TareaCard({ tarea, completing, onComplete, onDetail }: TareaCardProps) 
       {/* Icono */}
       <div className={cn(
         'w-12 h-12 rounded-xl flex items-center justify-center text-2xl',
-        'bg-white dark:bg-gray-800'
+        'bg-surface dark:bg-surface-elevated'
       )}>
         {tarea.icono}
       </div>
@@ -320,7 +320,7 @@ function TareaCard({ tarea, completing, onComplete, onDetail }: TareaCardProps) 
       {/* Info */}
       <div className="flex-1 min-w-0">
         <p className="font-semibold truncate">{tarea.nombre}</p>
-        <div className="flex items-center gap-2 text-sm text-gray-500">
+        <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
           <Clock className="w-3.5 h-3.5" />
           <span>Cada {tarea.frecuencia_dias}d</span>
           <span>·</span>
@@ -344,16 +344,16 @@ function TareaCard({ tarea, completing, onComplete, onDetail }: TareaCardProps) 
           'transition-all',
           completed 
             ? 'bg-green-500 text-white'
-            : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700',
+            : 'bg-surface dark:bg-surface-elevated border border-gray-200 dark:border-gray-700',
           'active:scale-95'
         )}
       >
         {completing ? (
-          <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
+          <Loader2 className="w-5 h-5 animate-spin text-[var(--text-muted)]" />
         ) : completed ? (
           <Check className="w-5 h-5" />
         ) : (
-          <Check className="w-5 h-5 text-gray-400" />
+          <Check className="w-5 h-5 text-[var(--text-muted)]" />
         )}
       </button>
     </div>

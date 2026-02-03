@@ -51,13 +51,13 @@ export default function HistoricoAnualPage() {
   }
   
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-black pb-20">
+    <div className="min-h-screen bg-background pb-20">
       {/* Header */}
-      <div className="bg-white dark:bg-surface p-4 shadow-sm sticky top-0 z-10">
+      <div className="bg-surface dark:bg-surface p-4 shadow-sm sticky top-0 z-10">
         <div className="flex items-center gap-3 mb-4">
           <button
             onClick={() => router.back()}
-            className="p-2 -ml-2 text-gray-500 active:bg-gray-100 rounded-full"
+            className="p-2 -ml-2 text-[var(--text-secondary)] active:bg-[var(--border)] rounded-full"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -71,7 +71,7 @@ export default function HistoricoAnualPage() {
         <div className="flex items-center justify-center gap-4 mb-4">
           <button
             onClick={handlePrevYear}
-            className="p-2 text-gray-500 active:bg-gray-100 dark:active:bg-gray-800 rounded-full"
+            className="p-2 text-[var(--text-secondary)] active:bg-[var(--border)] dark:active:bg-gray-800 rounded-full"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -86,8 +86,8 @@ export default function HistoricoAnualPage() {
             className={cn(
               'p-2 rounded-full',
               año >= añoActual 
-                ? 'text-gray-300 dark:text-gray-600 cursor-not-allowed'
-                : 'text-gray-500 active:bg-gray-100 dark:active:bg-gray-800'
+                ? 'text-gray-300 dark:text-[var(--text-secondary)] cursor-not-allowed'
+                : 'text-[var(--text-secondary)] active:bg-[var(--border)] dark:active:bg-gray-800'
             )}
           >
             <ChevronRight className="w-6 h-6" />
@@ -95,7 +95,7 @@ export default function HistoricoAnualPage() {
         </div>
         
         {/* Tabs */}
-        <div className="flex bg-gray-200/70 dark:bg-gray-800 rounded-[9px] p-[2px]">
+        <div className="flex bg-[var(--border)] rounded-[9px] p-[2px]">
           {TABS.map(tab => {
             const Icon = tab.icon
             return (
@@ -106,8 +106,8 @@ export default function HistoricoAnualPage() {
                   'flex-1 py-[6px] text-[13px] font-medium rounded-[7px] transition-all',
                   'flex items-center justify-center gap-1.5',
                   activeTab === tab.id 
-                    ? 'bg-white dark:bg-gray-700 shadow-sm' 
-                    : 'text-gray-500 dark:text-gray-400'
+                    ? 'bg-surface text-primary shadow-sm' 
+                    : 'text-[var(--text-secondary)]'
                 )}
               >
                 <Icon className="w-4 h-4" />
@@ -127,11 +127,11 @@ export default function HistoricoAnualPage() {
         ) : error ? (
           <div className="card text-center py-8">
             <p className="text-negative mb-2">Error al cargar datos</p>
-            <p className="text-sm text-gray-500">{error}</p>
+            <p className="text-sm text-[var(--text-secondary)]">{error}</p>
           </div>
         ) : !datos ? (
           <div className="card text-center py-8">
-            <p className="text-gray-500">No hay datos para este año</p>
+            <p className="text-[var(--text-secondary)]">No hay datos para este año</p>
           </div>
         ) : (
           <>
@@ -139,7 +139,7 @@ export default function HistoricoAnualPage() {
             <div className="grid grid-cols-3 gap-3 mb-4">
               <div className="card p-3 text-center">
                 <TrendingUp className="w-5 h-5 text-positive mx-auto mb-1" />
-                <p className="text-xs text-gray-500">Ingresos</p>
+                <p className="text-xs text-[var(--text-secondary)]">Ingresos</p>
                 <p className="font-bold text-positive text-sm">
                   {formatMoney(datos.totalIngresos)}
                 </p>
@@ -147,7 +147,7 @@ export default function HistoricoAnualPage() {
               
               <div className="card p-3 text-center">
                 <TrendingDown className="w-5 h-5 text-negative mx-auto mb-1" />
-                <p className="text-xs text-gray-500">Gastos</p>
+                <p className="text-xs text-[var(--text-secondary)]">Gastos</p>
                 <p className="font-bold text-negative text-sm">
                   {formatMoney(datos.totalGastos)}
                 </p>
@@ -155,7 +155,7 @@ export default function HistoricoAnualPage() {
               
               <div className="card p-3 text-center">
                 <Wallet className="w-5 h-5 text-accent mx-auto mb-1" />
-                <p className="text-xs text-gray-500">Ahorro</p>
+                <p className="text-xs text-[var(--text-secondary)]">Ahorro</p>
                 <p className={cn(
                   'font-bold text-sm',
                   datos.balance >= 0 ? 'text-positive' : 'text-negative'
@@ -249,13 +249,13 @@ export default function HistoricoAnualPage() {
                   
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Ingresos</span>
+                      <span className="text-[var(--text-secondary)]">Ingresos</span>
                       <span className="text-positive font-medium tabular-nums">
                         +{formatMoney(Math.round(datos.totalIngresos / 12))}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Gastos</span>
+                      <span className="text-[var(--text-secondary)]">Gastos</span>
                       <span className="text-negative font-medium tabular-nums">
                         -{formatMoney(Math.round(datos.totalGastos / 12))}
                       </span>

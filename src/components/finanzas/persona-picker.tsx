@@ -47,7 +47,7 @@ export function PersonaPicker({
   if (variant === 'segmented') {
     return (
       <div className={cn(
-        'inline-flex rounded-lg bg-gray-200/70 dark:bg-gray-800 p-[3px]',
+        'inline-flex rounded-lg bg-[var(--border)] p-[3px]',
         className
       )}>
         {opciones.map((pagador) => (
@@ -60,8 +60,8 @@ export function PersonaPicker({
               s.container,
               s.padding,
               value === pagador
-                ? 'bg-white dark:bg-gray-700 shadow-sm font-medium'
-                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                ? 'bg-surface text-primary shadow-sm font-medium'
+                : 'text-[var(--text-secondary)] dark:text-[var(--text-muted)] hover:text-gray-900 dark:hover:text-gray-200'
             )}
           >
             {NOMBRES[pagador]}
@@ -86,7 +86,7 @@ export function PersonaPicker({
               s.padding,
               value === pagador
                 ? 'border-accent bg-accent/10 text-accent font-medium'
-                : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400'
+                : 'border-gray-200 dark:border-gray-700 text-[var(--text-secondary)] dark:text-[var(--text-muted)]'
             )}
           >
             {NOMBRES[pagador]}
@@ -113,7 +113,7 @@ export function PersonaPicker({
             'min-h-[44px] py-2 px-3',
             value === pagador
               ? 'border-accent bg-accent/10 text-accent font-medium'
-              : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400'
+              : 'border-gray-200 dark:border-gray-700 text-[var(--text-secondary)] dark:text-[var(--text-muted)]'
           )}
         >
           {NOMBRES[pagador]}

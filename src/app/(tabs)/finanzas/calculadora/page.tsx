@@ -51,20 +51,20 @@ export default function CalculadoraPisoPage() {
   
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 dark:bg-black flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-accent" />
       </div>
     )
   }
   
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-black pb-24">
+    <div className="min-h-screen bg-background pb-24">
       {/* Header */}
-      <div className="bg-white dark:bg-surface p-4 shadow-sm sticky top-0 z-10">
+      <div className="bg-surface dark:bg-surface p-4 shadow-sm sticky top-0 z-10">
         <div className="flex items-center gap-3">
           <button
             onClick={() => router.back()}
-            className="p-2 -ml-2 text-gray-500 active:bg-gray-100 rounded-full"
+            className="p-2 -ml-2 text-[var(--text-secondary)] active:bg-[var(--border)] rounded-full"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -89,15 +89,15 @@ export default function CalculadoraPisoPage() {
           
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">{nombreM1}</span>
+              <span className="text-[var(--text-secondary)]">{nombreM1}</span>
               <span className="tabular-nums font-medium">{formatMoney(patrimonioM1)}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">{nombreM2}</span>
+              <span className="text-[var(--text-secondary)]">{nombreM2}</span>
               <span className="tabular-nums font-medium">{formatMoney(patrimonioM2)}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Cuenta Conjunta</span>
+              <span className="text-[var(--text-secondary)]">Cuenta Conjunta</span>
               <span className="tabular-nums font-medium">{formatMoney(patrimonioConjunta)}</span>
             </div>
             <div className="flex justify-between pt-2 border-t border-gray-100 dark:border-gray-800">
@@ -124,7 +124,7 @@ export default function CalculadoraPisoPage() {
           <div className="space-y-4">
             {/* Precio vivienda */}
             <div>
-              <label className="text-sm text-gray-500 mb-1 block">
+              <label className="text-sm text-[var(--text-secondary)] mb-1 block">
                 Precio vivienda
               </label>
               <NumericInput
@@ -137,17 +137,17 @@ export default function CalculadoraPisoPage() {
             
             {/* Tipo vivienda */}
             <div>
-              <label className="text-sm text-gray-500 mb-2 block">
+              <label className="text-sm text-[var(--text-secondary)] mb-2 block">
                 Tipo de vivienda
               </label>
-              <div className="flex bg-gray-200/70 dark:bg-gray-800 rounded-lg p-[2px]">
+              <div className="flex bg-[var(--border)] rounded-lg p-[2px]">
                 <button
                   onClick={() => updateConfig({ tipo_vivienda: 'obra_nueva' })}
                   className={cn(
                     'flex-1 py-2.5 text-sm font-medium rounded-lg transition-all',
                     config.tipo_vivienda === 'obra_nueva'
-                      ? 'bg-white dark:bg-gray-700 shadow-sm'
-                      : 'text-gray-500 dark:text-gray-400'
+                      ? 'bg-surface text-primary shadow-sm'
+                      : 'text-[var(--text-secondary)]'
                   )}
                 >
                   Obra Nueva
@@ -157,8 +157,8 @@ export default function CalculadoraPisoPage() {
                   className={cn(
                     'flex-1 py-2.5 text-sm font-medium rounded-lg transition-all',
                     config.tipo_vivienda === 'segunda_mano'
-                      ? 'bg-white dark:bg-gray-700 shadow-sm'
-                      : 'text-gray-500 dark:text-gray-400'
+                      ? 'bg-surface text-primary shadow-sm'
+                      : 'text-[var(--text-secondary)]'
                   )}
                 >
                   2ª Mano
@@ -171,7 +171,7 @@ export default function CalculadoraPisoPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <span className="text-sm font-medium">¿Menor de 35 años?</span>
-                  <p className="text-xs text-gray-500">ITP reducido al 6% en Valencia</p>
+                  <p className="text-xs text-[var(--text-secondary)]">ITP reducido al 6% en Valencia</p>
                 </div>
                 <button
                   onClick={() => updateConfig({ es_menor_35: !config.es_menor_35 })}
@@ -182,7 +182,7 @@ export default function CalculadoraPisoPage() {
                 >
                   <span
                     className={cn(
-                      'absolute top-0.5 w-6 h-6 rounded-full bg-white shadow transition-transform',
+                      'absolute top-0.5 w-6 h-6 rounded-full bg-surface shadow transition-transform',
                       config.es_menor_35 ? 'translate-x-5' : 'translate-x-0.5'
                     )}
                   />
@@ -192,7 +192,7 @@ export default function CalculadoraPisoPage() {
             
             {/* % Financiación */}
             <div>
-              <label className="text-sm text-gray-500 mb-2 block">
+              <label className="text-sm text-[var(--text-secondary)] mb-2 block">
                 Financiación: <span className="font-semibold text-foreground">{config.porcentaje_financiacion}%</span>
               </label>
               <input
@@ -202,9 +202,9 @@ export default function CalculadoraPisoPage() {
                 step={5}
                 value={config.porcentaje_financiacion}
                 onChange={(e) => updateConfig({ porcentaje_financiacion: Number(e.target.value) })}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-accent"
+                className="w-full h-2 bg-[var(--border)] rounded-lg appearance-none cursor-pointer dark:bg-surface accent-accent"
               />
-              <div className="flex justify-between text-xs text-gray-400 mt-1">
+              <div className="flex justify-between text-xs text-[var(--text-muted)] mt-1">
                 <span>50%</span>
                 <span>100%</span>
               </div>
@@ -226,17 +226,17 @@ export default function CalculadoraPisoPage() {
             {config.tipo_vivienda === 'obra_nueva' ? (
               <>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">IVA (10%)</span>
+                  <span className="text-[var(--text-secondary)]">IVA (10%)</span>
                   <span className="tabular-nums">{formatMoney(calculo.impuesto_iva)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">AJD (1,5%)</span>
+                  <span className="text-[var(--text-secondary)]">AJD (1,5%)</span>
                   <span className="tabular-nums">{formatMoney(calculo.impuesto_ajd)}</span>
                 </div>
               </>
             ) : (
               <div className="flex justify-between text-sm">
-                <span className="text-gray-500">
+                <span className="text-[var(--text-secondary)]">
                   ITP ({config.es_menor_35 ? '6%' : '10%'})
                 </span>
                 <span className="tabular-nums">{formatMoney(calculo.impuesto_itp)}</span>
@@ -244,12 +244,12 @@ export default function CalculadoraPisoPage() {
             )}
             
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Notaría + Registro + Gestoría</span>
+              <span className="text-[var(--text-secondary)]">Notaría + Registro + Gestoría</span>
               <span className="tabular-nums">{formatMoney(calculo.gastos_notaria)}</span>
             </div>
             
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Tasación</span>
+              <span className="text-[var(--text-secondary)]">Tasación</span>
               <span className="tabular-nums">{formatMoney(calculo.gastos_tasacion)}</span>
             </div>
             
@@ -274,7 +274,7 @@ export default function CalculadoraPisoPage() {
           <div className="space-y-4">
             {/* Importe hipoteca (calculado) */}
             <div className="flex justify-between">
-              <span className="text-gray-500">Importe hipoteca</span>
+              <span className="text-[var(--text-secondary)]">Importe hipoteca</span>
               <span className="tabular-nums font-medium">{formatMoney(calculo.importe_hipoteca)}</span>
             </div>
             
@@ -286,7 +286,7 @@ export default function CalculadoraPisoPage() {
             
             {/* TIN Anual */}
             <div>
-              <label className="text-sm text-gray-500 mb-1 block">
+              <label className="text-sm text-[var(--text-secondary)] mb-1 block">
                 TIN Anual (%)
               </label>
               <div className="flex items-center gap-2">
@@ -297,15 +297,15 @@ export default function CalculadoraPisoPage() {
                   max="15"
                   value={config.tin_anual}
                   onChange={(e) => updateConfig({ tin_anual: parseFloat(e.target.value) || 0 })}
-                  className="flex-1 h-11 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-surface focus:outline-none focus:ring-2 focus:ring-accent/50"
+                  className="flex-1 h-11 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-surface dark:bg-surface focus:outline-none focus:ring-2 focus:ring-accent/50"
                 />
-                <span className="text-gray-400">%</span>
+                <span className="text-[var(--text-muted)]">%</span>
               </div>
             </div>
             
             {/* Plazo años */}
             <div>
-              <label className="text-sm text-gray-500 mb-2 block">
+              <label className="text-sm text-[var(--text-secondary)] mb-2 block">
                 Plazo: <span className="font-semibold text-foreground">{config.plazo_años} años</span>
               </label>
               <input
@@ -315,9 +315,9 @@ export default function CalculadoraPisoPage() {
                 step={1}
                 value={config.plazo_años}
                 onChange={(e) => updateConfig({ plazo_años: Number(e.target.value) })}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-accent"
+                className="w-full h-2 bg-[var(--border)] rounded-lg appearance-none cursor-pointer dark:bg-surface accent-accent"
               />
-              <div className="flex justify-between text-xs text-gray-400 mt-1">
+              <div className="flex justify-between text-xs text-[var(--text-muted)] mt-1">
                 <span>10 años</span>
                 <span>40 años</span>
               </div>
@@ -335,7 +335,7 @@ export default function CalculadoraPisoPage() {
             
             {/* Ingresos netos */}
             <div>
-              <label className="text-sm text-gray-500 mb-1 block">
+              <label className="text-sm text-[var(--text-secondary)] mb-1 block">
                 Ingresos netos/mes (pareja)
               </label>
               <NumericInput
@@ -366,7 +366,7 @@ export default function CalculadoraPisoPage() {
                     )}
                     <div>
                       <span className="font-medium">Ratio endeudamiento</span>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-[var(--text-secondary)]">
                         {calculo.estado_ratio === 'ok' && '≤30% - OK'}
                         {calculo.estado_ratio === 'ajustado' && '30-35% - Ajustado'}
                         {calculo.estado_ratio === 'riesgo' && '>35% - Riesgo'}
@@ -398,18 +398,18 @@ export default function CalculadoraPisoPage() {
           
           <div className="space-y-3">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Entrada</span>
+              <span className="text-[var(--text-secondary)]">Entrada</span>
               <span className="tabular-nums">{formatMoney(calculo.entrada)}</span>
             </div>
             
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Gastos de compra</span>
+              <span className="text-[var(--text-secondary)]">Gastos de compra</span>
               <span className="tabular-nums">{formatMoney(calculo.total_gastos_compra)}</span>
             </div>
             
             {/* Muebles/Reformas (input) */}
             <div>
-              <label className="text-sm text-gray-500 mb-1 block">
+              <label className="text-sm text-[var(--text-secondary)] mb-1 block">
                 Muebles / Reformas
               </label>
               <NumericInput
@@ -421,7 +421,7 @@ export default function CalculadoraPisoPage() {
             
             {/* Colchón emergencia (input) */}
             <div>
-              <label className="text-sm text-gray-500 mb-1 block">
+              <label className="text-sm text-[var(--text-secondary)] mb-1 block">
                 Colchón de emergencia
               </label>
               <NumericInput
@@ -438,7 +438,7 @@ export default function CalculadoraPisoPage() {
               </div>
               
               <div className="flex justify-between">
-                <span className="text-gray-500">Disponible</span>
+                <span className="text-[var(--text-secondary)]">Disponible</span>
                 <span className="tabular-nums text-positive">{formatMoney(calculo.disponible)}</span>
               </div>
               
@@ -463,13 +463,13 @@ export default function CalculadoraPisoPage() {
             {/* Barra de progreso */}
             {calculo.total_necesario > 0 && (
               <div className="pt-2">
-                <div className="flex justify-between text-xs text-gray-500 mb-1">
+                <div className="flex justify-between text-xs text-[var(--text-secondary)] mb-1">
                   <span>Progreso</span>
                   <span>
                     {Math.min(100, Math.round((calculo.disponible / calculo.total_necesario) * 100))}%
                   </span>
                 </div>
-                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div className="h-3 bg-[var(--border)] dark:bg-surface rounded-full overflow-hidden">
                   <div 
                     className={cn(
                       'h-full rounded-full transition-all',
@@ -500,7 +500,7 @@ export default function CalculadoraPisoPage() {
             <div className="space-y-4">
               {/* Ahorro mensual estimado */}
               <div>
-                <label className="text-sm text-gray-500 mb-1 block">
+                <label className="text-sm text-[var(--text-secondary)] mb-1 block">
                   Ahorro mensual estimado
                 </label>
                 <NumericInput
@@ -513,7 +513,7 @@ export default function CalculadoraPisoPage() {
               {config.ahorro_mensual_estimado > 0 && (
                 <>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Meses necesarios</span>
+                    <span className="text-[var(--text-secondary)]">Meses necesarios</span>
                     <span className="font-semibold tabular-nums">
                       {calculo.meses_necesarios} meses
                     </span>
@@ -521,7 +521,7 @@ export default function CalculadoraPisoPage() {
                   
                   {calculo.fecha_estimada && (
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Fecha estimada</span>
+                      <span className="text-[var(--text-secondary)]">Fecha estimada</span>
                       <span className="font-semibold">
                         {new Date(calculo.fecha_estimada).toLocaleDateString('es-ES', {
                           month: 'long',

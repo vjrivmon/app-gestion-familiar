@@ -130,7 +130,7 @@ export default function CameraPage() {
           <button 
             onClick={capture}
             disabled={capturing}
-            className="w-[72px] h-[72px] rounded-full border-4 border-white bg-white/20 active:bg-white/40 transition-colors flex items-center justify-center disabled:opacity-50"
+            className="w-[72px] h-[72px] rounded-full border-4 border-white bg-surface/20 active:bg-surface/40 transition-colors flex items-center justify-center disabled:opacity-50"
           >
             {capturing && <Loader2 className="w-8 h-8 text-white animate-spin" />}
           </button>

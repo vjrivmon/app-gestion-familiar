@@ -47,14 +47,14 @@ export function ResumenMesCard({ mes, año, nombreMes, className }: ResumenMesCa
       
       {loading ? (
         <div className="flex items-center justify-center py-4">
-          <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+          <Loader2 className="w-6 h-6 animate-spin text-[var(--text-muted)]" />
         </div>
       ) : (
         <>
           {/* Ingresos vs Gastos */}
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
-              <div className="flex items-center gap-1 text-gray-500 text-xs mb-1">
+              <div className="flex items-center gap-1 text-[var(--text-secondary)] text-xs mb-1">
                 <TrendingUp className="w-3.5 h-3.5 text-positive" />
                 Ingresos
               </div>
@@ -63,7 +63,7 @@ export function ResumenMesCard({ mes, año, nombreMes, className }: ResumenMesCa
               </p>
             </div>
             <div>
-              <div className="flex items-center gap-1 text-gray-500 text-xs mb-1">
+              <div className="flex items-center gap-1 text-[var(--text-secondary)] text-xs mb-1">
                 <TrendingDown className="w-3.5 h-3.5 text-negative" />
                 Gastos
               </div>
@@ -80,7 +80,7 @@ export function ResumenMesCard({ mes, año, nombreMes, className }: ResumenMesCa
               ? 'bg-positive/10' 
               : 'bg-negative/10'
           )}>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-0.5">
+            <p className="text-sm text-[var(--text-secondary)] dark:text-[var(--text-muted)] mb-0.5">
               {esPositivo ? 'Ahorrado este mes' : 'Pérdida este mes'}
             </p>
             <p className={cn(
@@ -94,7 +94,7 @@ export function ResumenMesCard({ mes, año, nombreMes, className }: ResumenMesCa
           {/* Desglose por persona (mini) */}
           <div className="flex gap-4 text-sm">
             <div className="flex-1">
-              <span className="text-gray-500">{nombreM1}:</span>
+              <span className="text-[var(--text-secondary)]">{nombreM1}:</span>
               <span className={cn(
                 'ml-1 font-medium',
                 balanceM1 >= 0 ? 'text-positive' : 'text-negative'
@@ -103,7 +103,7 @@ export function ResumenMesCard({ mes, año, nombreMes, className }: ResumenMesCa
               </span>
             </div>
             <div className="flex-1">
-              <span className="text-gray-500">{nombreM2}:</span>
+              <span className="text-[var(--text-secondary)]">{nombreM2}:</span>
               <span className={cn(
                 'ml-1 font-medium',
                 balanceM2 >= 0 ? 'text-positive' : 'text-negative'

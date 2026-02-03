@@ -19,15 +19,15 @@ export function GroupedList({ children, title, footer, className }: GroupedListP
   return (
     <div className={cn('space-y-1', className)}>
       {title && (
-        <h3 className="px-4 pb-1 text-[13px] text-gray-500 uppercase tracking-wide">
+        <h3 className="px-4 pb-1 text-[13px] text-[var(--text-secondary)] uppercase tracking-wide">
           {title}
         </h3>
       )}
-      <div className="bg-white dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
+      <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
         {children}
       </div>
       {footer && (
-        <p className="px-4 pt-1 text-[13px] text-gray-500">
+        <p className="px-4 pt-1 text-[13px] text-[var(--text-secondary)]">
           {footer}
         </p>
       )}
@@ -72,7 +72,7 @@ export function GroupedListItem({
         'text-left text-[17px]',
         // Clickable styles
         isClickable && [
-          'active:bg-gray-100 dark:active:bg-gray-800',
+          'active:bg-[var(--border)] dark:active:bg-gray-800',
           'transition-colors duration-75'
         ],
         // Destructive
@@ -89,7 +89,7 @@ export function GroupedListItem({
         {children}
       </span>
       {rightContent && (
-        <span className="flex-shrink-0 text-gray-400">
+        <span className="flex-shrink-0 text-[var(--text-muted)]">
           {rightContent}
         </span>
       )}
@@ -127,7 +127,7 @@ export function GroupedListCell({
       showChevron={showChevron}
       leftIcon={leftIcon}
       rightContent={value ? (
-        <span className="text-gray-500 text-[17px]">{value}</span>
+        <span className="text-[var(--text-secondary)] text-[17px]">{value}</span>
       ) : undefined}
       className={className}
     >
@@ -173,7 +173,7 @@ export function GroupedListToggle({
           <span
             className={cn(
               'absolute top-[2px] left-[2px] w-[27px] h-[27px]',
-              'bg-white rounded-full shadow-sm',
+              'bg-surface rounded-full shadow-sm',
               'transition-transform duration-200',
               checked && 'translate-x-[20px]'
             )}

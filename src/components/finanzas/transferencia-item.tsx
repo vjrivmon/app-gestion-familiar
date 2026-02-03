@@ -48,8 +48,8 @@ export function TransferenciaItem({
       )}
     >
       {/* Icono */}
-      <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center shrink-0">
-        <ArrowRight className="w-5 h-5 text-gray-500" />
+      <div className="w-10 h-10 rounded-full bg-[var(--border)] dark:bg-surface-elevated flex items-center justify-center shrink-0">
+        <ArrowRight className="w-5 h-5 text-[var(--text-secondary)]" />
       </div>
       
       {/* Info */}
@@ -57,12 +57,12 @@ export function TransferenciaItem({
         {/* Línea principal: Origen → Destino */}
         <div className="flex items-center gap-1 font-medium text-base">
           <span className={getColor(de)}>{NOMBRES[de]}</span>
-          <ArrowRight className="w-4 h-4 text-gray-400" />
+          <ArrowRight className="w-4 h-4 text-[var(--text-muted)]" />
           <span className={getColor(a)}>{NOMBRES[a]}</span>
         </div>
         
         {/* Subtítulo: Concepto y fecha */}
-        <p className="text-sm text-gray-500 truncate">
+        <p className="text-sm text-[var(--text-secondary)] truncate">
           {concepto} • {fechaFormateada}
         </p>
       </div>
@@ -102,10 +102,10 @@ export function TransferenciaItemCompact({
     )}>
       <div className="flex items-center gap-1 text-sm">
         <span className="font-medium">{NOMBRES[de]}</span>
-        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+        <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)]" />
         <span className="font-medium">{NOMBRES[a]}</span>
         {fecha && (
-          <span className="text-gray-400 ml-1">
+          <span className="text-[var(--text-muted)] ml-1">
             • {new Date(fecha).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}
           </span>
         )}

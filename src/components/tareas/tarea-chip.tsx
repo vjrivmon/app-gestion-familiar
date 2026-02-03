@@ -131,7 +131,7 @@ export function TareaChip({ tarea, onComplete, onViewDetail }: TareaChipProps) {
       {completed ? (
         <Check className="w-6 h-6 text-white" />
       ) : completing ? (
-        <Loader2 className="w-6 h-6 animate-spin text-gray-500" />
+        <Loader2 className="w-6 h-6 animate-spin text-[var(--text-secondary)]" />
       ) : (
         <span className="text-2xl">{tarea.icono}</span>
       )}

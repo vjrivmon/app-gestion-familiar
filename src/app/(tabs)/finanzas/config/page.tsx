@@ -72,9 +72,9 @@ export default function ConfigSaldosPage() {
   }
   
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-black">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white dark:bg-surface shadow-sm sticky top-0 z-10">
+      <div className="bg-surface dark:bg-surface shadow-sm sticky top-0 z-10">
         <div className="flex items-center justify-between px-4 h-14">
           {/* Back button */}
           <button
@@ -95,7 +95,7 @@ export default function ConfigSaldosPage() {
             className={cn(
               'flex items-center gap-1 px-3 py-1.5 rounded-lg font-semibold text-sm',
               saving || saved
-                ? 'bg-gray-200 text-gray-400'
+                ? 'bg-[var(--border)] text-[var(--text-muted)]'
                 : 'bg-accent text-white active:bg-accent/80'
             )}
           >
@@ -125,7 +125,7 @@ export default function ConfigSaldosPage() {
       ) : (
         <div className="p-4 space-y-6">
           {/* Instrucciones */}
-          <div className="text-sm text-gray-500 px-1">
+          <div className="text-sm text-[var(--text-secondary)] px-1">
             Introduce los saldos que tenéis a día de hoy. Esto sirve como punto de partida para calcular el patrimonio.
           </div>
           
@@ -138,7 +138,7 @@ export default function ConfigSaldosPage() {
                 value={fecha}
                 onChange={(e) => setFecha(e.target.value)}
                 className={cn(
-                  'bg-transparent text-gray-500 text-[17px]',
+                  'bg-transparent text-[var(--text-secondary)] text-[17px]',
                   'focus:outline-none'
                 )}
               />
@@ -148,7 +148,7 @@ export default function ConfigSaldosPage() {
           {/* Saldos de Vicente */}
           <GroupedList title={nombreM1}>
             <div className="px-4 py-3">
-              <label className="block text-sm text-gray-500 mb-2">
+              <label className="block text-sm text-[var(--text-secondary)] mb-2">
                 Efectivo (físico)
               </label>
               <NumericInput
@@ -158,7 +158,7 @@ export default function ConfigSaldosPage() {
               />
             </div>
             <div className="px-4 py-3">
-              <label className="block text-sm text-gray-500 mb-2">
+              <label className="block text-sm text-[var(--text-secondary)] mb-2">
                 Digital (cuenta bancaria)
               </label>
               <NumericInput
@@ -172,7 +172,7 @@ export default function ConfigSaldosPage() {
           {/* Saldos de Irene */}
           <GroupedList title={nombreM2}>
             <div className="px-4 py-3">
-              <label className="block text-sm text-gray-500 mb-2">
+              <label className="block text-sm text-[var(--text-secondary)] mb-2">
                 Efectivo (físico)
               </label>
               <NumericInput
@@ -182,7 +182,7 @@ export default function ConfigSaldosPage() {
               />
             </div>
             <div className="px-4 py-3">
-              <label className="block text-sm text-gray-500 mb-2">
+              <label className="block text-sm text-[var(--text-secondary)] mb-2">
                 Digital (cuenta bancaria)
               </label>
               <NumericInput
@@ -196,7 +196,7 @@ export default function ConfigSaldosPage() {
           {/* Saldos Conjunta */}
           <GroupedList title="Cuenta Conjunta">
             <div className="px-4 py-3">
-              <label className="block text-sm text-gray-500 mb-2">
+              <label className="block text-sm text-[var(--text-secondary)] mb-2">
                 Efectivo (físico)
               </label>
               <NumericInput
@@ -206,7 +206,7 @@ export default function ConfigSaldosPage() {
               />
             </div>
             <div className="px-4 py-3">
-              <label className="block text-sm text-gray-500 mb-2">
+              <label className="block text-sm text-[var(--text-secondary)] mb-2">
                 Digital (cuenta conjunta)
               </label>
               <NumericInput
@@ -218,7 +218,7 @@ export default function ConfigSaldosPage() {
           </GroupedList>
           
           {/* Nota */}
-          <div className="text-xs text-gray-400 px-1">
+          <div className="text-xs text-[var(--text-muted)] px-1">
             Estos saldos se usan como punto de partida. A partir de esta fecha, 
             el patrimonio se calcula sumando ingresos y restando gastos.
           </div>

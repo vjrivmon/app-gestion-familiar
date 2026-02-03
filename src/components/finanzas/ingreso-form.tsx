@@ -121,7 +121,7 @@ export function IngresoForm({ open, onClose, ingreso, onSave }: IngresoFormProps
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-40" />
         <Drawer.Content className={cn(
           'fixed bottom-0 left-0 right-0 z-50',
-          'bg-gray-100 dark:bg-black',
+          'bg-background',
           'rounded-t-[12px]',
           'h-[95vh] max-h-[95vh]',
           'flex flex-col',
@@ -138,7 +138,7 @@ export function IngresoForm({ open, onClose, ingreso, onSave }: IngresoFormProps
               onClick={onClose}
               className="w-10 h-10 -ml-2 flex items-center justify-center"
             >
-              <X className="w-6 h-6 text-gray-500" />
+              <X className="w-6 h-6 text-[var(--text-secondary)]" />
             </button>
             
             <h2 className="text-lg font-semibold">
@@ -153,7 +153,7 @@ export function IngresoForm({ open, onClose, ingreso, onSave }: IngresoFormProps
                 'transition-colors duration-150',
                 isValid && !saving
                   ? 'text-white bg-accent active:bg-accent/80'
-                  : 'text-gray-400 bg-gray-200 cursor-not-allowed'
+                  : 'text-[var(--text-muted)] bg-[var(--border)] cursor-not-allowed'
               )}
             >
               {saving ? 'Guardando...' : 'Guardar'}
@@ -163,8 +163,8 @@ export function IngresoForm({ open, onClose, ingreso, onSave }: IngresoFormProps
           {/* Scrollable content */}
           <div className="flex-1 overflow-y-auto">
             {/* Importe destacado */}
-            <div className="bg-white dark:bg-surface px-4 py-6 mb-4">
-              <label className="block text-sm text-gray-500 mb-2 text-center">
+            <div className="bg-surface dark:bg-surface px-4 py-6 mb-4">
+              <label className="block text-sm text-[var(--text-secondary)] mb-2 text-center">
                 Importe
               </label>
               <div className="flex justify-center">
@@ -194,7 +194,7 @@ export function IngresoForm({ open, onClose, ingreso, onSave }: IngresoFormProps
                   placeholder="Concepto"
                   className={cn(
                     'w-full bg-transparent text-[17px]',
-                    'placeholder:text-gray-400',
+                    'placeholder:text-[var(--text-muted)]',
                     'focus:outline-none'
                   )}
                 />
@@ -214,7 +214,7 @@ export function IngresoForm({ open, onClose, ingreso, onSave }: IngresoFormProps
               
               {/* Destinatario */}
               <div className="px-4 py-3">
-                <label className="block text-sm text-gray-500 mb-2">
+                <label className="block text-sm text-[var(--text-secondary)] mb-2">
                   Destinatario
                 </label>
                 <PersonaPicker
@@ -256,7 +256,7 @@ export function IngresoForm({ open, onClose, ingreso, onSave }: IngresoFormProps
                   value={fecha}
                   onChange={(e) => setFecha(e.target.value)}
                   className={cn(
-                    'bg-transparent text-gray-500 text-[17px]',
+                    'bg-transparent text-[var(--text-secondary)] text-[17px]',
                     'focus:outline-none'
                   )}
                 />
@@ -270,7 +270,7 @@ export function IngresoForm({ open, onClose, ingreso, onSave }: IngresoFormProps
                   rows={2}
                   className={cn(
                     'w-full bg-transparent text-[17px]',
-                    'placeholder:text-gray-400',
+                    'placeholder:text-[var(--text-muted)]',
                     'focus:outline-none resize-none'
                   )}
                 />
@@ -295,7 +295,7 @@ interface SegmentedControlProps<T> {
 
 function SegmentedControl<T>({ options, value, onChange }: SegmentedControlProps<T>) {
   return (
-    <div className="flex bg-gray-200/70 dark:bg-gray-800 rounded-lg p-[3px]">
+    <div className="flex bg-[var(--border)] rounded-lg p-[3px]">
       {options.map((option) => (
         <button
           key={String(option.value)}
@@ -305,8 +305,8 @@ function SegmentedControl<T>({ options, value, onChange }: SegmentedControlProps
             'flex-1 py-2 px-3 rounded-md text-sm font-medium',
             'transition-all duration-150',
             value === option.value
-              ? 'bg-white dark:bg-gray-700 shadow-sm'
-              : 'text-gray-600 dark:text-gray-400'
+              ? 'bg-surface text-primary shadow-sm'
+              : 'text-[var(--text-secondary)] dark:text-[var(--text-muted)]'
           )}
         >
           {option.emoji && <span className="mr-1">{option.emoji}</span>}

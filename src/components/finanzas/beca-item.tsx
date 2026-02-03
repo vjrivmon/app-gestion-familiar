@@ -96,7 +96,7 @@ export function BecaItem({ beca, onEdit, onDelete, onCobrar }: BecaItemProps) {
         {...handlers}
         onClick={handleClick}
         className={cn(
-          'relative bg-white dark:bg-surface',
+          'relative bg-surface dark:bg-surface',
           'flex items-center gap-3 px-4 min-h-[72px] py-3',
           'active:bg-gray-50 dark:active:bg-gray-800',
           'transition-all duration-200',
@@ -127,14 +127,14 @@ export function BecaItem({ beca, onEdit, onDelete, onCobrar }: BecaItemProps) {
             
             {/* Pagos */}
             {beca.num_pagos > 1 && (
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-[var(--text-secondary)]">
                 {beca.num_pagos} pagos
               </span>
             )}
             
             {/* Fecha de cobro */}
             {fechaCobroFormateada && (
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-[var(--text-secondary)]">
                 Cobrada {fechaCobroFormateada}
               </span>
             )}
@@ -176,13 +176,13 @@ export function BecaItem({ beca, onEdit, onDelete, onCobrar }: BecaItemProps) {
  */
 export function BecaItemSkeleton() {
   return (
-    <div className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-surface animate-pulse">
-      <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700" />
+    <div className="flex items-center gap-3 px-4 py-3 bg-surface dark:bg-surface animate-pulse">
+      <div className="w-10 h-10 rounded-full bg-[var(--border)] dark:bg-surface" />
       <div className="flex-1">
-        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3 mb-2" />
-        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
+        <div className="h-4 bg-[var(--border)] dark:bg-surface rounded w-2/3 mb-2" />
+        <div className="h-3 bg-[var(--border)] dark:bg-surface rounded w-1/3" />
       </div>
-      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16" />
+      <div className="h-4 bg-[var(--border)] dark:bg-surface rounded w-16" />
     </div>
   )
 }

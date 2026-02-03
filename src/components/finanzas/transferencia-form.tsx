@@ -81,7 +81,7 @@ export function TransferenciaForm({
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-40" />
         <Drawer.Content className={cn(
           'fixed bottom-0 left-0 right-0 z-50',
-          'bg-gray-100 dark:bg-black',
+          'bg-background',
           'rounded-t-[12px]',
           'max-h-[90vh]',
           'flex flex-col',
@@ -98,7 +98,7 @@ export function TransferenciaForm({
               onClick={onClose}
               className="w-10 h-10 -ml-2 flex items-center justify-center"
             >
-              <X className="w-6 h-6 text-gray-500" />
+              <X className="w-6 h-6 text-[var(--text-secondary)]" />
             </button>
             
             <h2 className="text-lg font-semibold">Nueva Transferencia</h2>
@@ -111,7 +111,7 @@ export function TransferenciaForm({
                 'transition-colors duration-150',
                 isValid && !saving
                   ? 'text-white bg-accent active:bg-accent/80'
-                  : 'text-gray-400 bg-gray-200 cursor-not-allowed'
+                  : 'text-[var(--text-muted)] bg-[var(--border)] cursor-not-allowed'
               )}
             >
               {saving ? (
@@ -143,7 +143,7 @@ export function TransferenciaForm({
                 <p className="font-medium text-sm">{NOMBRES[de]}</p>
               </div>
               
-              <ArrowRight className="w-6 h-6 text-gray-400" />
+              <ArrowRight className="w-6 h-6 text-[var(--text-muted)]" />
               
               <div className="text-center">
                 <div className={cn(
@@ -214,16 +214,16 @@ export function TransferenciaForm({
                 placeholder="Transferencia"
                 className={cn(
                   'w-full px-4 py-3 rounded-lg',
-                  'bg-white dark:bg-gray-800',
+                  'bg-surface dark:bg-surface-elevated',
                   'border border-gray-200 dark:border-gray-700',
-                  'text-base placeholder:text-gray-400',
+                  'text-base placeholder:text-[var(--text-muted)]',
                   'focus:outline-none focus:ring-2 focus:ring-accent/50'
                 )}
               />
             </div>
             
             {/* Nota explicativa */}
-            <div className="text-xs text-gray-400 text-center">
+            <div className="text-xs text-[var(--text-muted)] text-center">
               Esta transferencia creará un gasto en {NOMBRES[de]} y un ingreso en {NOMBRES[a]}
             </div>
             

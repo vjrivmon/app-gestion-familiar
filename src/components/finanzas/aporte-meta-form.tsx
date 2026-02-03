@@ -66,7 +66,7 @@ export function AporteMetaForm({ open, onClose, meta, onAportar }: AporteMetaFor
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-40" />
         <Drawer.Content className={cn(
           'fixed bottom-0 left-0 right-0 z-50',
-          'bg-gray-100 dark:bg-black',
+          'bg-background',
           'rounded-t-[12px]',
           'max-h-[70vh]',
           'flex flex-col',
@@ -83,7 +83,7 @@ export function AporteMetaForm({ open, onClose, meta, onAportar }: AporteMetaFor
               onClick={onClose}
               className="w-10 h-10 -ml-2 flex items-center justify-center"
             >
-              <X className="w-6 h-6 text-gray-500" />
+              <X className="w-6 h-6 text-[var(--text-secondary)]" />
             </button>
             
             <h2 className="text-lg font-semibold">
@@ -98,7 +98,7 @@ export function AporteMetaForm({ open, onClose, meta, onAportar }: AporteMetaFor
                 'transition-colors duration-150',
                 isValid && !saving
                   ? 'text-white bg-accent active:bg-accent/80'
-                  : 'text-gray-400 bg-gray-200 cursor-not-allowed'
+                  : 'text-[var(--text-muted)] bg-[var(--border)] cursor-not-allowed'
               )}
             >
               {saving ? 'Guardando...' : 'Aportar'}
@@ -108,8 +108,8 @@ export function AporteMetaForm({ open, onClose, meta, onAportar }: AporteMetaFor
           {/* Content */}
           <div className="flex-1 overflow-y-auto px-4 pb-4">
             {/* Input de cantidad */}
-            <div className="bg-white dark:bg-surface rounded-xl p-4 mb-4">
-              <label className="block text-sm text-gray-500 mb-2 text-center">
+            <div className="bg-surface dark:bg-surface rounded-xl p-4 mb-4">
+              <label className="block text-sm text-[var(--text-secondary)] mb-2 text-center">
                 Cantidad a aportar
               </label>
               <NumericInput
@@ -130,7 +130,7 @@ export function AporteMetaForm({ open, onClose, meta, onAportar }: AporteMetaFor
                     className={cn(
                       'px-3 py-1.5 rounded-full text-sm font-medium',
                       'border border-gray-200 dark:border-gray-700',
-                      'active:bg-gray-100 dark:active:bg-gray-800',
+                      'active:bg-[var(--border)] dark:active:bg-gray-800',
                       cantidad === atajo && 'bg-accent/10 border-accent text-accent'
                     )}
                   >
@@ -143,7 +143,7 @@ export function AporteMetaForm({ open, onClose, meta, onAportar }: AporteMetaFor
             {/* Preview del progreso */}
             {cantidad > 0 && (
               <div 
-                className="bg-white dark:bg-surface rounded-xl p-4 border-l-4"
+                className="bg-surface dark:bg-surface rounded-xl p-4 border-l-4"
                 style={{ borderLeftColor: meta.color }}
               >
                 <div className="flex items-center gap-2 mb-3">
@@ -152,7 +152,7 @@ export function AporteMetaForm({ open, onClose, meta, onAportar }: AporteMetaFor
                 </div>
                 
                 {/* Barra de progreso comparativa */}
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-3 relative">
+                <div className="h-4 bg-[var(--border)] dark:bg-surface rounded-full overflow-hidden mb-3 relative">
                   {/* Progreso actual (más oscuro) */}
                   <div 
                     className="absolute h-full rounded-full opacity-50"
@@ -174,12 +174,12 @@ export function AporteMetaForm({ open, onClose, meta, onAportar }: AporteMetaFor
                 {/* Números */}
                 <div className="flex justify-between text-sm">
                   <span>
-                    <span className="text-gray-500">{formatMoney(meta.actual)}</span>
+                    <span className="text-[var(--text-secondary)]">{formatMoney(meta.actual)}</span>
                     {' → '}
                     <span className="font-semibold">{formatMoney(nuevoTotal)}</span>
                   </span>
                   <span>
-                    <span className="text-gray-500">{progresoActual}%</span>
+                    <span className="text-[var(--text-secondary)]">{progresoActual}%</span>
                     {' → '}
                     <span className="font-semibold" style={{ color: meta.color }}>
                       {nuevoProgreso}%
