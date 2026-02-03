@@ -31,7 +31,7 @@ export function BottomNav() {
               key={href} 
               href={href}
               className={`flex-1 flex flex-col items-center justify-center gap-0.5 transition-colors
-                ${active ? 'text-accent' : 'text-[var(--text-muted)]'}`}
+                ${active ? 'text-primary' : 'text-[var(--text-muted)]'}`}
             >
               <Icon size={24} strokeWidth={active ? 2.5 : 1.5} />
               <span className="text-[10px] font-medium">{label}</span>

@@ -1,12 +1,12 @@
 {
-  "name": "App de Pus",
-  "short_name": "AppDePus",
-  "description": "Compra inteligente, menú semanal y finanzas de pareja",
+  "name": "Hogar",
+  "short_name": "Hogar",
+  "description": "Gestión familiar: finanzas, compra y menú semanal",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#F2F2F7",
-  "theme_color": "#F2F2F7",
+  "background_color": "#FFFBEB",
+  "theme_color": "#F97316",
   "icons": [
     {
       "src": "/icons/icon-192.png",

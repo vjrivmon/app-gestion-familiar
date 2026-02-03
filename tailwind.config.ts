@@ -10,17 +10,39 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Primary - Coral naranja
+        primary: 'var(--primary)',
+        'primary-light': 'var(--primary-light)',
+        'primary-dark': 'var(--primary-dark)',
+        
+        // Semantic
+        positive: 'var(--positive)',
+        'positive-light': 'var(--positive-light)',
+        negative: 'var(--negative)',
+        'negative-light': 'var(--negative-light)',
+        warning: 'var(--warning)',
+        'warning-light': 'var(--warning-light)',
+        
+        // Surfaces
         background: 'var(--background)',
         surface: 'var(--surface)',
+        'surface-elevated': 'var(--surface-elevated)',
+        
+        // Text
+        'text-primary': 'var(--text-primary)',
+        'text-secondary': 'var(--text-secondary)',
+        muted: 'var(--text-muted)',
+        
+        // Borders
+        border: 'var(--border)',
+        separator: 'var(--separator)',
+        
+        // Legacy (compatibilidad)
         accent: 'var(--accent)',
         'accent-light': 'var(--accent-light)',
-        positive: 'var(--positive)',
-        negative: 'var(--negative)',
-        warning: 'var(--warning)',
-        muted: 'var(--text-muted)',
       },
       fontFamily: {
-        sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['var(--font-jakarta)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
       },
       spacing: {
         'safe-top': 'env(safe-area-inset-top)',
@@ -33,6 +55,10 @@ const config: Config = {
       },
       padding: {
         'tab-bar': 'calc(49px + env(safe-area-inset-bottom))',
+      },
+      borderRadius: {
+        'ios': '12px',
+        'ios-lg': '16px',
       },
     },
   },

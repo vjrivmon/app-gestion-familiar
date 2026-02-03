@@ -13,30 +13,77 @@
     /* Tab bar */
     --tab-bar-height: calc(49px + var(--sab));
     
-    /* Colors - Light */
-    --background: #F2F2F7;
-    --surface: #FFFFFF;
-    --accent: #7D8B74;
-    --accent-light: #9DAF93;
-    --positive: #34C759;
-    --negative: #FF3B30;
-    --warning: #FF9500;
-    --text-primary: #1C1C1E;
-    --text-secondary: #8E8E93;
-    --text-muted: #AEAEB2;
-    --separator: #C6C6C8;
+    /* ═══════════════════════════════════════════════════════════
+       PALETA: WARM HOME — Coral Cálido
+       Cercano, hogar, pareja, calidez
+       ═══════════════════════════════════════════════════════════ */
+    
+    /* Primary - Coral naranja */
+    --primary: #F97316;
+    --primary-light: #FB923C;
+    --primary-dark: #EA580C;
+    
+    /* Semantic - Acciones con significado */
+    --positive: #22C55E;      /* Ingresos, éxito, confirmaciones */
+    --positive-light: #4ADE80;
+    --negative: #DC2626;      /* Gastos, errores, eliminaciones */
+    --negative-light: #F87171;
+    --warning: #EAB308;       /* Alertas, atención */
+    --warning-light: #FDE047;
+    
+    /* Surfaces - Light mode */
+    --background: #FFFBEB;    /* Fondo crema suave */
+    --surface: #FFFFFF;       /* Cards, modales */
+    --surface-elevated: #FFFFFF;
+    
+    /* Text */
+    --text-primary: #292524;  /* Stone 800 */
+    --text-secondary: #78716C; /* Stone 500 */
+    --text-muted: #A8A29E;    /* Stone 400 */
+    --text-inverse: #FFFFFF;
+    
+    /* Borders & Separators */
+    --border: #E7E5E4;        /* Stone 200 */
+    --border-focused: #F97316;
+    --separator: #D6D3D1;     /* Stone 300 */
+    
+    /* Legacy aliases (para compatibilidad) */
+    --accent: var(--primary);
+    --accent-light: var(--primary-light);
   }
   
   @media (prefers-color-scheme: dark) {
     :root {
-      --background: #000000;
-      --surface: #1C1C1E;
-      --accent: #9DAF93;
-      --accent-light: #B5C7AB;
-      --text-primary: #FFFFFF;
-      --text-secondary: #8E8E93;
-      --text-muted: #636366;
-      --separator: #38383A;
+      /* Surfaces - Dark mode */
+      --background: #1C1917;    /* Stone 900 */
+      --surface: #292524;       /* Stone 800 */
+      --surface-elevated: #44403C; /* Stone 700 */
+      
+      /* Primary - Más brillante en dark */
+      --primary: #FB923C;
+      --primary-light: #FDBA74;
+      --primary-dark: #F97316;
+      
+      /* Text */
+      --text-primary: #FAFAF9;  /* Stone 50 */
+      --text-secondary: #A8A29E; /* Stone 400 */
+      --text-muted: #78716C;    /* Stone 500 */
+      
+      /* Borders */
+      --border: #44403C;        /* Stone 700 */
+      --separator: #57534E;     /* Stone 600 */
+      
+      /* Semantic - Ajustados para dark */
+      --positive: #4ADE80;
+      --positive-light: #86EFAC;
+      --negative: #F87171;
+      --negative-light: #FCA5A5;
+      --warning: #FDE047;
+      --warning-light: #FEF08A;
+      
+      /* Legacy aliases */
+      --accent: var(--primary);
+      --accent-light: var(--primary-light);
     }
   }
   
@@ -50,7 +97,6 @@
     color: var(--text-primary);
     overscroll-behavior-y: none;
     padding-bottom: var(--tab-bar-height);
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
   }
   
   /* Prevent iOS zoom on focus */
@@ -76,22 +122,39 @@
   }
   
   .btn-primary {
-    @apply bg-accent text-white font-semibold py-3 px-6 rounded-xl 
+    @apply bg-primary text-white font-semibold py-3 px-6 rounded-xl 
            active:opacity-80 transition-opacity min-h-[50px];
   }
   
   .btn-secondary {
-    @apply bg-surface text-accent font-semibold py-3 px-6 rounded-xl 
-           border border-accent active:opacity-80 transition-opacity min-h-[50px];
+    @apply bg-surface text-primary font-semibold py-3 px-6 rounded-xl 
+           border border-primary active:opacity-80 transition-opacity min-h-[50px];
   }
   
   .input {
     @apply bg-surface text-[var(--text-primary)] rounded-xl px-4 py-3 
-           min-h-[44px] w-full border border-[var(--separator)]
-           focus:outline-none focus:border-accent;
+           min-h-[44px] w-full border border-[var(--border)]
+           focus:outline-none focus:border-primary;
   }
   
   .separator {
     @apply h-px bg-[var(--separator)] mx-4;
   }
+  
+  /* Typography utilities */
+  .text-display-lg { @apply text-[34px] font-bold leading-tight; }
+  .text-display-md { @apply text-[28px] font-bold leading-tight; }
+  .text-display-sm { @apply text-[24px] font-semibold leading-tight; }
+  
+  .text-headline-lg { @apply text-[22px] font-semibold leading-snug; }
+  .text-headline-md { @apply text-[20px] font-semibold leading-snug; }
+  .text-headline-sm { @apply text-[17px] font-semibold leading-snug; }
+  
+  .text-body-lg { @apply text-[17px] font-normal leading-relaxed; }
+  .text-body-md { @apply text-[15px] font-normal leading-relaxed; }
+  .text-body-sm { @apply text-[13px] font-normal leading-normal; }
+  
+  .text-label-lg { @apply text-[15px] font-medium leading-snug; }
+  .text-label-md { @apply text-[13px] font-medium leading-snug; }
+  .text-label-sm { @apply text-[11px] font-medium leading-tight tracking-wide; }
 }
