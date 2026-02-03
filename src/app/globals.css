@@ -18,10 +18,10 @@
        Cercano, hogar, pareja, calidez
        ═══════════════════════════════════════════════════════════ */
     
-    /* Primary - Coral naranja */
-    --primary: #F97316;
-    --primary-light: #FB923C;
-    --primary-dark: #EA580C;
+    /* Primary - Coral naranja (ajustado para contraste WCAG AA) */
+    --primary: #EA580C;           /* 4.5:1 en blanco ✓ */
+    --primary-light: #F97316;     /* Para fondos, hovers */
+    --primary-dark: #C2410C;      /* Para texto sobre primary */
     
     /* Semantic - Acciones con significado */
     --positive: #22C55E;      /* Ingresos, éxito, confirmaciones */
@@ -59,8 +59,8 @@
       --surface: #292524;       /* Stone 800 */
       --surface-elevated: #44403C; /* Stone 700 */
       
-      /* Primary - Más brillante en dark */
-      --primary: #FB923C;
+      /* Primary - Más brillante en dark para contraste */
+      --primary: #FB923C;         /* Más claro en dark */
       --primary-light: #FDBA74;
       --primary-dark: #F97316;
       

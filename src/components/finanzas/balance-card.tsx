@@ -45,40 +45,42 @@ export function BalanceCard({ onDetailClick, className }: BalanceCardProps) {
   
   return (
     <div className={cn(
-      'card bg-accent text-white',
+      'card bg-surface border border-[var(--border)]',
       className
     )}>
       {/* Header */}
-      <div className="flex justify-between items-start mb-4">
+      <div className="flex justify-between items-start mb-3">
         <div>
-          <p className="text-white/70 text-sm">Balance de pareja</p>
+          <p className="text-[var(--text-secondary)] text-sm">Balance de pareja</p>
           {loading ? (
             <div className="h-9 flex items-center">
-              <Loader2 className="w-6 h-6 animate-spin text-white/50" />
+              <Loader2 className="w-6 h-6 animate-spin text-primary" />
             </div>
           ) : (
-            <p className="text-3xl font-bold">
+            <p className="text-3xl font-bold text-primary">
               {balance.enPaz ? '0,00€' : formatMoney(balance.cantidad)}
             </p>
           )}
         </div>
-        <ArrowLeftRight className="w-8 h-8 text-white/50" />
+        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+          <ArrowLeftRight className="w-5 h-5 text-primary" />
+        </div>
       </div>
       
       {/* Estado del balance */}
       {!loading && (
         <div className="mb-4">
           {balance.enPaz ? (
-            <p className="text-white/90 text-base">
+            <p className="text-[var(--text-secondary)]">
               Estáis en paz 🤝
             </p>
           ) : (
-            <p className="text-white/90 text-base">
-              <span className="font-semibold">{nombreDeudor}</span>
+            <p className="text-[var(--text-secondary)]">
+              <span className="font-semibold text-[var(--text-primary)]">{nombreDeudor}</span>
               {' debe '}
-              <span className="font-semibold">{formatMoney(balance.cantidad)}</span>
+              <span className="font-semibold text-primary">{formatMoney(balance.cantidad)}</span>
               {' a '}
-              <span className="font-semibold">{nombreAcreedor}</span>
+              <span className="font-semibold text-[var(--text-primary)]">{nombreAcreedor}</span>
             </p>
           )}
         </div>
@@ -92,8 +94,9 @@ export function BalanceCard({ onDetailClick, className }: BalanceCardProps) {
             onClick={handleLiquidar}
             disabled={liquidando || liquidado}
             className={cn(
-              'flex-1 py-2.5 px-4 rounded-lg font-semibold text-sm',
-              'bg-surface/20 active:bg-surface/30',
+              'flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm',
+              'bg-primary text-white',
+              'active:bg-primary-dark',
               'transition-all duration-150',
               'flex items-center justify-center gap-2',
               'disabled:opacity-70'
@@ -120,8 +123,9 @@ export function BalanceCard({ onDetailClick, className }: BalanceCardProps) {
           <button
             onClick={onDetailClick}
             className={cn(
-              'py-2.5 px-4 rounded-lg font-semibold text-sm',
-              'bg-surface/20 active:bg-surface/30',
+              'py-2.5 px-4 rounded-xl font-semibold text-sm',
+              'bg-primary/10 text-primary',
+              'active:bg-primary/20',
               'transition-all duration-150',
               'flex items-center gap-1',
               balance.enPaz && 'flex-1 justify-center'
