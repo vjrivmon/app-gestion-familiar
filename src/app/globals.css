@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Safe areas */
+    --sat: env(safe-area-inset-top);
+    --sab: env(safe-area-inset-bottom);
+    --sal: env(safe-area-inset-left);
+    --sar: env(safe-area-inset-right);
+    
+    /* Tab bar */
+    --tab-bar-height: calc(49px + var(--sab));
+    
+    /* Colors - Light */
+    --background: #F2F2F7;
+    --surface: #FFFFFF;
+    --accent: #7D8B74;
+    --accent-light: #9DAF93;
+    --positive: #34C759;
+    --negative: #FF3B30;
+    --warning: #FF9500;
+    --text-primary: #1C1C1E;
+    --text-secondary: #8E8E93;
+    --text-muted: #AEAEB2;
+    --separator: #C6C6C8;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: #000000;
+      --surface: #1C1C1E;
+      --accent: #9DAF93;
+      --accent-light: #B5C7AB;
+      --text-primary: #FFFFFF;
+      --text-secondary: #8E8E93;
+      --text-muted: #636366;
+      --separator: #38383A;
+    }
+  }
+  
+  html {
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  body {
+    background-color: var(--background);
+    color: var(--text-primary);
+    overscroll-behavior-y: none;
+    padding-bottom: var(--tab-bar-height);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  /* Prevent iOS zoom on focus */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  
+  /* Disable highlight on tap */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Selection prevention on interactive elements */
+  button, a, [role="button"] {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface rounded-xl p-4 shadow-sm;
+  }
+  
+  .btn-primary {
+    @apply bg-accent text-white font-semibold py-3 px-6 rounded-xl 
+           active:opacity-80 transition-opacity min-h-[50px];
+  }
+  
+  .btn-secondary {
+    @apply bg-surface text-accent font-semibold py-3 px-6 rounded-xl 
+           border border-accent active:opacity-80 transition-opacity min-h-[50px];
+  }
+  
+  .input {
+    @apply bg-surface text-[var(--text-primary)] rounded-xl px-4 py-3 
+           min-h-[44px] w-full border border-[var(--separator)]
+           focus:outline-none focus:border-accent;
+  }
+  
+  .separator {
+    @apply h-px bg-[var(--separator)] mx-4;
+  }
+}
