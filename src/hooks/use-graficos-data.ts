@@ -233,17 +233,17 @@ export function useGraficosData() {
     const ultimoDia = new Date(añoTarget, mesTarget + 1, 0).toISOString().split('T')[0]
     
     const CATEGORIAS_INFO: Record<CategoriaGasto, { nombre: string; icono: string }> = {
-      alquiler: { nombre: 'Alquiler', icono: '🏠' },
-      suministros: { nombre: 'Suministros', icono: '💡' },
-      internet_movil: { nombre: 'Internet/Móvil', icono: '📱' },
-      supermercado: { nombre: 'Supermercado', icono: '🛒' },
-      transporte: { nombre: 'Transporte', icono: '🚗' },
-      ocio: { nombre: 'Ocio', icono: '🎬' },
-      ropa: { nombre: 'Ropa', icono: '👕' },
-      salud: { nombre: 'Salud', icono: '💊' },
-      suscripciones: { nombre: 'Suscripciones', icono: '📺' },
-      ia: { nombre: 'IA', icono: '🤖' },
-      otros: { nombre: 'Otros', icono: '📝' }
+      alquiler: { nombre: 'Alquiler', icono: '•' },
+      suministros: { nombre: 'Suministros', icono: '•' },
+      internet_movil: { nombre: 'Internet/Móvil', icono: '•' },
+      supermercado: { nombre: 'Supermercado', icono: '•' },
+      transporte: { nombre: 'Transporte', icono: '•' },
+      ocio: { nombre: 'Ocio', icono: '•' },
+      ropa: { nombre: 'Ropa', icono: '•' },
+      salud: { nombre: 'Salud', icono: '•' },
+      suscripciones: { nombre: 'Suscripciones', icono: '•' },
+      ia: { nombre: 'IA', icono: '•' },
+      otros: { nombre: 'Otros', icono: '•' }
     }
     
     try {
@@ -278,7 +278,7 @@ export function useGraficosData() {
       
       ordenado.forEach((item, index) => {
         const cat = item.cat as CategoriaGasto
-        const info = CATEGORIAS_INFO[cat] || { nombre: cat, icono: '📝' }
+        const info = CATEGORIAS_INFO[cat] || { nombre: cat, icono: '•' }
         
         if (index < 5) {
           resultado.push({
@@ -299,7 +299,7 @@ export function useGraficosData() {
         resultado.push({
           categoria: 'otros_agrupado',
           nombre: 'Otros',
-          icono: '📦',
+          icono: '•',
           valor: sumOtros / 100,
           porcentaje: total > 0 ? Math.round((sumOtros / total) * 100) : 0,
           color: COLORES_GRAFICO.categorias[5]

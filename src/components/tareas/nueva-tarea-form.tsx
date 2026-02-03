@@ -9,11 +9,9 @@ interface NuevaTareaFormProps {
   onSubmit: (nombre: string, icono: string, frecuenciaDias: number) => Promise<boolean>
 }
 
-// Iconos predefinidos para tareas del hogar
+// Iconos predefinidos para tareas del hogar (símbolos simples)
 const ICONOS_PREDEFINIDOS = [
-  '🍳', '', '🗑️', '🧹', '🪣', '🛁', '🚽', '🧺',
-  '👕', '👔', '🧲', '🪟', '🛏️', '🧽', '', '🌱',
-  '🐕', '🐈', '', '📦', '🔧', '🪴', '🧼', '🚿'
+  '•', '○', '◆', '◇', '■', '□', '▲', '△'
 ]
 
 // Opciones de frecuencia comunes
@@ -31,7 +29,7 @@ const FRECUENCIAS = [
  */
 export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
   const [nombre, setNombre] = useState('')
-  const [icono, setIcono] = useState('🧹')
+  const [icono, setIcono] = useState('•')
   const [frecuencia, setFrecuencia] = useState(7)
   const [frecuenciaCustom, setFrecuenciaCustom] = useState('')
   const [showCustomFrecuencia, setShowCustomFrecuencia] = useState(false)

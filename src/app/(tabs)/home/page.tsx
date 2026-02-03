@@ -15,12 +15,14 @@ import { TareaDetailSheet } from '@/components/tareas/tarea-detail-sheet'
 // Hooks
 import { useTareas, type TareaConEstado } from '@/hooks/use-tareas'
 import { useBalance } from '@/hooks/use-balance'
+import { useConfigHogar } from '@/hooks/use-config-hogar'
 
 export default function HomePage() {
   const { user } = useSupabase()
   const router = useRouter()
   const { tareas, completarTarea, eliminarTarea } = useTareas()
   const { balance } = useBalance()
+  const { config } = useConfigHogar()
   
   // Estado para sheet de detalle
   const [selectedTarea, setSelectedTarea] = useState<TareaConEstado | null>(null)
@@ -32,7 +34,8 @@ export default function HomePage() {
     preventScrollOnSwipe: true,
   })
 
-  const userName = user?.email?.split('@')[0] || 'Usuario'
+  // Usar nombre de config, o primer nombre del email, o 'Usuario'
+  const userName = config?.nombres?.m1 || user?.user_metadata?.name || 'Usuario'
   
   // Handlers para tareas
   const handleCompleteTarea = useCallback(async (tareaId: string) => {
@@ -63,7 +66,7 @@ export default function HomePage() {
       {/* Header */}
       <div className="flex justify-between items-start pt-2">
         <div>
-          <h1 className="text-[28px] font-bold">Hola, {userName} 👋</h1>
+          <h1 className="text-[28px] font-bold">Hola, {userName}</h1>
           <p className="text-[var(--text-secondary)]">
             {new Date().toLocaleDateString('es-ES', { 
               weekday: 'long', 

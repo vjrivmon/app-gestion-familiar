@@ -39,18 +39,18 @@ const TEMP_HOGAR_ID = '00000000-0000-0000-0000-000000000001'
 
 // Tareas iniciales para nuevos hogares
 const TAREAS_INICIALES_DATA: { nombre: string; icono: string; frecuencia_dias: number }[] = [
-  { nombre: 'Fregar platos', icono: '🍽️', frecuencia_dias: 1 },
-  { nombre: 'Barrer/aspirar', icono: '🧹', frecuencia_dias: 3 },
-  { nombre: 'Fregar suelo', icono: '🪣', frecuencia_dias: 7 },
-  { nombre: 'Limpiar baño', icono: '🚽', frecuencia_dias: 7 },
-  { nombre: 'Limpiar cocina', icono: '🧽', frecuencia_dias: 3 },
-  { nombre: 'Hacer camas', icono: '🛏️', frecuencia_dias: 1 },
-  { nombre: 'Sacar basura', icono: '🗑️', frecuencia_dias: 2 },
-  { nombre: 'Poner lavadora', icono: '🧺', frecuencia_dias: 3 },
-  { nombre: 'Tender ropa', icono: '👕', frecuencia_dias: 3 },
-  { nombre: 'Planchar', icono: '👔', frecuencia_dias: 7 },
-  { nombre: 'Compra semanal', icono: '🛒', frecuencia_dias: 7 },
-  { nombre: 'Regar plantas', icono: '🌱', frecuencia_dias: 3 },
+  { nombre: 'Fregar platos', icono: '•', frecuencia_dias: 1 },
+  { nombre: 'Barrer/aspirar', icono: '•', frecuencia_dias: 3 },
+  { nombre: 'Fregar suelo', icono: '•', frecuencia_dias: 7 },
+  { nombre: 'Limpiar baño', icono: '•', frecuencia_dias: 7 },
+  { nombre: 'Limpiar cocina', icono: '•', frecuencia_dias: 3 },
+  { nombre: 'Hacer camas', icono: '•', frecuencia_dias: 1 },
+  { nombre: 'Sacar basura', icono: '•', frecuencia_dias: 2 },
+  { nombre: 'Poner lavadora', icono: '•', frecuencia_dias: 3 },
+  { nombre: 'Tender ropa', icono: '•', frecuencia_dias: 3 },
+  { nombre: 'Planchar', icono: '•', frecuencia_dias: 7 },
+  { nombre: 'Compra semanal', icono: '•', frecuencia_dias: 7 },
+  { nombre: 'Regar plantas', icono: '•', frecuencia_dias: 3 },
 ]
 
 /**
