@@ -17,6 +17,7 @@ import {
   Info,
   Loader2,
   ChevronRight,
+  Pencil,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -32,13 +33,22 @@ export default function SettingsPage() {
   const router = useRouter();
   const supabase = createClient();
   const { user } = useSupabase();
-  const { config, loading: loadingConfig } = useConfigHogar();
+  const {
+    config,
+    loading: loadingConfig,
+    updateNombres,
+    hogarId,
+  } = useConfigHogar();
 
   // Estados
   const [loggingOut, setLoggingOut] = useState(false);
   const [codeCopied, setCodeCopied] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [exportSuccess, setExportSuccess] = useState(false);
+  const [editingNames, setEditingNames] = useState(false);
+  const [nameM1, setNameM1] = useState("");
+  const [nameM2, setNameM2] = useState("");
+  const [savingNames, setSavingNames] = useState(false);
 
   // Código de invitación temporal (en producción vendría del hogar)
   const inviteCode = "HOGAR-2024";
@@ -131,6 +141,29 @@ export default function SettingsPage() {
   const nombre1 = config?.nombres?.m1 || "Miembro 1";
   const nombre2 = config?.nombres?.m2 || "Miembro 2";
 
+  // Abrir edición de nombres
+  const handleEditNames = useCallback(() => {
+    setNameM1(nombre1);
+    setNameM2(nombre2);
+    setEditingNames(true);
+  }, [nombre1, nombre2]);
+
+  // Guardar nombres
+  const handleSaveNames = useCallback(async () => {
+    const trimM1 = nameM1.trim();
+    const trimM2 = nameM2.trim();
+    if (!trimM1 || !trimM2) return;
+
+    setSavingNames(true);
+    const success = await updateNombres({ m1: trimM1, m2: trimM2 });
+    setSavingNames(false);
+
+    if (success) {
+      setEditingNames(false);
+      if (navigator.vibrate) navigator.vibrate(10);
+    }
+  }, [nameM1, nameM2, updateNombres]);
+
   return (
     <div className="min-h-screen bg-[var(--background)]">
       {/* Header */}
@@ -188,21 +221,79 @@ export default function SettingsPage() {
           </GroupedListItem>
 
           {/* Miembros */}
-          <GroupedListItem
-            leftIcon={<Users className="w-5 h-5" />}
-            rightContent={
-              <div className="flex -space-x-2">
-                <div className="w-7 h-7 rounded-full bg-accent flex items-center justify-center text-white text-xs font-bold">
-                  {nombre1.charAt(0)}
+          {!editingNames ? (
+            <GroupedListItem
+              onClick={hogarId ? handleEditNames : undefined}
+              leftIcon={<Users className="w-5 h-5" />}
+              rightContent={
+                <div className="flex items-center gap-2">
+                  <div className="flex -space-x-2">
+                    <div className="w-7 h-7 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold">
+                      {nombre1.charAt(0).toUpperCase()}
+                    </div>
+                    <div className="w-7 h-7 rounded-full bg-pink-500 flex items-center justify-center text-white text-xs font-bold">
+                      {nombre2.charAt(0).toUpperCase()}
+                    </div>
+                  </div>
+                  <Pencil className="w-4 h-4 text-[var(--text-muted)]" />
                 </div>
-                <div className="w-7 h-7 rounded-full bg-pink-500 flex items-center justify-center text-white text-xs font-bold">
-                  {nombre2.charAt(0)}
+              }
+            >
+              Miembros
+            </GroupedListItem>
+          ) : (
+            <>
+              <div className="px-4 py-3 space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-7 h-7 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                    {(nameM1.charAt(0) || "?").toUpperCase()}
+                  </div>
+                  <input
+                    type="text"
+                    value={nameM1}
+                    onChange={(e) => setNameM1(e.target.value)}
+                    placeholder="Nombre miembro 1"
+                    className="flex-1 bg-[var(--background)] rounded-lg px-3 py-2 text-[15px] outline-none focus:ring-2 focus:ring-accent"
+                    maxLength={20}
+                    autoFocus
+                  />
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-7 h-7 rounded-full bg-pink-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                    {(nameM2.charAt(0) || "?").toUpperCase()}
+                  </div>
+                  <input
+                    type="text"
+                    value={nameM2}
+                    onChange={(e) => setNameM2(e.target.value)}
+                    placeholder="Nombre miembro 2"
+                    className="flex-1 bg-[var(--background)] rounded-lg px-3 py-2 text-[15px] outline-none focus:ring-2 focus:ring-accent"
+                    maxLength={20}
+                  />
+                </div>
+                <div className="flex gap-2 pt-1">
+                  <button
+                    onClick={() => setEditingNames(false)}
+                    className="flex-1 py-2 rounded-lg text-[15px] bg-[var(--background)] text-[var(--text-secondary)]"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={handleSaveNames}
+                    disabled={
+                      savingNames ||
+                      !nameM1.trim() ||
+                      !nameM2.trim() ||
+                      !hogarId
+                    }
+                    className="flex-1 py-2 rounded-lg text-[15px] bg-accent text-white font-medium disabled:opacity-50"
+                  >
+                    {savingNames ? "Guardando..." : "Guardar"}
+                  </button>
                 </div>
               </div>
-            }
-          >
-            Miembros
-          </GroupedListItem>
+            </>
+          )}
         </GroupedList>
 
         {/* Sección: Datos */}
