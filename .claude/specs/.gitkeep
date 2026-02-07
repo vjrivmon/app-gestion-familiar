@@ -1,0 +1,6 @@
+# Este directorio almacena las especificaciones SPEC.md generadas
+# por el comando /project:interview
+#
+# Ejemplo de uso:
+#   /project:interview mi-app
+#   -> Genera .claude/specs/mi-app.md

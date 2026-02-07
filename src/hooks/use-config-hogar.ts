@@ -1,208 +1,237 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useCallback } from 'react'
-import { createClient } from '@/lib/supabase/client'
-import { useSupabase } from '@/providers/supabase-provider'
-import type { ConfigHogar, SaldosIniciales, ConfigCompraPiso } from '@/types/config'
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { useSupabase } from "@/providers/supabase-provider";
+import type {
+  ConfigHogar,
+  SaldosIniciales,
+  ConfigCompraPiso,
+} from "@/types/config";
+import type { Pagador } from "@/types/finanzas";
 
 interface UseConfigHogarReturn {
-  config: ConfigHogar
-  hogarId: string | null
-  loading: boolean
-  error: string | null
-  hasHogar: boolean
-  
+  config: ConfigHogar;
+  hogarId: string | null;
+  miembroActual: "m1" | "m2";
+  loading: boolean;
+  error: string | null;
+  hasHogar: boolean;
+
   // Funciones
-  updateSaldosIniciales: (saldos: SaldosIniciales, fecha?: string) => Promise<boolean>
-  updateConfigCompraPiso: (config: ConfigCompraPiso) => Promise<boolean>
-  updateNombres: (nombres: { m1: string; m2: string }) => Promise<boolean>
-  crearHogar: () => Promise<string | null>
-  refetch: () => Promise<void>
+  updateSaldosIniciales: (
+    saldos: SaldosIniciales,
+    fecha?: string,
+  ) => Promise<boolean>;
+  updateConfigCompraPiso: (config: ConfigCompraPiso) => Promise<boolean>;
+  updateNombres: (nombres: { m1: string; m2: string }) => Promise<boolean>;
+  crearHogar: () => Promise<string | null>;
+  refetch: () => Promise<void>;
 }
 
 const DEFAULT_CONFIG: ConfigHogar = {
   nombres: {
-    m1: 'Vicente',
-    m2: 'Irene'
+    m1: "Miembro 1",
+    m2: "Miembro 2",
   },
   preferencias: {
-    moneda: 'EUR',
+    moneda: "EUR",
     primer_dia_semana: 1,
-    notificaciones: true
-  }
-}
+    notificaciones: true,
+  },
+};
 
 export function useConfigHogar(): UseConfigHogarReturn {
-  const { user } = useSupabase()
-  const [config, setConfig] = useState<ConfigHogar>(DEFAULT_CONFIG)
-  const [hogarId, setHogarId] = useState<string | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  
-  const supabase = createClient()
-  
+  const { user } = useSupabase();
+  const [config, setConfig] = useState<ConfigHogar>(DEFAULT_CONFIG);
+  const [hogarId, setHogarId] = useState<string | null>(null);
+  const [miembro1Id, setMiembro1Id] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const supabase = createClient();
+
   // Fetch hogar_id del usuario y luego su config
   const fetchConfig = useCallback(async () => {
     if (!user) {
-      setLoading(false)
-      return
+      setLoading(false);
+      return;
     }
-    
-    setLoading(true)
-    setError(null)
-    
+
+    setLoading(true);
+    setError(null);
+
     try {
       // Primero obtener el hogar_id del perfil del usuario
       const { data: profile, error: profileError } = await supabase
-        .from('profiles')
-        .select('hogar_id')
-        .eq('id', user.id)
-        .single()
-      
-      if (profileError && profileError.code !== 'PGRST116') {
+        .from("profiles")
+        .select("hogar_id")
+        .eq("id", user.id)
+        .single();
+
+      if (profileError && profileError.code !== "PGRST116") {
         // PGRST116 = no rows returned, eso es OK
-        throw profileError
+        throw profileError;
       }
-      
+
       if (!profile?.hogar_id) {
         // Usuario sin hogar - usar defaults
-        setHogarId(null)
-        setConfig(DEFAULT_CONFIG)
-        setLoading(false)
-        return
+        setHogarId(null);
+        setConfig(DEFAULT_CONFIG);
+        setLoading(false);
+        return;
       }
-      
-      setHogarId(profile.hogar_id)
-      
-      // Obtener config del hogar
+
+      setHogarId(profile.hogar_id);
+
+      // Obtener config del hogar y miembro_1_id
       const { data: hogar, error: hogarError } = await supabase
-        .from('hogares')
-        .select('config')
-        .eq('id', profile.hogar_id)
-        .single()
-      
-      if (hogarError) throw hogarError
-      
+        .from("hogares")
+        .select("config, miembro_1_id")
+        .eq("id", profile.hogar_id)
+        .single();
+
+      if (hogarError) throw hogarError;
+
+      setMiembro1Id(hogar?.miembro_1_id || null);
+
       // Merge con defaults
       const mergedConfig: ConfigHogar = {
         ...DEFAULT_CONFIG,
-        ...(hogar?.config || {})
-      }
-      
-      setConfig(mergedConfig)
+        ...(hogar?.config || {}),
+      };
+
+      setConfig(mergedConfig);
     } catch (err) {
       // No loguear error si es simplemente que no hay hogar
-      if (err && typeof err === 'object' && 'code' in err && err.code === 'PGRST116') {
-        setConfig(DEFAULT_CONFIG)
+      if (
+        err &&
+        typeof err === "object" &&
+        "code" in err &&
+        err.code === "PGRST116"
+      ) {
+        setConfig(DEFAULT_CONFIG);
       } else {
-        console.error('Error fetching config:', err)
-        setError(err instanceof Error ? err.message : 'Error al cargar configuración')
+        console.error("Error fetching config:", err);
+        setError(
+          err instanceof Error ? err.message : "Error al cargar configuración",
+        );
       }
-      setConfig(DEFAULT_CONFIG)
+      setConfig(DEFAULT_CONFIG);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [supabase, user])
-  
+  }, [supabase, user]);
+
   // Cargar al montar o cuando cambie el usuario
   useEffect(() => {
-    fetchConfig()
-  }, [fetchConfig])
-  
+    fetchConfig();
+  }, [fetchConfig]);
+
   // Crear hogar para el usuario
   const crearHogar = useCallback(async (): Promise<string | null> => {
-    if (!user) return null
-    
+    if (!user) return null;
+
     try {
       // Crear hogar
       const { data: nuevoHogar, error: createError } = await supabase
-        .from('hogares')
+        .from("hogares")
         .insert({
-          nombre: 'Mi Hogar',
+          nombre: "Mi Hogar",
           miembro_1_id: user.id,
-          config: DEFAULT_CONFIG
+          config: DEFAULT_CONFIG,
         })
-        .select('id')
-        .single()
-      
-      if (createError) throw createError
-      
+        .select("id")
+        .single();
+
+      if (createError) throw createError;
+
       // Actualizar perfil del usuario con hogar_id
       const { error: updateError } = await supabase
-        .from('profiles')
+        .from("profiles")
         .update({ hogar_id: nuevoHogar.id })
-        .eq('id', user.id)
-      
-      if (updateError) throw updateError
-      
-      setHogarId(nuevoHogar.id)
-      await fetchConfig()
-      
-      return nuevoHogar.id
+        .eq("id", user.id);
+
+      if (updateError) throw updateError;
+
+      setHogarId(nuevoHogar.id);
+      await fetchConfig();
+
+      return nuevoHogar.id;
     } catch (err) {
-      console.error('Error creando hogar:', err)
-      setError(err instanceof Error ? err.message : 'Error al crear hogar')
-      return null
+      console.error("Error creando hogar:", err);
+      setError(err instanceof Error ? err.message : "Error al crear hogar");
+      return null;
     }
-  }, [supabase, user, fetchConfig])
-  
+  }, [supabase, user, fetchConfig]);
+
   // Helper para actualizar config en BD
-  const updateConfig = useCallback(async (updates: Partial<ConfigHogar>): Promise<boolean> => {
-    if (!hogarId) {
-      // Crear hogar primero
-      const newHogarId = await crearHogar()
-      if (!newHogarId) return false
-    }
-    
-    try {
-      const newConfig = { ...config, ...updates }
-      
-      const { error: updateError } = await supabase
-        .from('hogares')
-        .update({ config: newConfig })
-        .eq('id', hogarId)
-      
-      if (updateError) throw updateError
-      
-      setConfig(newConfig)
-      return true
-    } catch (err) {
-      console.error('Error updating config:', err)
-      setError(err instanceof Error ? err.message : 'Error al guardar')
-      return false
-    }
-  }, [supabase, hogarId, config, crearHogar])
-  
+  const updateConfig = useCallback(
+    async (updates: Partial<ConfigHogar>): Promise<boolean> => {
+      if (!hogarId) {
+        // Crear hogar primero
+        const newHogarId = await crearHogar();
+        if (!newHogarId) return false;
+      }
+
+      try {
+        const newConfig = { ...config, ...updates };
+
+        const { error: updateError } = await supabase
+          .from("hogares")
+          .update({ config: newConfig })
+          .eq("id", hogarId);
+
+        if (updateError) throw updateError;
+
+        setConfig(newConfig);
+        return true;
+      } catch (err) {
+        console.error("Error updating config:", err);
+        setError(err instanceof Error ? err.message : "Error al guardar");
+        return false;
+      }
+    },
+    [supabase, hogarId, config, crearHogar],
+  );
+
   // Actualizar saldos iniciales
-  const updateSaldosIniciales = useCallback(async (
-    saldos: SaldosIniciales, 
-    fecha?: string
-  ): Promise<boolean> => {
-    return updateConfig({
-      saldos_iniciales: saldos,
-      fecha_saldos_iniciales: fecha || new Date().toISOString().split('T')[0]
-    })
-  }, [updateConfig])
-  
+  const updateSaldosIniciales = useCallback(
+    async (saldos: SaldosIniciales, fecha?: string): Promise<boolean> => {
+      return updateConfig({
+        saldos_iniciales: saldos,
+        fecha_saldos_iniciales: fecha || new Date().toISOString().split("T")[0],
+      });
+    },
+    [updateConfig],
+  );
+
   // Actualizar config compra piso
-  const updateConfigCompraPiso = useCallback(async (
-    configPiso: ConfigCompraPiso
-  ): Promise<boolean> => {
-    return updateConfig({
-      compra_piso: configPiso
-    })
-  }, [updateConfig])
-  
+  const updateConfigCompraPiso = useCallback(
+    async (configPiso: ConfigCompraPiso): Promise<boolean> => {
+      return updateConfig({
+        compra_piso: configPiso,
+      });
+    },
+    [updateConfig],
+  );
+
   // Actualizar nombres
-  const updateNombres = useCallback(async (
-    nombres: { m1: string; m2: string }
-  ): Promise<boolean> => {
-    return updateConfig({ nombres })
-  }, [updateConfig])
-  
+  const updateNombres = useCallback(
+    async (nombres: { m1: string; m2: string }): Promise<boolean> => {
+      return updateConfig({ nombres });
+    },
+    [updateConfig],
+  );
+
+  // Determinar si el usuario actual es m1 o m2
+  const miembroActual: "m1" | "m2" =
+    user && miembro1Id && user.id === miembro1Id ? "m1" : "m2";
+
   return {
     config,
     hogarId,
+    miembroActual,
     loading,
     error,
     hasHogar: !!hogarId,
@@ -210,6 +239,22 @@ export function useConfigHogar(): UseConfigHogarReturn {
     updateConfigCompraPiso,
     updateNombres,
     crearHogar,
-    refetch: fetchConfig
-  }
+    refetch: fetchConfig,
+  };
+}
+
+/**
+ * Hook para obtener los nombres de los miembros desde la config.
+ * Reemplaza los NOMBRES_MAP hardcodeados en componentes.
+ */
+export function useNombres(): Record<Pagador, string> {
+  const { config } = useConfigHogar();
+  return useMemo(
+    () => ({
+      m1: config?.nombres?.m1 || "Miembro 1",
+      m2: config?.nombres?.m2 || "Miembro 2",
+      conjunta: "Conjunta",
+    }),
+    [config?.nombres?.m1, config?.nombres?.m2],
+  );
 }

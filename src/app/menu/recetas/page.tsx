@@ -1,11 +1,10 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { ArrowLeft, Plus, Clock, Users, Trash2, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-
-const TEMP_HOGAR_ID = '00000000-0000-0000-0000-000000000001'
+import { useConfigHogar } from '@/hooks/use-config-hogar'
 
 interface Receta {
   id: string
@@ -17,19 +16,21 @@ interface Receta {
 }
 
 export default function RecetasPage() {
+  const { hogarId } = useConfigHogar()
   const [recetas, setRecetas] = useState<Receta[]>([])
   const [loading, setLoading] = useState(true)
   const [deleting, setDeleting] = useState<string | null>(null)
-  
+
   const supabase = createClient()
 
-  const cargarRecetas = async () => {
+  const cargarRecetas = useCallback(async () => {
+    if (!hogarId) return
     setLoading(true)
     try {
       const { data, error } = await supabase
         .from('recetas')
         .select('*, ingredientes:receta_ingredientes(*)')
-        .eq('hogar_id', TEMP_HOGAR_ID)
+        .eq('hogar_id', hogarId)
         .order('nombre')
 
       if (error) throw error
@@ -39,15 +40,15 @@ export default function RecetasPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase, hogarId])
 
   useEffect(() => {
     cargarRecetas()
-  }, [])
+  }, [cargarRecetas])
 
   const eliminarReceta = async (id: string) => {
     if (!confirm('¿Eliminar esta receta?')) return
-    
+
     setDeleting(id)
     try {
       const { error } = await supabase.from('recetas').delete().eq('id', id)

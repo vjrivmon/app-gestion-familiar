@@ -1,28 +1,31 @@
-'use client'
+"use client";
 
-import { useState, useMemo } from 'react'
-import { useRouter } from 'next/navigation'
-import { ArrowLeft, Plus, ArrowLeftRight } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { formatMoney } from '@/lib/utils/money'
-import { usePrestamos } from '@/hooks/use-prestamos'
-import { PrestamoForm } from '@/components/finanzas/prestamo-form'
-import { PrestamoItem, PrestamoItemSkeleton } from '@/components/finanzas/prestamo-item'
-import type { Prestamo } from '@/types/finanzas'
+import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, Plus, ArrowLeftRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { formatMoney } from "@/lib/utils/money";
+import { usePrestamos } from "@/hooks/use-prestamos";
+import { PrestamoForm } from "@/components/finanzas/prestamo-form";
+import {
+  PrestamoItem,
+  PrestamoItemSkeleton,
+} from "@/components/finanzas/prestamo-item";
+import type { Prestamo } from "@/types/finanzas";
 
-type FiltroEstado = 'todos' | 'pendientes' | 'pagados'
+type FiltroEstado = "todos" | "pendientes" | "pagados";
 
 const FILTROS: { value: FiltroEstado; label: string }[] = [
-  { value: 'pendientes', label: 'Pendientes' },
-  { value: 'pagados', label: 'Pagados' },
-  { value: 'todos', label: 'Todos' },
-]
+  { value: "pendientes", label: "Pendientes" },
+  { value: "pagados", label: "Pagados" },
+  { value: "todos", label: "Todos" },
+];
 
 export default function PrestamosPage() {
-  const router = useRouter()
-  const [filtro, setFiltro] = useState<FiltroEstado>('pendientes')
-  const [showForm, setShowForm] = useState(false)
-  
+  const router = useRouter();
+  const [filtro, setFiltro] = useState<FiltroEstado>("pendientes");
+  const [showForm, setShowForm] = useState(false);
+
   const {
     prestamos,
     loading,
@@ -32,25 +35,25 @@ export default function PrestamosPage() {
     prestamosPendientes,
     prestamosPagados,
     balanceNeto,
-    totalPendiente
-  } = usePrestamos()
-  
+    totalPendiente,
+  } = usePrestamos();
+
   // Préstamos filtrados
   const prestamosFiltrados = useMemo(() => {
     switch (filtro) {
-      case 'pendientes':
-        return prestamosPendientes
-      case 'pagados':
-        return prestamosPagados
+      case "pendientes":
+        return prestamosPendientes;
+      case "pagados":
+        return prestamosPagados;
       default:
-        return prestamos
+        return prestamos;
     }
-  }, [filtro, prestamos, prestamosPendientes, prestamosPagados])
-  
+  }, [filtro, prestamos, prestamosPendientes, prestamosPagados]);
+
   const handleSave = async (data: Parameters<typeof crearPrestamo>[0]) => {
-    await crearPrestamo(data)
-  }
-  
+    await crearPrestamo(data);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -67,18 +70,18 @@ export default function PrestamosPage() {
             Préstamos
           </h1>
         </div>
-        
+
         {/* Filtro por estado */}
         <div className="flex bg-[var(--border)] rounded-[9px] p-[2px]">
-          {FILTROS.map(f => (
+          {FILTROS.map((f) => (
             <button
               key={f.value}
               onClick={() => setFiltro(f.value)}
               className={cn(
-                'flex-1 py-[6px] text-[13px] font-medium rounded-[7px] transition-all',
-                filtro === f.value 
-                  ? 'bg-surface text-primary shadow-sm' 
-                  : 'text-[var(--text-secondary)]'
+                "flex-1 py-[6px] text-[13px] font-medium rounded-[7px] transition-all",
+                filtro === f.value
+                  ? "bg-surface text-primary shadow-sm"
+                  : "text-[var(--text-secondary)]",
               )}
             >
               {f.label}
@@ -86,26 +89,28 @@ export default function PrestamosPage() {
           ))}
         </div>
       </div>
-      
+
       <div className="p-4">
         {/* Card resumen de balance */}
-        <div className={cn(
-          'bg-surface dark:bg-surface rounded-xl p-4 mb-4',
-          'border-l-4',
-          balanceNeto.deudorPersona === null 
-            ? 'border-green-500'
-            : balanceNeto.deudorPersona === 'm1' 
-              ? 'border-blue-500'
-              : 'border-pink-500'
-        )}>
-          <p className="text-sm text-[var(--text-secondary)] mb-1">Balance neto de préstamos</p>
-          
+        <div
+          className={cn(
+            "bg-surface dark:bg-surface rounded-xl p-4 mb-4",
+            "border-l-4",
+            balanceNeto.deudorPersona === null
+              ? "border-green-500"
+              : balanceNeto.deudorPersona === "m1"
+                ? "border-blue-500"
+                : "border-pink-500",
+          )}
+        >
+          <p className="text-sm text-[var(--text-secondary)] mb-1">
+            Balance neto de préstamos
+          </p>
+
           {balanceNeto.deudorPersona === null ? (
             <div className="flex items-center gap-2">
               <span className="text-2xl"></span>
-              <p className="text-xl font-bold text-green-600">
-                Equilibrado
-              </p>
+              <p className="text-xl font-bold text-green-600">Equilibrado</p>
             </div>
           ) : (
             <>
@@ -117,23 +122,28 @@ export default function PrestamosPage() {
               </p>
             </>
           )}
-          
+
           {totalPendiente > 0 && (
             <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
               <p className="text-xs text-[var(--text-secondary)]">
-                Total en préstamos pendientes: <span className="font-medium">{formatMoney(totalPendiente)}</span>
+                Total en préstamos pendientes:{" "}
+                <span className="font-medium">
+                  {formatMoney(totalPendiente)}
+                </span>
               </p>
             </div>
           )}
         </div>
-        
+
         {/* Loading */}
         {loading && (
           <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
-            {[1, 2, 3].map(i => <PrestamoItemSkeleton key={i} />)}
+            {[1, 2, 3].map((i) => (
+              <PrestamoItemSkeleton key={i} />
+            ))}
           </div>
         )}
-        
+
         {/* Empty state */}
         {!loading && prestamosFiltrados.length === 0 && (
           <div className="text-center py-12">
@@ -141,24 +151,24 @@ export default function PrestamosPage() {
               <span className="text-3xl"></span>
             </div>
             <h3 className="text-lg font-semibold mb-2">
-              {filtro === 'todos' 
-                ? 'Sin préstamos registrados' 
-                : filtro === 'pendientes'
-                  ? 'Sin préstamos pendientes'
-                  : 'Sin préstamos pagados'}
+              {filtro === "todos"
+                ? "Sin préstamos registrados"
+                : filtro === "pendientes"
+                  ? "Sin préstamos pendientes"
+                  : "Sin préstamos pagados"}
             </h3>
             <p className="text-[var(--text-secondary)] mb-4">
-              {filtro === 'todos' 
-                ? 'Registra préstamos entre vosotros para llevar un control'
-                : 'No hay préstamos con este estado'}
+              {filtro === "todos"
+                ? "Registra préstamos entre vosotros para llevar un control"
+                : "No hay préstamos con este estado"}
             </p>
           </div>
         )}
-        
+
         {/* Lista de préstamos */}
         {!loading && prestamosFiltrados.length > 0 && (
           <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
-            {prestamosFiltrados.map(prestamo => (
+            {prestamosFiltrados.map((prestamo) => (
               <PrestamoItem
                 key={prestamo.id}
                 prestamo={prestamo}
@@ -168,33 +178,34 @@ export default function PrestamosPage() {
             ))}
           </div>
         )}
-        
+
         {/* Explicación */}
         <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
           <p className="text-sm text-blue-700 dark:text-blue-300">
             <strong>¿Cómo funciona?</strong>
             <br />
-            Cuando alguien presta dinero al otro, el balance neto muestra quién debe dinero.
-            Marca como "pagado" cuando se devuelva el dinero.
+            Cuando alguien presta dinero al otro, el balance neto muestra quién
+            debe dinero. Marca como &ldquo;pagado&rdquo; cuando se devuelva el
+            dinero.
           </p>
         </div>
       </div>
-      
+
       {/* FAB */}
       <button
         onClick={() => setShowForm(true)}
         className={cn(
-          'fixed bottom-24 right-4 z-30',
-          'w-14 h-14 rounded-full',
-          'bg-blue-500 text-white shadow-lg',
-          'flex items-center justify-center',
-          'active:scale-95 transition-transform'
+          "fixed bottom-24 right-4 z-30",
+          "w-14 h-14 rounded-full",
+          "bg-blue-500 text-white shadow-lg",
+          "flex items-center justify-center",
+          "active:scale-95 transition-transform",
         )}
         aria-label="Añadir préstamo"
       >
         <Plus className="w-7 h-7" />
       </button>
-      
+
       {/* Formulario */}
       <PrestamoForm
         open={showForm}
@@ -202,5 +213,5 @@ export default function PrestamosPage() {
         onSave={handleSave}
       />
     </div>
-  )
+  );
 }

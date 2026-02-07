@@ -2,9 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
-
-// Hardcoded hogar ID - será reemplazado por auth real
-const TEMP_HOGAR_ID = '00000000-0000-0000-0000-000000000001'
+import { useConfigHogar } from '@/hooks/use-config-hogar'
 
 interface MenuDia {
   id: string
@@ -44,12 +42,13 @@ interface RecetaIngrediente {
 }
 
 export function useMenuSemanal() {
+  const { hogarId, loading: hogarLoading } = useConfigHogar()
   const [menu, setMenu] = useState<MenuSemanal | null>(null)
   const [recetas, setRecetas] = useState<Receta[]>([])
   const [semanaActual, setSemanaActual] = useState(() => getMonday(new Date()))
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  
+
   const supabase = createClient()
 
   // Obtener lunes de la semana
@@ -69,9 +68,13 @@ export function useMenuSemanal() {
 
   // Cargar menú de la semana
   const cargarMenu = useCallback(async () => {
+    if (!hogarId) {
+      setLoading(false)
+      return
+    }
     setLoading(true)
     setError(null)
-    
+
     try {
       const semanaInicio = formatDate(semanaActual)
       
@@ -85,7 +88,7 @@ export function useMenuSemanal() {
             receta:recetas(*)
           )
         `)
-        .eq('hogar_id', TEMP_HOGAR_ID)
+        .eq('hogar_id', hogarId!)
         .eq('semana_inicio', semanaInicio)
         .single()
 
@@ -97,7 +100,7 @@ export function useMenuSemanal() {
       if (!menuData) {
         const { data: nuevoMenu, error: createError } = await supabase
           .from('menus_semanales')
-          .insert({ hogar_id: TEMP_HOGAR_ID, semana_inicio: semanaInicio })
+          .insert({ hogar_id: hogarId!, semana_inicio: semanaInicio })
           .select()
           .single()
 
@@ -121,31 +124,37 @@ export function useMenuSemanal() {
         if (diasError) throw diasError
 
         // Recargar con datos completos
-        const { data: menuCompleto } = await supabase
+        const { data: menuCompleto, error: reloadError } = await supabase
           .from('menus_semanales')
           .select(`*, dias:menu_dias(*, receta:recetas(*))`)
           .eq('id', nuevoMenu.id)
           .single()
 
+        if (reloadError) throw reloadError
+        if (!menuCompleto) throw new Error('Error al recargar datos del menú')
         menuData = menuCompleto
       }
 
       setMenu(menuData as MenuSemanal)
-    } catch (err) {
-      console.error('Error cargando menú:', err)
-      setError(err instanceof Error ? err.message : 'Error desconocido')
+    } catch (err: unknown) {
+      const msg = err instanceof Error
+        ? err.message
+        : (err as { message?: string })?.message || JSON.stringify(err)
+      console.error('Error cargando menú:', msg)
+      setError(msg)
     } finally {
       setLoading(false)
     }
-  }, [semanaActual, supabase])
+  }, [semanaActual, supabase, hogarId])
 
   // Cargar recetas disponibles
   const cargarRecetas = useCallback(async () => {
+    if (!hogarId) return
     try {
       const { data, error } = await supabase
         .from('recetas')
         .select('*, ingredientes:receta_ingredientes(*)')
-        .eq('hogar_id', TEMP_HOGAR_ID)
+        .eq('hogar_id', hogarId)
         .order('nombre')
 
       if (error) throw error
@@ -153,7 +162,7 @@ export function useMenuSemanal() {
     } catch (err) {
       console.error('Error cargando recetas:', err)
     }
-  }, [supabase])
+  }, [supabase, hogarId])
 
   useEffect(() => {
     cargarMenu()
@@ -213,7 +222,7 @@ export function useMenuSemanal() {
       const { data: nuevaReceta, error } = await supabase
         .from('recetas')
         .insert({
-          hogar_id: TEMP_HOGAR_ID,
+          hogar_id: hogarId!,
           nombre: receta.nombre,
           descripcion: receta.descripcion || null,
           tiempo_minutos: receta.tiempo_minutos || null,
@@ -305,7 +314,7 @@ export function useMenuSemanal() {
       const { data: lista, error: listaError } = await supabase
         .from('listas_compra')
         .insert({
-          hogar_id: TEMP_HOGAR_ID,
+          hogar_id: hogarId!,
           nombre: `Menú ${formatDate(semanaActual)}`,
           estado: 'activa'
         })

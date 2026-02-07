@@ -5,8 +5,7 @@ import { ArrowLeft, Plus, Trash2, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-
-const TEMP_HOGAR_ID = '00000000-0000-0000-0000-000000000001'
+import { useConfigHogar } from '@/hooks/use-config-hogar'
 
 interface Ingrediente {
   nombre: string
@@ -15,6 +14,7 @@ interface Ingrediente {
 
 export default function NuevaRecetaPage() {
   const router = useRouter()
+  const { hogarId } = useConfigHogar()
   const supabase = createClient()
   
   const [nombre, setNombre] = useState('')
@@ -47,6 +47,11 @@ export default function NuevaRecetaPage() {
       return
     }
 
+    if (!hogarId) {
+      setError('Error: hogar no configurado. Intenta recargar la página.')
+      return
+    }
+
     setLoading(true)
     setError('')
 
@@ -55,7 +60,7 @@ export default function NuevaRecetaPage() {
       const { data: receta, error: recetaError } = await supabase
         .from('recetas')
         .insert({
-          hogar_id: TEMP_HOGAR_ID,
+          hogar_id: hogarId,
           nombre: nombre.trim(),
           descripcion: descripcion.trim() || null,
           tiempo_minutos: tiempoMinutos ? parseInt(tiempoMinutos) : null,

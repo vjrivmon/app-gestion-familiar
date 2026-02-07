@@ -1,65 +1,83 @@
-'use client'
+"use client";
 
-import { useState, useCallback } from 'react'
-import { useSupabase } from '@/providers/supabase-provider'
-import { useRouter } from 'next/navigation'
-import { useSwipeable } from 'react-swipeable'
-import Link from 'next/link'
-import { Settings, ShoppingCart, Receipt, PiggyBank, Camera, ChevronLeft, ChevronRight, ListTodo } from 'lucide-react'
+import { useState, useCallback } from "react";
+import { useSupabase } from "@/providers/supabase-provider";
+import { useRouter } from "next/navigation";
+import { useSwipeable } from "react-swipeable";
+import Link from "next/link";
+import {
+  Settings,
+  ShoppingCart,
+  Receipt,
+  PiggyBank,
+  Camera,
+  ChevronLeft,
+  ChevronRight,
+  ListTodo,
+} from "lucide-react";
 
 // Componentes
-import { BalanceCard } from '@/components/finanzas/balance-card'
-import { TareasCarousel } from '@/components/tareas/tareas-carousel'
-import { TareaDetailSheet } from '@/components/tareas/tarea-detail-sheet'
+import { BalanceCard } from "@/components/finanzas/balance-card";
+import { TareasCarousel } from "@/components/tareas/tareas-carousel";
+import { TareaDetailSheet } from "@/components/tareas/tarea-detail-sheet";
 
 // Hooks
-import { useTareas, type TareaConEstado } from '@/hooks/use-tareas'
-import { useBalance } from '@/hooks/use-balance'
-import { useConfigHogar } from '@/hooks/use-config-hogar'
+import { useTareas, type TareaConEstado } from "@/hooks/use-tareas";
+import { useBalance } from "@/hooks/use-balance";
+import { useConfigHogar } from "@/hooks/use-config-hogar";
 
 export default function HomePage() {
-  const { user } = useSupabase()
-  const router = useRouter()
-  const { tareas, completarTarea, eliminarTarea } = useTareas()
-  const { balance } = useBalance()
-  const { config } = useConfigHogar()
-  
+  const { user } = useSupabase();
+  const router = useRouter();
+  const { tareas, completarTarea, eliminarTarea } = useTareas();
+  const { balance } = useBalance();
+  const { config, miembroActual } = useConfigHogar();
+
   // Estado para sheet de detalle
-  const [selectedTarea, setSelectedTarea] = useState<TareaConEstado | null>(null)
+  const [selectedTarea, setSelectedTarea] = useState<TareaConEstado | null>(
+    null,
+  );
 
   // Swipe left to open camera
   const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => router.push('/camera'),
+    onSwipedLeft: () => router.push("/camera"),
     delta: 50,
     preventScrollOnSwipe: true,
-  })
+  });
 
-  // Usar nombre de config, o primer nombre del email, o 'Usuario'
-  const userName = config?.nombres?.m1 || user?.user_metadata?.name || 'Usuario'
-  
+  // Mostrar nombre del miembro actual (no siempre m1)
+  const userName =
+    config?.nombres?.[miembroActual] || user?.user_metadata?.name || "Usuario";
+
   // Handlers para tareas
-  const handleCompleteTarea = useCallback(async (tareaId: string) => {
-    return await completarTarea(tareaId)
-  }, [completarTarea])
-  
+  const handleCompleteTarea = useCallback(
+    async (tareaId: string) => {
+      return await completarTarea(tareaId);
+    },
+    [completarTarea],
+  );
+
   const handleViewTareaDetail = useCallback((tarea: TareaConEstado) => {
-    setSelectedTarea(tarea)
-  }, [])
-  
+    setSelectedTarea(tarea);
+  }, []);
+
   const handleCloseTareaDetail = useCallback(() => {
-    setSelectedTarea(null)
-  }, [])
-  
-  const handleDeleteTarea = useCallback(async (tareaId: string) => {
-    const success = await eliminarTarea(tareaId)
-    if (success) {
-      setSelectedTarea(null)
-    }
-    return success
-  }, [eliminarTarea])
+    setSelectedTarea(null);
+  }, []);
+
+  const handleDeleteTarea = useCallback(
+    async (tareaId: string) => {
+      const success = await eliminarTarea(tareaId);
+      if (success) {
+        setSelectedTarea(null);
+      }
+      return success;
+    },
+    [eliminarTarea],
+  );
 
   // Contar tareas urgentes
-  const tareasUrgentes = tareas.filter(t => t.estado === 'overdue').length
+  const tareasUrgentes = tareas.filter((t) => t.estado === "overdue").length;
 
   return (
     <div {...swipeHandlers} className="min-h-screen p-4 space-y-4 pb-24">
@@ -68,10 +86,10 @@ export default function HomePage() {
         <div>
           <h1 className="text-[28px] font-bold">Hola, {userName}</h1>
           <p className="text-[var(--text-secondary)]">
-            {new Date().toLocaleDateString('es-ES', { 
-              weekday: 'long', 
-              day: 'numeric', 
-              month: 'long' 
+            {new Date().toLocaleDateString("es-ES", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
             })}
           </p>
         </div>
@@ -81,9 +99,7 @@ export default function HomePage() {
       </div>
 
       {/* Balance Card - Componente real */}
-      <BalanceCard 
-        onDetailClick={() => router.push('/finanzas')}
-      />
+      <BalanceCard onDetailClick={() => router.push("/finanzas")} />
 
       {/* Quick Actions */}
       <div className="space-y-2">
@@ -91,19 +107,31 @@ export default function HomePage() {
           Acciones rápidas
         </h2>
         <div className="grid grid-cols-2 gap-3">
-          <Link href="/compra" className="card flex flex-col items-center justify-center py-5 active:scale-95 transition-transform">
+          <Link
+            href="/compra"
+            className="card flex flex-col items-center justify-center py-5 active:scale-95 transition-transform"
+          >
             <ShoppingCart className="w-8 h-8 text-accent mb-2" />
             <span className="text-[15px] font-medium">Nueva compra</span>
           </Link>
-          <Link href="/finanzas" className="card flex flex-col items-center justify-center py-5 active:scale-95 transition-transform">
+          <Link
+            href="/finanzas"
+            className="card flex flex-col items-center justify-center py-5 active:scale-95 transition-transform"
+          >
             <Receipt className="w-8 h-8 text-accent mb-2" />
             <span className="text-[15px] font-medium">Añadir gasto</span>
           </Link>
-          <Link href="/finanzas" className="card flex flex-col items-center justify-center py-5 active:scale-95 transition-transform">
+          <Link
+            href="/finanzas"
+            className="card flex flex-col items-center justify-center py-5 active:scale-95 transition-transform"
+          >
             <PiggyBank className="w-8 h-8 text-accent mb-2" />
             <span className="text-[15px] font-medium">Añadir ingreso</span>
           </Link>
-          <Link href="/camera" className="card flex flex-col items-center justify-center py-5 active:scale-95 transition-transform">
+          <Link
+            href="/camera"
+            className="card flex flex-col items-center justify-center py-5 active:scale-95 transition-transform"
+          >
             <Camera className="w-8 h-8 text-accent mb-2" />
             <span className="text-[15px] font-medium">Escanear precio</span>
           </Link>
@@ -123,23 +151,23 @@ export default function HomePage() {
               </span>
             )}
           </div>
-          <Link 
-            href="/home/tareas" 
+          <Link
+            href="/home/tareas"
             className="flex items-center gap-1 text-accent text-sm font-medium"
           >
             Ver todas
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
-        
+
         <TareasCarousel
           tareas={tareas}
           onComplete={handleCompleteTarea}
           onViewDetail={handleViewTareaDetail}
         />
-        
+
         {tareas.length === 0 && (
-          <Link 
+          <Link
             href="/home/tareas"
             className="card flex items-center justify-center gap-2 py-4 text-[var(--text-secondary)]"
           >
@@ -156,12 +184,18 @@ export default function HomePage() {
           <span className="font-semibold">Presupuesto del mes</span>
         </div>
         <div className="h-2 bg-[var(--separator)] rounded-full overflow-hidden">
-          <div className="h-full bg-accent rounded-full" style={{ width: '0%' }} />
+          <div
+            className="h-full bg-accent rounded-full"
+            style={{ width: "0%" }}
+          />
         </div>
         <p className="text-[var(--text-muted)] text-sm mt-2">
           Sin presupuesto configurado
         </p>
-        <Link href="/finanzas/config" className="text-accent text-sm font-medium mt-1 inline-block">
+        <Link
+          href="/finanzas/config"
+          className="text-accent text-sm font-medium mt-1 inline-block"
+        >
           Configurar →
         </Link>
       </div>
@@ -171,7 +205,7 @@ export default function HomePage() {
         <ChevronLeft size={16} />
         <span className="text-xs">Cámara</span>
       </div>
-      
+
       {/* Tarea Detail Sheet */}
       {selectedTarea && (
         <TareaDetailSheet
@@ -182,5 +216,5 @@ export default function HomePage() {
         />
       )}
     </div>
-  )
+  );
 }

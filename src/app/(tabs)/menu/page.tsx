@@ -13,6 +13,7 @@ const DIAS_SEMANA = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
 export default function MenuPage() {
   const router = useRouter()
   const {
+    menu,
     diasOrganizados,
     recetas,
     semanaActual,
@@ -27,6 +28,13 @@ export default function MenuPage() {
   const [selectorOpen, setSelectorOpen] = useState(false)
   const [diaSeleccionado, setDiaSeleccionado] = useState<{ id: string; dia: string; tipo: string } | null>(null)
   const [generandoLista, setGenerandoLista] = useState(false)
+
+  // Contar recetas planificadas esta semana
+  const numRecetas = menu?.dias?.filter(d => d.receta_id !== null).length ?? 0
+  const tieneRecetas = numRecetas > 0
+
+  // Formatear fecha consistente con el hook (UTC)
+  const toDateStr = (d: Date) => d.toISOString().split('T')[0]
 
   // Formatear rango de semana
   const fechaInicio = semanaActual
@@ -90,8 +98,9 @@ export default function MenuPage() {
       {/* Header */}
       <div className="flex justify-between items-center pt-2 mb-6">
         <h1 className="text-[28px] font-bold">Menú Semanal</h1>
-        <Link href="/menu/recetas" className="p-2 -mr-2">
-          <BookOpen className="w-6 h-6 text-accent" />
+        <Link href="/menu/recetas" className="flex items-center gap-1.5 text-accent text-[15px] font-medium p-2 -mr-2">
+          <BookOpen className="w-5 h-5" />
+          Recetas
         </Link>
       </div>
 
@@ -112,9 +121,9 @@ export default function MenuPage() {
       <div className="space-y-3">
         {DIAS_SEMANA.map((dia, i) => {
           const fecha = addDays(semanaActual, i)
-          const fechaStr = format(fecha, 'yyyy-MM-dd')
+          const fechaStr = toDateStr(fecha)
           const diaData = diasOrganizados[fechaStr] || {}
-          const esHoy = format(new Date(), 'yyyy-MM-dd') === fechaStr
+          const esHoy = toDateStr(new Date()) === fechaStr
 
           return (
             <div key={dia} className={`card p-3 ${esHoy ? 'ring-2 ring-accent' : ''}`}>
@@ -130,8 +139,16 @@ export default function MenuPage() {
               <div className="grid grid-cols-2 gap-2">
                 {/* Comida */}
                 <button
-                  onClick={() => diaData.comida && abrirSelector({ id: diaData.comida.id, dia: fechaStr, tipo: 'comida' })}
-                  className="flex flex-col p-3 bg-background rounded-lg text-left hover:bg-[var(--surface-secondary)] transition-colors"
+                  onClick={() => {
+                    if (diaData.comida) {
+                      abrirSelector({ id: diaData.comida.id, dia: fechaStr, tipo: 'comida' })
+                    } else {
+                      // Dias aún no cargados - buscar en menu.dias
+                      const slot = menu?.dias?.find(d => d.dia === fechaStr && d.tipo === 'comida')
+                      if (slot) abrirSelector({ id: slot.id, dia: fechaStr, tipo: 'comida' })
+                    }
+                  }}
+                  className="flex flex-col p-3 bg-background rounded-lg text-left active:bg-[var(--surface-elevated)] transition-colors"
                 >
                   <p className="text-[13px] text-[var(--text-muted)]">🍽️ Comida</p>
                   <p className={`text-[15px] truncate ${diaData.comida?.receta ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}>
@@ -140,8 +157,15 @@ export default function MenuPage() {
                 </button>
                 {/* Cena */}
                 <button
-                  onClick={() => diaData.cena && abrirSelector({ id: diaData.cena.id, dia: fechaStr, tipo: 'cena' })}
-                  className="flex flex-col p-3 bg-background rounded-lg text-left hover:bg-[var(--surface-secondary)] transition-colors"
+                  onClick={() => {
+                    if (diaData.cena) {
+                      abrirSelector({ id: diaData.cena.id, dia: fechaStr, tipo: 'cena' })
+                    } else {
+                      const slot = menu?.dias?.find(d => d.dia === fechaStr && d.tipo === 'cena')
+                      if (slot) abrirSelector({ id: slot.id, dia: fechaStr, tipo: 'cena' })
+                    }
+                  }}
+                  className="flex flex-col p-3 bg-background rounded-lg text-left active:bg-[var(--surface-elevated)] transition-colors"
                 >
                   <p className="text-[13px] text-[var(--text-muted)]">🌙 Cena</p>
                   <p className={`text-[15px] truncate ${diaData.cena?.receta ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}>
@@ -156,18 +180,27 @@ export default function MenuPage() {
 
       {/* Generate list button */}
       <div className="fixed bottom-[calc(49px+env(safe-area-inset-bottom)+16px)] left-4 right-4">
-        <button 
+        <button
           onClick={handleGenerarLista}
-          disabled={generandoLista}
-          className="btn-primary w-full flex items-center justify-center gap-2"
+          disabled={!tieneRecetas || generandoLista}
+          className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {generandoLista ? (
             <Loader2 className="w-5 h-5 animate-spin" />
           ) : (
             <UtensilsCrossed className="w-5 h-5" />
           )}
-          {generandoLista ? 'Generando...' : 'Generar lista de compra'}
+          {generandoLista
+            ? 'Generando...'
+            : tieneRecetas
+              ? `Generar lista de compra (${numRecetas})`
+              : 'Generar lista de compra'}
         </button>
+        {!tieneRecetas && (
+          <p className="text-center text-[13px] text-[var(--text-muted)] mt-2">
+            Planifica al menos 1 receta para generar la lista
+          </p>
+        )}
       </div>
 
       {/* Selector de recetas modal */}
