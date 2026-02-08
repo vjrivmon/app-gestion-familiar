@@ -200,12 +200,29 @@ export function useConfigHogar(): UseConfigHogarReturn {
       try {
         const newConfig = { ...config, ...updates };
 
-        const { error: updateError } = await supabase
+        // Asegurar que profiles.hogar_id está seteado (necesario para RLS)
+        if (user) {
+          await supabase
+            .from("profiles")
+            .update({ hogar_id: targetHogarId })
+            .eq("id", user.id);
+        }
+
+        // Usar .select() para verificar que el update realmente afectó filas
+        const { data, error: updateError } = await supabase
           .from("hogares")
           .update({ config: newConfig })
-          .eq("id", targetHogarId);
+          .eq("id", targetHogarId)
+          .select("id")
+          .single();
 
         if (updateError) throw updateError;
+
+        if (!data) {
+          throw new Error(
+            "No se pudo guardar la configuración. Verifica tu conexión.",
+          );
+        }
 
         setConfig(newConfig);
         return true;
@@ -215,7 +232,7 @@ export function useConfigHogar(): UseConfigHogarReturn {
         return false;
       }
     },
-    [supabase, hogarId, config, crearHogar],
+    [supabase, hogarId, config, crearHogar, user],
   );
 
   // Actualizar saldos iniciales
