@@ -46,8 +46,8 @@ const TEMP_HOGAR_ID = "00000000-0000-0000-0000-000000000001";
 export function usePrestamos(): UsePrestamosReturn {
   const { config } = useConfigHogar();
   const nombres: Record<Pagador, string> = {
-    m1: config?.nombres?.m1 || "Miembro 1",
-    m2: config?.nombres?.m2 || "Miembro 2",
+    m1: config?.nombres?.m1 || "Vicente",
+    m2: config?.nombres?.m2 || "Irene",
     conjunta: "Conjunta",
   };
 

@@ -24,15 +24,14 @@ interface UseConfigHogarReturn {
     fecha?: string,
   ) => Promise<boolean>;
   updateConfigCompraPiso: (config: ConfigCompraPiso) => Promise<boolean>;
-  updateNombres: (nombres: { m1: string; m2: string }) => Promise<boolean>;
   crearHogar: () => Promise<string | null>;
   refetch: () => Promise<void>;
 }
 
 const DEFAULT_CONFIG: ConfigHogar = {
   nombres: {
-    m1: "Miembro 1",
-    m2: "Miembro 2",
+    m1: "Vicente",
+    m2: "Irene",
   },
   preferencias: {
     moneda: "EUR",
@@ -240,14 +239,6 @@ export function useConfigHogar(): UseConfigHogarReturn {
     [updateConfig],
   );
 
-  // Actualizar nombres
-  const updateNombres = useCallback(
-    async (nombres: { m1: string; m2: string }): Promise<boolean> => {
-      return updateConfig({ nombres });
-    },
-    [updateConfig],
-  );
-
   // Determinar si el usuario actual es m1 o m2
   const miembroActual: "m1" | "m2" =
     user && miembro1Id && user.id === miembro1Id ? "m1" : "m2";
@@ -261,7 +252,6 @@ export function useConfigHogar(): UseConfigHogarReturn {
     hasHogar: !!hogarId,
     updateSaldosIniciales,
     updateConfigCompraPiso,
-    updateNombres,
     crearHogar,
     refetch: fetchConfig,
   };
@@ -275,8 +265,8 @@ export function useNombres(): Record<Pagador, string> {
   const { config } = useConfigHogar();
   return useMemo(
     () => ({
-      m1: config?.nombres?.m1 || "Miembro 1",
-      m2: config?.nombres?.m2 || "Miembro 2",
+      m1: config?.nombres?.m1 || "Vicente",
+      m2: config?.nombres?.m2 || "Irene",
       conjunta: "Conjunta",
     }),
     [config?.nombres?.m1, config?.nombres?.m2],

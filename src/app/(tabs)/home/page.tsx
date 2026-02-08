@@ -47,7 +47,8 @@ export default function HomePage() {
 
   // Mostrar nombre del miembro actual (no siempre m1)
   const userName =
-    config?.nombres?.[miembroActual] || user?.user_metadata?.name || "Usuario";
+    config?.nombres?.[miembroActual] ||
+    (miembroActual === "m1" ? "Vicente" : "Irene");
 
   // Handlers para tareas
   const handleCompleteTarea = useCallback(

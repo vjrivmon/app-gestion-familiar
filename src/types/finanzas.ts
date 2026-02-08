@@ -99,8 +99,8 @@ export interface Meta {
 
 // Helpers
 export const NOMBRES_DEFAULT: Record<Pagador, string> = {
-  m1: "Miembro 1",
-  m2: "Miembro 2",
+  m1: "Vicente",
+  m2: "Irene",
   conjunta: "Conjunta",
 };
 

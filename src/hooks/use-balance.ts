@@ -178,7 +178,7 @@ export function useBalance(): UseBalanceReturn {
         es_fijo: false,
         es_proyectado: false,
         fecha,
-        notas: `Liquidación automática de balance. ${config?.nombres?.[balance.deudor as "m1" | "m2"] || (balance.deudor === "m1" ? "Miembro 1" : "Miembro 2")} paga a ${config?.nombres?.[balance.acreedor as "m1" | "m2"] || (balance.acreedor === "m1" ? "Miembro 1" : "Miembro 2")}`,
+        notas: `Liquidación automática de balance. ${config?.nombres?.[balance.deudor as "m1" | "m2"] || (balance.deudor === "m1" ? "Vicente" : "Irene")} paga a ${config?.nombres?.[balance.acreedor as "m1" | "m2"] || (balance.acreedor === "m1" ? "Vicente" : "Irene")}`,
       });
 
       if (ingresoError) throw ingresoError;
@@ -193,7 +193,7 @@ export function useBalance(): UseBalanceReturn {
         pagador: balance.deudor,
         tipo_dinero: "digital",
         fecha,
-        notas: `Liquidación automática de balance a ${config?.nombres?.[balance.acreedor as "m1" | "m2"] || (balance.acreedor === "m1" ? "Miembro 1" : "Miembro 2")}`,
+        notas: `Liquidación automática de balance a ${config?.nombres?.[balance.acreedor as "m1" | "m2"] || (balance.acreedor === "m1" ? "Vicente" : "Irene")}`,
       });
 
       if (gastoError) throw gastoError;

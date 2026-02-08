@@ -87,8 +87,8 @@ export interface ConfigHogar {
 // Default config
 export const CONFIG_HOGAR_DEFAULT: ConfigHogar = {
   nombres: {
-    m1: "Miembro 1",
-    m2: "Miembro 2",
+    m1: "Vicente",
+    m2: "Irene",
   },
   preferencias: {
     moneda: "EUR",
@@ -104,7 +104,7 @@ export function getNombrePagador(
 ): string {
   if (pagador === "conjunta") return "Conjunta";
   if (!config?.nombres) {
-    return pagador === "m1" ? "Miembro 1" : "Miembro 2";
+    return pagador === "m1" ? "Vicente" : "Irene";
   }
   return config.nombres[pagador];
 }
