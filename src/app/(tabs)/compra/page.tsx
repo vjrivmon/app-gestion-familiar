@@ -1,18 +1,24 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { ShoppingCart, Plus, MoreHorizontal, History, CheckCircle } from 'lucide-react'
-import Link from 'next/link'
-import { useListaCompra } from '@/hooks/use-lista-compra'
-import { useProductosFrecuentes } from '@/hooks/use-productos-frecuentes'
-import { 
-  ProductoItem, 
-  AddProductoForm, 
-  PresupuestoBar, 
+import { useState } from "react";
+import {
+  ShoppingCart,
+  Plus,
+  MoreHorizontal,
+  History,
+  CheckCircle,
+} from "lucide-react";
+import Link from "next/link";
+import { useListaCompra } from "@/hooks/use-lista-compra";
+import { useProductosFrecuentes } from "@/hooks/use-productos-frecuentes";
+import {
+  ProductoItem,
+  AddProductoForm,
+  PresupuestoBar,
   ProductosFrecuentes,
-  ScannerPrecio
-} from '@/components/compra'
-import type { CategoriaProducto } from '@/types/compra'
+  ScannerPrecio,
+} from "@/components/compra";
+import type { CategoriaProducto } from "@/types/compra";
 
 export default function CompraPage() {
   const {
@@ -26,60 +32,66 @@ export default function CompraPage() {
     deleteProducto,
     updateProducto,
     calcularTotal,
-    completarLista
-  } = useListaCompra()
-  
-  const { frecuentes, loading: loadingFrecuentes } = useProductosFrecuentes()
-  
-  const [showAddForm, setShowAddForm] = useState(false)
-  const [showScanner, setShowScanner] = useState(false)
-  const [selectedProductoId, setSelectedProductoId] = useState<string | null>(null)
-  const [showOptions, setShowOptions] = useState(false)
-  const [completing, setCompleting] = useState(false)
-  
-  const selectedProducto = productos.find(p => p.id === selectedProductoId)
-  
-  const handleAddProducto = async (nombre: string, cantidad: number, categoria: CategoriaProducto) => {
-    await addProducto(nombre, cantidad, categoria)
-  }
-  
+    completarLista,
+  } = useListaCompra();
+
+  const { frecuentes, loading: loadingFrecuentes } = useProductosFrecuentes();
+
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [showScanner, setShowScanner] = useState(false);
+  const [selectedProductoId, setSelectedProductoId] = useState<string | null>(
+    null,
+  );
+  const [showOptions, setShowOptions] = useState(false);
+  const [completing, setCompleting] = useState(false);
+
+  const selectedProducto = productos.find((p) => p.id === selectedProductoId);
+
+  const handleAddProducto = async (
+    nombre: string,
+    cantidad: number,
+    categoria: CategoriaProducto,
+  ) => {
+    await addProducto(nombre, cantidad, categoria);
+  };
+
   const handleToggle = async (id: string) => {
-    const producto = productos.find(p => p.id === id)
-    if (!producto) return
-    
+    const producto = productos.find((p) => p.id === id);
+    if (!producto) return;
+
     if (!producto.comprado) {
       // Al marcar como comprado, mostrar scanner de precio
-      setSelectedProductoId(id)
-      setShowScanner(true)
+      setSelectedProductoId(id);
+      setShowScanner(true);
     } else {
       // Si ya está comprado, simplemente desmarcar
-      await toggleComprado(id)
+      await toggleComprado(id);
     }
-  }
-  
+  };
+
   const handlePrecioConfirm = async (precio: number) => {
     if (selectedProductoId) {
-      await updateProducto(selectedProductoId, { precio, comprado: true })
+      await updateProducto(selectedProductoId, { precio, comprado: true });
     }
-    setShowScanner(false)
-    setSelectedProductoId(null)
-  }
-  
+    setShowScanner(false);
+    setSelectedProductoId(null);
+  };
+
   const handlePrecioEdit = (id: string) => {
-    setSelectedProductoId(id)
-    setShowScanner(true)
-  }
-  
+    setSelectedProductoId(id);
+    setShowScanner(true);
+  };
+
   const handleAddFrecuente = async (nombre: string, categoria: string) => {
-    await addProducto(nombre, 1, categoria as CategoriaProducto)
-  }
-  
+    await addProducto(nombre, 1, categoria as CategoriaProducto);
+  };
+
   const handleCompletarLista = async () => {
-    setCompleting(true)
-    await completarLista()
-    setCompleting(false)
-  }
-  
+    setCompleting(true);
+    await completarLista();
+    setCompleting(false);
+  };
+
   // Loading state
   if (loading) {
     return (
@@ -90,13 +102,16 @@ export default function CompraPage() {
         </div>
         <div className="space-y-3">
           {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="h-16 bg-[var(--separator)] rounded-xl animate-pulse" />
+            <div
+              key={i}
+              className="h-16 bg-[var(--separator)] rounded-xl animate-pulse"
+            />
           ))}
         </div>
       </div>
-    )
+    );
   }
-  
+
   // Empty state - no active list
   if (!listaActiva) {
     return (
@@ -116,9 +131,10 @@ export default function CompraPage() {
           </div>
           <h2 className="text-xl font-semibold mb-2">Sin lista activa</h2>
           <p className="text-[var(--text-secondary)] text-center mb-6">
-            Crea una lista de productos y empieza a añadir lo que necesitas comprar.
+            Crea una lista de productos y empieza a añadir lo que necesitas
+            comprar.
           </p>
-          <Link 
+          <Link
             href="/compra/nueva"
             className="btn-primary flex items-center gap-2"
           >
@@ -130,8 +146,8 @@ export default function CompraPage() {
         {/* Productos frecuentes */}
         {frecuentes.length > 0 && (
           <div className="mt-8">
-            <ProductosFrecuentes 
-              frecuentes={frecuentes} 
+            <ProductosFrecuentes
+              frecuentes={frecuentes}
               onAdd={handleAddFrecuente}
               loading={loadingFrecuentes}
             />
@@ -148,13 +164,13 @@ export default function CompraPage() {
           </Link>
         </div>
       </div>
-    )
+    );
   }
-  
+
   // Active list
-  const total = calcularTotal()
-  const hayComprados = productosComprados.length > 0
-  
+  const total = calcularTotal();
+  const hayComprados = productosComprados.length > 0;
+
   return (
     <div className="min-h-screen pb-32">
       {/* Header */}
@@ -168,25 +184,25 @@ export default function CompraPage() {
               </p>
             )}
           </div>
-          <button 
+          <button
             onClick={() => setShowOptions(!showOptions)}
             className="p-2 -mr-2"
           >
             <MoreHorizontal className="w-6 h-6 text-[var(--text-muted)]" />
           </button>
         </div>
-        
+
         {/* Options dropdown */}
         {showOptions && (
           <div className="absolute right-4 top-16 bg-surface rounded-xl shadow-lg border border-[var(--separator)] overflow-hidden z-20">
-            <Link 
+            <Link
               href="/compra/historial"
               className="block px-4 py-3 hover:bg-[var(--separator)] transition-colors"
               onClick={() => setShowOptions(false)}
             >
               Ver historial
             </Link>
-            <Link 
+            <Link
               href="/compra/nueva"
               className="block px-4 py-3 hover:bg-[var(--separator)] transition-colors"
               onClick={() => setShowOptions(false)}
@@ -196,17 +212,17 @@ export default function CompraPage() {
           </div>
         )}
       </div>
-      
+
       {/* Presupuesto bar */}
       {listaActiva.presupuesto && (
         <div className="px-4 mb-4">
-          <PresupuestoBar 
-            gastado={total} 
-            presupuesto={listaActiva.presupuesto} 
+          <PresupuestoBar
+            gastado={total}
+            presupuesto={listaActiva.presupuesto}
           />
         </div>
       )}
-      
+
       {/* Productos pendientes */}
       {productosPendientes.length > 0 && (
         <div className="mb-4">
@@ -228,7 +244,7 @@ export default function CompraPage() {
           </div>
         </div>
       )}
-      
+
       {/* Productos comprados */}
       {productosComprados.length > 0 && (
         <div className="mb-4">
@@ -250,7 +266,7 @@ export default function CompraPage() {
           </div>
         </div>
       )}
-      
+
       {/* Empty products state */}
       {productos.length === 0 && (
         <div className="flex flex-col items-center justify-center py-12 px-4">
@@ -259,55 +275,63 @@ export default function CompraPage() {
           </p>
         </div>
       )}
-      
+
       {/* Productos frecuentes */}
       <div className="px-4 mt-6">
-        <ProductosFrecuentes 
-          frecuentes={frecuentes} 
+        <ProductosFrecuentes
+          frecuentes={frecuentes}
           onAdd={handleAddFrecuente}
           loading={loadingFrecuentes}
         />
       </div>
-      
+
       {/* Bottom actions */}
       <div className="fixed bottom-20 left-0 right-0 p-4 bg-gradient-to-t from-[var(--bg-primary)] via-[var(--bg-primary)] to-transparent pt-8">
         {hayComprados && (
           <button
             onClick={handleCompletarLista}
             disabled={completing}
-            className="w-full py-4 rounded-xl bg-green-500 text-white font-semibold text-[17px] flex items-center justify-center gap-2 mb-3 disabled:opacity-50"
+            className="btn-primary w-full flex items-center justify-center gap-2 mb-3"
+            style={{
+              background:
+                "linear-gradient(145deg, var(--positive), var(--positive-dark, #2db84d))",
+            }}
           >
             <CheckCircle className="w-5 h-5" />
-            {completing ? 'Finalizando...' : 'Finalizar compra'}
+            {completing ? "Finalizando..." : "Finalizar compra"}
           </button>
         )}
       </div>
-      
+
       {/* FAB */}
       <button
         onClick={() => setShowAddForm(true)}
-        className="fixed bottom-24 right-4 w-14 h-14 rounded-full bg-accent text-white shadow-lg flex items-center justify-center active:scale-95 transition-transform"
+        className="fixed bottom-24 right-4 w-14 h-14 rounded-full text-white shadow-neu-sm flex items-center justify-center active:scale-95 transition-transform"
+        style={{
+          background:
+            "linear-gradient(145deg, var(--primary), var(--primary-dark))",
+        }}
       >
         <Plus className="w-7 h-7" />
       </button>
-      
+
       {/* Add producto form */}
       <AddProductoForm
         open={showAddForm}
         onClose={() => setShowAddForm(false)}
         onSubmit={handleAddProducto}
       />
-      
+
       {/* Scanner precio */}
       <ScannerPrecio
         open={showScanner}
         onClose={() => {
-          setShowScanner(false)
-          setSelectedProductoId(null)
+          setShowScanner(false);
+          setSelectedProductoId(null);
         }}
         onConfirm={handlePrecioConfirm}
         productoNombre={selectedProducto?.nombre}
       />
     </div>
-  )
+  );
 }

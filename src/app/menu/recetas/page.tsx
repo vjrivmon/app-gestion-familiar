@@ -1,66 +1,66 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useCallback } from 'react'
-import { ArrowLeft, Plus, Clock, Users, Trash2, Loader2 } from 'lucide-react'
-import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
-import { useConfigHogar } from '@/hooks/use-config-hogar'
+import { useState, useEffect, useCallback } from "react";
+import { ArrowLeft, Plus, Clock, Users, Trash2, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/client";
+import { useConfigHogar } from "@/hooks/use-config-hogar";
 
 interface Receta {
-  id: string
-  nombre: string
-  descripcion: string | null
-  tiempo_minutos: number | null
-  porciones: number
-  ingredientes?: { id: string; nombre: string; cantidad: string | null }[]
+  id: string;
+  nombre: string;
+  descripcion: string | null;
+  tiempo_minutos: number | null;
+  porciones: number;
+  ingredientes?: { id: string; nombre: string; cantidad: string | null }[];
 }
 
 export default function RecetasPage() {
-  const { hogarId } = useConfigHogar()
-  const [recetas, setRecetas] = useState<Receta[]>([])
-  const [loading, setLoading] = useState(true)
-  const [deleting, setDeleting] = useState<string | null>(null)
+  const { hogarId, loading: hogarLoading } = useConfigHogar();
+  const [recetas, setRecetas] = useState<Receta[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState<string | null>(null);
 
-  const supabase = createClient()
+  const supabase = createClient();
 
   const cargarRecetas = useCallback(async () => {
-    if (!hogarId) return
-    setLoading(true)
+    if (!hogarId) return;
+    setLoading(true);
     try {
       const { data, error } = await supabase
-        .from('recetas')
-        .select('*, ingredientes:receta_ingredientes(*)')
-        .eq('hogar_id', hogarId)
-        .order('nombre')
+        .from("recetas")
+        .select("*, ingredientes:receta_ingredientes(*)")
+        .eq("hogar_id", hogarId)
+        .order("nombre");
 
-      if (error) throw error
-      setRecetas(data || [])
+      if (error) throw error;
+      setRecetas(data || []);
     } catch (err) {
-      console.error('Error:', err)
+      console.error("Error:", err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [supabase, hogarId])
+  }, [supabase, hogarId]);
 
   useEffect(() => {
-    cargarRecetas()
-  }, [cargarRecetas])
+    cargarRecetas();
+  }, [cargarRecetas]);
 
   const eliminarReceta = async (id: string) => {
-    if (!confirm('¿Eliminar esta receta?')) return
+    if (!confirm("¿Eliminar esta receta?")) return;
 
-    setDeleting(id)
+    setDeleting(id);
     try {
-      const { error } = await supabase.from('recetas').delete().eq('id', id)
-      if (error) throw error
-      setRecetas(prev => prev.filter(r => r.id !== id))
+      const { error } = await supabase.from("recetas").delete().eq("id", id);
+      if (error) throw error;
+      setRecetas((prev) => prev.filter((r) => r.id !== id));
     } catch (err) {
-      console.error('Error:', err)
-      alert('Error al eliminar')
+      console.error("Error:", err);
+      alert("Error al eliminar");
     } finally {
-      setDeleting(null)
+      setDeleting(null);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen p-4 pb-24">
@@ -72,14 +72,19 @@ export default function RecetasPage() {
         <h1 className="text-[28px] font-bold">Mis Recetas</h1>
       </div>
 
-      {loading ? (
+      {hogarLoading || loading ? (
         <div className="flex justify-center py-12">
           <Loader2 className="w-8 h-8 animate-spin text-accent" />
         </div>
       ) : recetas.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-[var(--text-muted)] mb-4">No tienes recetas guardadas</p>
-          <Link href="/menu/recetas/nueva" className="btn-primary inline-flex items-center gap-2">
+          <p className="text-[var(--text-muted)] mb-4">
+            No tienes recetas guardadas
+          </p>
+          <Link
+            href="/menu/recetas/nueva"
+            className="btn-primary inline-flex items-center gap-2"
+          >
             <Plus className="w-5 h-5" />
             Crear primera receta
           </Link>
@@ -139,5 +144,5 @@ export default function RecetasPage() {
         <Plus className="w-7 h-7" />
       </Link>
     </div>
-  )
+  );
 }
