@@ -291,12 +291,7 @@ export default function SettingsPage() {
                   </button>
                   <button
                     onClick={handleSaveNames}
-                    disabled={
-                      savingNames ||
-                      !nameM1.trim() ||
-                      !nameM2.trim() ||
-                      !hogarId
-                    }
+                    disabled={savingNames || !nameM1.trim() || !nameM2.trim()}
                     className="flex-1 py-2 rounded-lg text-[15px] bg-accent text-white font-medium disabled:opacity-50"
                   >
                     {savingNames ? "Guardando..." : "Guardar"}
