@@ -1,35 +1,35 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useSupabase } from '@/providers/supabase-provider'
-import { Loader2, Mail } from 'lucide-react'
+import { useState } from "react";
+import { useSupabase } from "@/providers/supabase-provider";
+import { Loader2, Mail } from "lucide-react";
 
 export default function LoginPage() {
-  const { supabase } = useSupabase()
-  const [email, setEmail] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [sent, setSent] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const { supabase } = useSupabase();
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError(null)
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
 
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
         emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
-    })
+    });
 
     if (error) {
-      setError(error.message)
+      setError(error.message);
     } else {
-      setSent(true)
+      setSent(true);
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-background">
@@ -37,9 +37,11 @@ export default function LoginPage() {
         {/* Logo/Title */}
         <div className="text-center">
           <div className="text-6xl mb-4"></div>
-          <h1 className="text-[28px] font-bold text-[var(--text-primary)]">App de Pus</h1>
+          <h1 className="text-[28px] font-bold text-[var(--text-primary)]">
+            App de Pus
+          </h1>
           <p className="text-[var(--text-secondary)] mt-2">
-            Compra inteligente para ti e Irene
+            Gestión familiar inteligente
           </p>
         </div>
 
@@ -60,7 +62,10 @@ export default function LoginPage() {
         ) : (
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label htmlFor="email" className="block text-[15px] font-medium mb-2">
+              <label
+                htmlFor="email"
+                className="block text-[15px] font-medium mb-2"
+              >
                 Tu email
               </label>
               <input
@@ -76,9 +81,7 @@ export default function LoginPage() {
               />
             </div>
 
-            {error && (
-              <p className="text-negative text-sm">{error}</p>
-            )}
+            {error && <p className="text-negative text-sm">{error}</p>}
 
             <button
               type="submit"
@@ -91,7 +94,7 @@ export default function LoginPage() {
                   Enviando...
                 </>
               ) : (
-                'Entrar con Magic Link'
+                "Entrar con Magic Link"
               )}
             </button>
 
@@ -102,5 +105,5 @@ export default function LoginPage() {
         )}
       </div>
     </div>
-  )
+  );
 }

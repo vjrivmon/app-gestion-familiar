@@ -74,7 +74,28 @@ export function useConfigHogar(): UseConfigHogarReturn {
         throw profileError;
       }
 
-      if (!profile?.hogar_id) {
+      let currentHogarId = profile?.hogar_id;
+
+      // Fallback: buscar en hogares si el perfil no tiene hogar_id
+      // (puede pasar si el miembro 2 fue añadido al hogar pero no se actualizó su perfil)
+      if (!currentHogarId) {
+        const { data: hogarByMember } = await supabase
+          .from("hogares")
+          .select("id")
+          .or(`miembro_1_id.eq.${user.id},miembro_2_id.eq.${user.id}`)
+          .single();
+
+        if (hogarByMember?.id) {
+          currentHogarId = hogarByMember.id;
+          // Actualizar el perfil para que no pase por este fallback otra vez
+          await supabase
+            .from("profiles")
+            .update({ hogar_id: currentHogarId })
+            .eq("id", user.id);
+        }
+      }
+
+      if (!currentHogarId) {
         // Usuario sin hogar - usar defaults
         setHogarId(null);
         setConfig(DEFAULT_CONFIG);
@@ -82,13 +103,13 @@ export function useConfigHogar(): UseConfigHogarReturn {
         return;
       }
 
-      setHogarId(profile.hogar_id);
+      setHogarId(currentHogarId);
 
       // Obtener config del hogar y miembro_1_id
       const { data: hogar, error: hogarError } = await supabase
         .from("hogares")
         .select("config, miembro_1_id")
-        .eq("id", profile.hogar_id)
+        .eq("id", currentHogarId)
         .single();
 
       if (hogarError) throw hogarError;
@@ -168,10 +189,13 @@ export function useConfigHogar(): UseConfigHogarReturn {
   // Helper para actualizar config en BD
   const updateConfig = useCallback(
     async (updates: Partial<ConfigHogar>): Promise<boolean> => {
-      if (!hogarId) {
+      let targetHogarId = hogarId;
+
+      if (!targetHogarId) {
         // Crear hogar primero
         const newHogarId = await crearHogar();
         if (!newHogarId) return false;
+        targetHogarId = newHogarId;
       }
 
       try {
@@ -180,7 +204,7 @@ export function useConfigHogar(): UseConfigHogarReturn {
         const { error: updateError } = await supabase
           .from("hogares")
           .update({ config: newConfig })
-          .eq("id", hogarId);
+          .eq("id", targetHogarId);
 
         if (updateError) throw updateError;
 

@@ -187,6 +187,8 @@ export function PersonaAvatar({
   size = "md",
   className,
 }: PersonaAvatarProps) {
+  const nombres = useNombres();
+
   const colors: Record<Pagador, string> = {
     m1: "bg-blue-500",
     m2: "bg-pink-500",
@@ -194,8 +196,8 @@ export function PersonaAvatar({
   };
 
   const initials: Record<Pagador, string> = {
-    m1: "V",
-    m2: "I",
+    m1: nombres.m1.charAt(0).toUpperCase(),
+    m2: nombres.m2.charAt(0).toUpperCase(),
     conjunta: "∞",
   };
 
