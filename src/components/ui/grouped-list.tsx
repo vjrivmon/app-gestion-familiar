@@ -11,9 +11,9 @@ interface GroupedListProps {
 }
 
 /**
- * Lista agrupada estilo iOS Settings
- * - Fondo gris, grupos blancos con bordes redondeados
- * - Separadores inset entre items
+ * Lista agrupada estilo neumórfico
+ * - Fondo beige, grupos con sombras suaves
+ * - Separadores sutiles entre items
  */
 export function GroupedList({ children, title, footer, className }: GroupedListProps) {
   return (
@@ -23,7 +23,8 @@ export function GroupedList({ children, title, footer, className }: GroupedListP
           {title}
         </h3>
       )}
-      <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
+      <div className="rounded-neu-lg overflow-hidden divide-y divide-[var(--separator)] shadow-neu-sm"
+           style={{ background: 'var(--surface-elevated)' }}>
         {children}
       </div>
       {footer && (
@@ -47,7 +48,7 @@ interface GroupedListItemProps {
 
 /**
  * Item de lista agrupada
- * - Touch target mínimo 44pt
+ * - Touch target minimo 44pt
  * - Chevron opcional para navegación
  */
 export function GroupedListItem({
@@ -60,23 +61,23 @@ export function GroupedListItem({
   rightContent
 }: GroupedListItemProps) {
   const isClickable = !!onClick
-  
+
   const Component = isClickable ? 'button' : 'div'
-  
+
   return (
     <Component
       onClick={onClick}
       className={cn(
-        // Base - iOS cell style
+        // Base
         'w-full flex items-center gap-3 px-4 min-h-[44px] py-3',
         'text-left text-[17px]',
         // Clickable styles
         isClickable && [
-          'active:bg-[var(--border)] dark:active:bg-gray-800',
+          'active:bg-[var(--background-dark)]',
           'transition-colors duration-75'
         ],
         // Destructive
-        destructive && 'text-red-500',
+        destructive && 'text-negative',
         className
       )}
     >
@@ -94,7 +95,7 @@ export function GroupedListItem({
         </span>
       )}
       {showChevron && !rightContent && (
-        <ChevronRight className="w-5 h-5 text-gray-300 flex-shrink-0" />
+        <ChevronRight className="w-5 h-5 text-[var(--text-muted)] flex-shrink-0" />
       )}
     </Component>
   )
@@ -110,7 +111,7 @@ interface GroupedListCellProps {
 }
 
 /**
- * Cell con label y valor (estilo iOS Settings)
+ * Cell con label y valor
  * Label a la izquierda, valor a la derecha
  */
 export function GroupedListCell({
@@ -145,7 +146,7 @@ interface GroupedListToggleProps {
 }
 
 /**
- * Toggle switch estilo iOS
+ * Toggle switch estilo neumórfico
  */
 export function GroupedListToggle({
   label,
@@ -165,18 +166,34 @@ export function GroupedListToggle({
           disabled={disabled}
           onClick={() => onChange(!checked)}
           className={cn(
-            'relative w-[51px] h-[31px] rounded-full transition-colors duration-200',
-            checked ? 'bg-green-500' : 'bg-gray-300',
+            'relative w-[51px] h-[31px] rounded-full transition-all duration-200',
+            checked
+              ? 'shadow-neu-sm'
+              : 'shadow-neu-inset-sm',
             disabled && 'opacity-50'
           )}
+          style={{
+            background: checked
+              ? 'linear-gradient(145deg, var(--positive), var(--positive-dark))'
+              : 'var(--background)'
+          }}
         >
           <span
             className={cn(
               'absolute top-[2px] left-[2px] w-[27px] h-[27px]',
-              'bg-surface rounded-full shadow-sm',
+              'rounded-full shadow-neu-sm',
+              'transition-transform duration-200'
+            )}
+            style={{ background: 'var(--surface-elevated)' }}
+          />
+          <span
+            className={cn(
+              'absolute top-[2px] left-[2px] w-[27px] h-[27px]',
+              'rounded-full shadow-neu-sm',
               'transition-transform duration-200',
               checked && 'translate-x-[20px]'
             )}
+            style={{ background: 'var(--surface-elevated)' }}
           />
         </button>
       }

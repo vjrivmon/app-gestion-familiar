@@ -57,7 +57,7 @@ export default function PrestamosPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-surface dark:bg-surface p-4 pt-2 shadow-sm">
+      <div className="bg-surface p-4 pt-2 shadow-sm">
         <div className="flex items-center gap-3 mb-4">
           <button
             onClick={() => router.back()}
@@ -92,21 +92,17 @@ export default function PrestamosPage() {
 
       <div className="p-4">
         {/* Card resumen de balance */}
-        <div
-          className={cn(
-            "bg-surface dark:bg-surface rounded-xl p-4 mb-4",
-            "border-l-4",
-            balanceNeto.deudorPersona === null
-              ? "border-green-500"
-              : balanceNeto.deudorPersona === "m1"
-                ? "border-blue-500"
-                : "border-pink-500",
-          )}
-        >
-          <p className="text-sm text-[var(--text-secondary)] mb-1">
-            Balance neto de préstamos
-          </p>
-
+        <div className={cn(
+          'card rounded-xl p-4 mb-4',
+          'border-l-4',
+          balanceNeto.deudorPersona === null
+            ? 'border-green-500'
+            : balanceNeto.deudorPersona === 'm1'
+              ? 'border-blue-500'
+              : 'border-pink-500'
+        )}>
+          <p className="text-sm text-[var(--text-secondary)] mb-1">Balance neto de préstamos</p>
+          
           {balanceNeto.deudorPersona === null ? (
             <div className="flex items-center gap-2">
               <span className="text-2xl"></span>
@@ -114,17 +110,17 @@ export default function PrestamosPage() {
             </div>
           ) : (
             <>
-              <p className="text-xl font-bold text-gray-900 dark:text-white">
+              <p className="text-xl font-bold text-[var(--text-primary)]">
                 {formatMoney(balanceNeto.cantidad)}
               </p>
-              <p className="text-sm text-[var(--text-secondary)] dark:text-[var(--text-muted)] mt-1">
+              <p className="text-sm text-[var(--text-secondary)] mt-1">
                 {balanceNeto.resumen}
               </p>
             </>
           )}
 
           {totalPendiente > 0 && (
-            <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
+            <div className="mt-3 pt-3 border-t border-[var(--separator)]">
               <p className="text-xs text-[var(--text-secondary)]">
                 Total en préstamos pendientes:{" "}
                 <span className="font-medium">
@@ -137,17 +133,15 @@ export default function PrestamosPage() {
 
         {/* Loading */}
         {loading && (
-          <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
-            {[1, 2, 3].map((i) => (
-              <PrestamoItemSkeleton key={i} />
-            ))}
+          <div className="card rounded-xl overflow-hidden divide-y divide-[var(--separator)]">
+            {[1, 2, 3].map(i => <PrestamoItemSkeleton key={i} />)}
           </div>
         )}
 
         {/* Empty state */}
         {!loading && prestamosFiltrados.length === 0 && (
           <div className="text-center py-12">
-            <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
               <span className="text-3xl"></span>
             </div>
             <h3 className="text-lg font-semibold mb-2">
@@ -167,8 +161,8 @@ export default function PrestamosPage() {
 
         {/* Lista de préstamos */}
         {!loading && prestamosFiltrados.length > 0 && (
-          <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
-            {prestamosFiltrados.map((prestamo) => (
+          <div className="card rounded-xl overflow-hidden divide-y divide-[var(--separator)]">
+            {prestamosFiltrados.map(prestamo => (
               <PrestamoItem
                 key={prestamo.id}
                 prestamo={prestamo}
@@ -180,8 +174,8 @@ export default function PrestamosPage() {
         )}
 
         {/* Explicación */}
-        <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
-          <p className="text-sm text-blue-700 dark:text-blue-300">
+        <div className="mt-6 p-4 bg-blue-50 rounded-xl">
+          <p className="text-sm text-blue-700">
             <strong>¿Cómo funciona?</strong>
             <br />
             Cuando alguien presta dinero al otro, el balance neto muestra quién
@@ -195,11 +189,11 @@ export default function PrestamosPage() {
       <button
         onClick={() => setShowForm(true)}
         className={cn(
-          "fixed bottom-24 right-4 z-30",
-          "w-14 h-14 rounded-full",
-          "bg-blue-500 text-white shadow-lg",
-          "flex items-center justify-center",
-          "active:scale-95 transition-transform",
+          'fixed bottom-24 right-4 z-30',
+          'w-14 h-14 rounded-full',
+          'bg-gradient-to-br from-blue-500 to-blue-500/80 text-white shadow-neu-sm',
+          'flex items-center justify-center',
+          'active:scale-95 transition-transform'
         )}
         aria-label="Añadir préstamo"
       >

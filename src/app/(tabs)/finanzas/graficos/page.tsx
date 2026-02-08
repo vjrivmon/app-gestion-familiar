@@ -36,7 +36,7 @@ export default function GraficosPage() {
   return (
     <div className="min-h-screen bg-background pb-24">
       {/* Header */}
-      <div className="bg-surface dark:bg-surface shadow-sm sticky top-0 z-10">
+      <div className="bg-surface shadow-sm sticky top-0 z-10">
         <div className="flex items-center px-4 h-14">
           <button
             onClick={() => router.back()}
@@ -91,8 +91,8 @@ export default function GraficosPage() {
         {/* Gráfico 2: Ingresos vs Gastos */}
         <div className="card">
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
-              <BarChart3 className="w-4 h-4 text-green-600 dark:text-green-400" />
+            <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+              <BarChart3 className="w-4 h-4 text-green-600" />
             </div>
             <div>
               <h2 className="font-semibold text-sm">Ingresos vs Gastos</h2>
@@ -107,8 +107,8 @@ export default function GraficosPage() {
         {/* Gráfico 3: Distribución Gastos */}
         <div className="card">
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
-              <PieChart className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+            <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+              <PieChart className="w-4 h-4 text-purple-600" />
             </div>
             <div>
               <h2 className="font-semibold text-sm">Distribución de Gastos</h2>
@@ -123,8 +123,8 @@ export default function GraficosPage() {
         {/* Gráfico 4: Balance por Persona */}
         <div className="card">
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
-              <Wallet className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+              <Wallet className="w-4 h-4 text-blue-600" />
             </div>
             <div>
               <h2 className="font-semibold text-sm">Ahorro por Persona</h2>
@@ -138,7 +138,7 @@ export default function GraficosPage() {
         
         {/* Nota informativa */}
         <div className="bg-accent/5 border border-accent/20 rounded-xl p-4 text-center">
-          <p className="text-sm text-[var(--text-secondary)] dark:text-[var(--text-muted)]">
+          <p className="text-sm text-[var(--text-secondary)]">
             Los gráficos se actualizan automáticamente al añadir transacciones
           </p>
         </div>

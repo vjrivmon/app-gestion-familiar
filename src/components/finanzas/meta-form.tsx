@@ -94,17 +94,20 @@ export function MetaForm({ open, onClose, meta, onSave }: MetaFormProps) {
     <Drawer.Root open={open} onOpenChange={(o) => !o && onClose()}>
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-40" />
-        <Drawer.Content className={cn(
-          'fixed bottom-0 left-0 right-0 z-50',
-          'bg-background',
-          'rounded-t-[12px]',
-          'h-[85vh] max-h-[85vh]',
-          'flex flex-col',
-          'outline-none'
-        )}>
+        <Drawer.Content
+          className={cn(
+            'fixed bottom-0 left-0 right-0 z-50',
+            'rounded-t-neu-xl',
+            'h-[85vh] max-h-[85vh]',
+            'flex flex-col',
+            'outline-none'
+          )}
+          style={{ background: 'var(--background)' }}
+        >
           {/* Handle */}
           <div className="flex justify-center py-3 flex-shrink-0">
-            <div className="w-9 h-1 bg-gray-300 dark:bg-gray-600 rounded-full" />
+            <div className="w-10 h-1.5 rounded-full bg-[var(--neu-shadow-dark)]/20"
+                 style={{ boxShadow: 'inset 1px 1px 2px var(--neu-shadow-dark), inset -1px -1px 2px var(--neu-shadow-light)' }} />
           </div>
           
           {/* Header */}
@@ -138,17 +141,17 @@ export function MetaForm({ open, onClose, meta, onSave }: MetaFormProps) {
           {/* Scrollable content */}
           <div className="flex-1 overflow-y-auto">
             {/* Preview de la meta */}
-            <div className="bg-surface dark:bg-surface px-4 py-6 mb-4">
+            <div className="bg-surface px-4 py-6 mb-4">
               <div className="max-w-xs mx-auto">
                 {/* Mini preview card */}
-                <div 
-                  className="p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800"
+                <div
+                  className="p-4 rounded-xl shadow-sm border border-[var(--separator)]"
                   style={{ borderLeftColor: color, borderLeftWidth: '4px' }}
                 >
                   <p className="font-semibold text-lg mb-2">
                     {nombre || 'Mi meta de ahorro'}
                   </p>
-                  <div className="h-3 bg-[var(--border)] dark:bg-surface rounded-full overflow-hidden">
+                  <div className="h-3 bg-[var(--border)] rounded-full overflow-hidden">
                     <div 
                       className="h-full rounded-full transition-all"
                       style={{ 
@@ -232,7 +235,7 @@ export function MetaForm({ open, onClose, meta, onSave }: MetaFormProps) {
                   onClick={() => setUsarFechaLimite(!usarFechaLimite)}
                   className={cn(
                     'relative w-[51px] h-[31px] rounded-full transition-colors duration-200',
-                    usarFechaLimite ? 'bg-green-500' : 'bg-gray-300'
+                    usarFechaLimite ? 'bg-green-500' : 'bg-[var(--text-muted)]'
                   )}
                 >
                   <span

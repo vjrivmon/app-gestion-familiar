@@ -13,7 +13,7 @@ interface MonthPickerProps {
 }
 
 /**
- * Selector de mes con flechas ← →
+ * Selector de mes con flechas - estilo neumórfico
  * Muestra "Febrero 2026" con navegación lateral
  */
 export function MonthPicker({
@@ -27,14 +27,14 @@ export function MonthPicker({
   const mes = value.getMonth()
   const año = value.getFullYear()
 
-  // Comprobar límites
+  // Comprobar limites
   const canGoPrev = !minDate || (
-    año > minDate.getFullYear() || 
+    año > minDate.getFullYear() ||
     (año === minDate.getFullYear() && mes > minDate.getMonth())
   )
-  
+
   const canGoNext = !maxDate || (
-    año < maxDate.getFullYear() || 
+    año < maxDate.getFullYear() ||
     (año === maxDate.getFullYear() && mes < maxDate.getMonth())
   )
 
@@ -57,9 +57,9 @@ export function MonthPicker({
   }
 
   // Formato del mes
-  const nombreMes = value.toLocaleDateString('es-ES', { 
-    month: 'long', 
-    year: 'numeric' 
+  const nombreMes = value.toLocaleDateString('es-ES', {
+    month: 'long',
+    year: 'numeric'
   })
   // Capitalizar primera letra
   const nombreMesCapitalizado = nombreMes.charAt(0).toUpperCase() + nombreMes.slice(1)
@@ -93,22 +93,25 @@ export function MonthPicker({
       s.container,
       className
     )}>
-      {/* Botón anterior */}
+      {/* Boton anterior */}
       <button
         type="button"
         onClick={handlePrev}
         disabled={!canGoPrev}
         className={cn(
           'flex items-center justify-center rounded-full',
-          'bg-[var(--border)] dark:bg-surface-elevated',
-          'active:bg-[var(--border)] dark:active:bg-gray-700',
-          'transition-colors duration-75',
+          'transition-all duration-150',
           'disabled:opacity-30 disabled:cursor-not-allowed',
+          'active:scale-95',
           s.button
         )}
+        style={{
+          background: 'var(--background)',
+          boxShadow: 'var(--shadow-neu-sm)'
+        }}
         aria-label="Mes anterior"
       >
-        <ChevronLeft className={s.icon} />
+        <ChevronLeft className={cn(s.icon, 'text-[var(--text-primary)]')} />
       </button>
 
       {/* Mes y año */}
@@ -117,42 +120,50 @@ export function MonthPicker({
         onClick={handleToday}
         disabled={esActual}
         className={cn(
-          'text-center font-medium',
-          'active:opacity-70 transition-opacity',
+          'text-center font-medium px-4 py-2 rounded-full',
+          'active:scale-95 transition-all duration-150',
           'disabled:opacity-100',
           s.text
         )}
+        style={{
+          background: 'var(--background)',
+          boxShadow: 'var(--shadow-neu-sm)',
+          color: 'var(--text-primary)'
+        }}
         title={esActual ? 'Mes actual' : 'Ir al mes actual'}
       >
         {nombreMesCapitalizado}
         {esActual && (
-          <span className="ml-2 text-xs text-accent">●</span>
+          <span className="ml-2 text-xs text-primary">*</span>
         )}
       </button>
 
-      {/* Botón siguiente */}
+      {/* Boton siguiente */}
       <button
         type="button"
         onClick={handleNext}
         disabled={!canGoNext}
         className={cn(
           'flex items-center justify-center rounded-full',
-          'bg-[var(--border)] dark:bg-surface-elevated',
-          'active:bg-[var(--border)] dark:active:bg-gray-700',
-          'transition-colors duration-75',
+          'transition-all duration-150',
           'disabled:opacity-30 disabled:cursor-not-allowed',
+          'active:scale-95',
           s.button
         )}
+        style={{
+          background: 'var(--background)',
+          boxShadow: 'var(--shadow-neu-sm)'
+        }}
         aria-label="Mes siguiente"
       >
-        <ChevronRight className={s.icon} />
+        <ChevronRight className={cn(s.icon, 'text-[var(--text-primary)]')} />
       </button>
     </div>
   )
 }
 
 /**
- * Versión inline (sin botones, solo texto clicable)
+ * Version inline (sin botones, solo texto clicable)
  */
 interface MonthPickerInlineProps {
   value: Date
@@ -173,9 +184,9 @@ export function MonthPickerInline({
   canGoNext = true,
   className
 }: MonthPickerInlineProps) {
-  const nombreMes = value.toLocaleDateString('es-ES', { 
-    month: 'long', 
-    year: 'numeric' 
+  const nombreMes = value.toLocaleDateString('es-ES', {
+    month: 'long',
+    year: 'numeric'
   })
   const nombreMesCapitalizado = nombreMes.charAt(0).toUpperCase() + nombreMes.slice(1)
 
@@ -185,16 +196,16 @@ export function MonthPickerInline({
         type="button"
         onClick={onPrev}
         disabled={!canGoPrev}
-        className="p-2 -ml-2 disabled:opacity-30"
+        className="p-2 -ml-2 disabled:opacity-30 rounded-full active:scale-95 transition-transform"
         aria-label="Mes anterior"
       >
-        <ChevronLeft className="w-6 h-6" />
+        <ChevronLeft className="w-6 h-6 text-[var(--text-primary)]" />
       </button>
 
       <button
         type="button"
         onClick={onToday}
-        className="text-lg font-semibold active:opacity-70"
+        className="text-lg font-semibold active:opacity-70 text-[var(--text-primary)]"
       >
         {nombreMesCapitalizado}
       </button>
@@ -203,10 +214,10 @@ export function MonthPickerInline({
         type="button"
         onClick={onNext}
         disabled={!canGoNext}
-        className="p-2 -mr-2 disabled:opacity-30"
+        className="p-2 -mr-2 disabled:opacity-30 rounded-full active:scale-95 transition-transform"
         aria-label="Mes siguiente"
       >
-        <ChevronRight className="w-6 h-6" />
+        <ChevronRight className="w-6 h-6 text-[var(--text-primary)]" />
       </button>
     </div>
   )

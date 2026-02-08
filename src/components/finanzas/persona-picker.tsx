@@ -68,8 +68,8 @@ export function PersonaPicker({
               s.container,
               s.padding,
               value === pagador
-                ? "bg-surface text-primary shadow-sm font-medium"
-                : "text-[var(--text-secondary)] dark:text-[var(--text-muted)] hover:text-gray-900 dark:hover:text-gray-200",
+                ? 'bg-surface text-primary shadow-sm font-medium'
+                : 'text-[var(--text-secondary)]'
             )}
           >
             {nombres[pagador]}
@@ -93,8 +93,8 @@ export function PersonaPicker({
               s.container,
               s.padding,
               value === pagador
-                ? "border-accent bg-accent/10 text-accent font-medium"
-                : "border-gray-200 dark:border-gray-700 text-[var(--text-secondary)] dark:text-[var(--text-muted)]",
+                ? 'border-accent bg-accent/10 text-accent font-medium'
+                : 'border-[var(--separator)] text-[var(--text-secondary)]'
             )}
           >
             {nombres[pagador]}
@@ -122,8 +122,8 @@ export function PersonaPicker({
             "rounded-lg border-2 transition-all duration-150",
             "min-h-[44px] py-2 px-3",
             value === pagador
-              ? "border-accent bg-accent/10 text-accent font-medium"
-              : "border-gray-200 dark:border-gray-700 text-[var(--text-secondary)] dark:text-[var(--text-muted)]",
+              ? 'border-accent bg-accent/10 text-accent font-medium'
+              : 'border-[var(--separator)] text-[var(--text-secondary)]'
           )}
         >
           {nombres[pagador]}
@@ -149,11 +149,10 @@ export function PersonaBadge({
 }: PersonaBadgeProps) {
   const nombres = useNombres();
   const colors: Record<Pagador, string> = {
-    m1: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-    m2: "bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400",
-    conjunta:
-      "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
-  };
+    m1: 'bg-blue-100 text-blue-700',
+    m2: 'bg-pink-100 text-pink-700',
+    conjunta: 'bg-purple-100 text-purple-700'
+  }
 
   const sizeClasses = {
     sm: "text-xs px-2 py-0.5",

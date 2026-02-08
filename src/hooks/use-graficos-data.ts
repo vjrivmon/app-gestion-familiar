@@ -11,22 +11,22 @@ const TEMP_HOGAR_ID = '00000000-0000-0000-0000-000000000001'
 // Nombres de meses cortos
 const MESES_CORTOS = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
 
-// Colores para gráficos
+// Colores para gráficos (paleta pastel)
 export const COLORES_GRAFICO = {
-  total: 'hsl(var(--accent))',  // accent
-  vicente: '#3b82f6',  // blue-500
-  irene: '#ec4899',    // pink-500
-  conjunta: '#a855f7', // purple-500
-  positivo: '#22c55e', // green-500
-  negativo: '#ef4444', // red-500
+  total: '#E8A598',    // rosa melocoton (primary)
+  vicente: '#A8C5D4',  // azul cielo (accent)
+  irene: '#E8A598',    // rosa melocoton (primary)
+  conjunta: '#A8C5A8', // verde salvia (secondary)
+  positivo: '#A8D4A8', // verde menta
+  negativo: '#E8A8A8', // rosa pastel
   // Colores para categorías
   categorias: [
-    '#3b82f6', // blue
-    '#ec4899', // pink
-    '#f59e0b', // amber
-    '#22c55e', // green
-    '#8b5cf6', // violet
-    '#6b7280', // gray (otros)
+    '#E8A598', // rosa melocoton (primary)
+    '#A8C5A8', // verde salvia (secondary)
+    '#A8C5D4', // azul cielo (accent)
+    '#A8D4A8', // verde menta
+    '#E8A8A8', // rosa pastel
+    '#D4C5A8', // beige (otros)
   ]
 }
 

@@ -5,21 +5,21 @@ import { formatMoney, parseMoney, formatForInput } from '@/lib/utils/money'
 import { cn } from '@/lib/utils'
 
 interface NumericInputProps {
-  value: number  // céntimos
+  value: number  // centimos
   onChange: (cents: number) => void
   placeholder?: string
   autoFocus?: boolean
   disabled?: boolean
   className?: string
-  showCurrency?: boolean  // Mostrar € al final
+  showCurrency?: boolean  // Mostrar EUR al final
   size?: 'sm' | 'md' | 'lg'
 }
 
 /**
- * Input numérico para dinero
- * - Almacena internamente en céntimos (integers)
+ * Input numerico para dinero - estilo neumórfico
+ * - Almacena internamente en centimos (integers)
  * - Muestra formateado con coma decimal
- * - Teclado numérico en móvil
+ * - Teclado numerico en móvil
  */
 export function NumericInput({
   value,
@@ -32,12 +32,12 @@ export function NumericInput({
   size = 'md'
 }: NumericInputProps) {
   const inputRef = useRef<HTMLInputElement>(null)
-  
+
   // Estado interno para el texto mientras se edita
   const [displayValue, setDisplayValue] = useState(() => formatForInput(value))
   const [isFocused, setIsFocused] = useState(false)
 
-  // Sincronizar con valor externo (solo cuando no está enfocado)
+  // Sincronizar con valor externo (solo cuando no esta enfocado)
   useEffect(() => {
     if (!isFocused) {
       setDisplayValue(formatForInput(value))
@@ -69,23 +69,23 @@ export function NumericInput({
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     let input = e.target.value
-    
-    // Permitir solo números, coma y punto
+
+    // Permitir solo numeros, coma y punto
     input = input.replace(/[^0-9,.\s]/g, '')
-    
+
     // Limitar a un solo separador decimal
     const parts = input.split(/[,.]/)
     if (parts.length > 2) {
       input = parts[0] + ',' + parts.slice(1).join('')
     }
-    
+
     // Limitar decimales a 2
     if (parts.length === 2 && parts[1].length > 2) {
       input = parts[0] + ',' + parts[1].slice(0, 2)
     }
-    
+
     setDisplayValue(input)
-    
+
     // Notificar cambio en tiempo real (para feedback inmediato)
     const cents = parseMoney(input)
     if (!isNaN(cents)) {
@@ -101,9 +101,9 @@ export function NumericInput({
   }, [])
 
   const sizeClasses = {
-    sm: 'h-9 text-sm px-2',
-    md: 'h-11 text-base px-3',
-    lg: 'h-14 text-lg px-4 font-semibold'
+    sm: 'h-9 text-sm px-3',
+    md: 'h-11 text-base px-4',
+    lg: 'h-14 text-lg px-5 font-semibold'
   }
 
   return (
@@ -111,7 +111,7 @@ export function NumericInput({
       <input
         ref={inputRef}
         type="text"
-        inputMode="decimal"  // Teclado numérico con coma/punto en móvil
+        inputMode="decimal"  // Teclado numerico con coma/punto en movil
         value={displayValue}
         onChange={handleChange}
         onFocus={handleFocus}
@@ -120,29 +120,32 @@ export function NumericInput({
         placeholder={placeholder}
         disabled={disabled}
         className={cn(
-          // Base
-          'w-full rounded-lg border border-gray-200 bg-surface',
-          'transition-colors duration-150',
+          // Base - estilo neumórfico inset
+          'w-full rounded-neu-md',
+          'transition-all duration-150',
           'placeholder:text-[var(--text-muted)]',
-          // Focus
-          'focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent',
           // Disabled
-          'disabled:bg-[var(--border)] disabled:cursor-not-allowed',
-          // Dark mode
-          'dark:bg-surface dark:border-gray-700 dark:text-white',
+          'disabled:opacity-50 disabled:cursor-not-allowed',
           // Size
           sizeClasses[size],
-          // Padding derecho para el símbolo
+          // Padding derecho para el simbolo
           showCurrency && 'pr-8',
           className
         )}
+        style={{
+          background: 'var(--background)',
+          color: 'var(--text-primary)',
+          boxShadow: isFocused ? 'var(--shadow-neu-inset), 0 0 0 2px var(--primary-light)' : 'var(--shadow-neu-inset-sm)',
+          border: 'none',
+          outline: 'none'
+        }}
       />
       {showCurrency && (
         <span className={cn(
-          'absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] pointer-events-none',
+          'absolute right-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] pointer-events-none',
           size === 'lg' && 'text-lg'
         )}>
-          €
+          EUR
         </span>
       )}
     </div>

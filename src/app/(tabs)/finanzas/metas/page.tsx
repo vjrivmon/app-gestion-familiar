@@ -64,7 +64,7 @@ export default function MetasPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-surface dark:bg-surface p-4 pt-2 shadow-sm">
+      <div className="bg-surface p-4 pt-2 shadow-sm">
         <div className="flex items-center gap-3">
           <button
             onClick={() => router.back()}
@@ -133,9 +133,9 @@ export default function MetasPage() {
         
         {/* Tips */}
         {metas.length > 0 && metas.length < 3 && (
-          <div className="mt-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
-            <p className="text-sm text-purple-700 dark:text-purple-300">
-              <strong>Consejo:</strong> Divide grandes objetivos en metas más pequeñas. 
+          <div className="mt-6 p-4 bg-purple-50 rounded-xl">
+            <p className="text-sm text-purple-700">
+              <strong>Consejo:</strong> Divide grandes objetivos en metas más pequeñas.
               Es más motivador ver progresos frecuentes.
             </p>
           </div>
@@ -148,7 +148,7 @@ export default function MetasPage() {
         className={cn(
           'fixed bottom-24 right-4 z-30',
           'w-14 h-14 rounded-full',
-          'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg',
+          'bg-gradient-to-br from-purple-500 to-blue-500 text-white shadow-neu-sm',
           'flex items-center justify-center',
           'active:scale-95 transition-transform'
         )}

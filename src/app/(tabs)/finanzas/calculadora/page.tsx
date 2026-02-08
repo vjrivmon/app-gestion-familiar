@@ -60,7 +60,7 @@ export default function CalculadoraPisoPage() {
   return (
     <div className="min-h-screen bg-background pb-24">
       {/* Header */}
-      <div className="bg-surface dark:bg-surface p-4 shadow-sm sticky top-0 z-10">
+      <div className="bg-surface p-4 shadow-sm sticky top-0 z-10">
         <div className="flex items-center gap-3">
           <button
             onClick={() => router.back()}
@@ -100,7 +100,7 @@ export default function CalculadoraPisoPage() {
               <span className="text-[var(--text-secondary)]">Cuenta Conjunta</span>
               <span className="tabular-nums font-medium">{formatMoney(patrimonioConjunta)}</span>
             </div>
-            <div className="flex justify-between pt-2 border-t border-gray-100 dark:border-gray-800">
+            <div className="flex justify-between pt-2 border-t border-[var(--separator)]">
               <span className="font-semibold">TOTAL DISPONIBLE</span>
               <span className={cn(
                 'text-lg font-bold tabular-nums',
@@ -177,7 +177,7 @@ export default function CalculadoraPisoPage() {
                   onClick={() => updateConfig({ es_menor_35: !config.es_menor_35 })}
                   className={cn(
                     'w-12 h-7 rounded-full transition-colors relative',
-                    config.es_menor_35 ? 'bg-positive' : 'bg-gray-300 dark:bg-gray-600'
+                    config.es_menor_35 ? 'bg-positive' : 'bg-[var(--text-muted)]'
                   )}
                 >
                   <span
@@ -202,7 +202,7 @@ export default function CalculadoraPisoPage() {
                 step={5}
                 value={config.porcentaje_financiacion}
                 onChange={(e) => updateConfig({ porcentaje_financiacion: Number(e.target.value) })}
-                className="w-full h-2 bg-[var(--border)] rounded-lg appearance-none cursor-pointer dark:bg-surface accent-accent"
+                className="w-full h-2 bg-[var(--border)] rounded-lg appearance-none cursor-pointer accent-accent"
               />
               <div className="flex justify-between text-xs text-[var(--text-muted)] mt-1">
                 <span>50%</span>
@@ -253,7 +253,7 @@ export default function CalculadoraPisoPage() {
               <span className="tabular-nums">{formatMoney(calculo.gastos_tasacion)}</span>
             </div>
             
-            <div className="flex justify-between pt-2 border-t border-gray-100 dark:border-gray-800">
+            <div className="flex justify-between pt-2 border-t border-[var(--separator)]">
               <span className="font-semibold">TOTAL GASTOS</span>
               <span className="font-bold text-negative tabular-nums">
                 {formatMoney(calculo.total_gastos_compra)}
@@ -279,7 +279,7 @@ export default function CalculadoraPisoPage() {
             </div>
             
             {/* Entrada (calculado) */}
-            <div className="flex justify-between bg-amber-50 dark:bg-amber-900/20 -mx-4 px-4 py-2">
+            <div className="flex justify-between bg-amber-50 -mx-4 px-4 py-2">
               <span className="font-medium">ENTRADA necesaria</span>
               <span className="tabular-nums font-bold text-amber-600">{formatMoney(calculo.entrada)}</span>
             </div>
@@ -297,7 +297,7 @@ export default function CalculadoraPisoPage() {
                   max="15"
                   value={config.tin_anual}
                   onChange={(e) => updateConfig({ tin_anual: parseFloat(e.target.value) || 0 })}
-                  className="flex-1 h-11 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-surface dark:bg-surface focus:outline-none focus:ring-2 focus:ring-accent/50"
+                  className="flex-1 h-11 px-3 rounded-lg border border-[var(--border)] bg-surface focus:outline-none focus:ring-2 focus:ring-accent/50"
                 />
                 <span className="text-[var(--text-muted)]">%</span>
               </div>
@@ -315,7 +315,7 @@ export default function CalculadoraPisoPage() {
                 step={1}
                 value={config.plazo_años}
                 onChange={(e) => updateConfig({ plazo_años: Number(e.target.value) })}
-                className="w-full h-2 bg-[var(--border)] rounded-lg appearance-none cursor-pointer dark:bg-surface accent-accent"
+                className="w-full h-2 bg-[var(--border)] rounded-lg appearance-none cursor-pointer accent-accent"
               />
               <div className="flex justify-between text-xs text-[var(--text-muted)] mt-1">
                 <span>10 años</span>
@@ -349,9 +349,9 @@ export default function CalculadoraPisoPage() {
             {config.ingresos_netos_mes > 0 && (
               <div className={cn(
                 '-mx-4 px-4 py-3 rounded-lg',
-                calculo.estado_ratio === 'ok' && 'bg-green-50 dark:bg-green-900/20',
-                calculo.estado_ratio === 'ajustado' && 'bg-amber-50 dark:bg-amber-900/20',
-                calculo.estado_ratio === 'riesgo' && 'bg-red-50 dark:bg-red-900/20'
+                calculo.estado_ratio === 'ok' && 'bg-green-50',
+                calculo.estado_ratio === 'ajustado' && 'bg-amber-50',
+                calculo.estado_ratio === 'riesgo' && 'bg-red-50'
               )}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -431,7 +431,7 @@ export default function CalculadoraPisoPage() {
               />
             </div>
             
-            <div className="pt-2 border-t border-gray-100 dark:border-gray-800 space-y-2">
+            <div className="pt-2 border-t border-[var(--separator)] space-y-2">
               <div className="flex justify-between">
                 <span className="font-semibold">TOTAL NECESARIO</span>
                 <span className="font-bold tabular-nums">{formatMoney(calculo.total_necesario)}</span>
@@ -444,9 +444,9 @@ export default function CalculadoraPisoPage() {
               
               <div className={cn(
                 'flex justify-between -mx-4 px-4 py-2',
-                calculo.falta > 0 
-                  ? 'bg-red-50 dark:bg-red-900/20' 
-                  : 'bg-green-50 dark:bg-green-900/20'
+                calculo.falta > 0
+                  ? 'bg-red-50'
+                  : 'bg-green-50'
               )}>
                 <span className="font-semibold">
                   {calculo.falta > 0 ? 'FALTA' : 'SOBRA'}
@@ -469,7 +469,7 @@ export default function CalculadoraPisoPage() {
                     {Math.min(100, Math.round((calculo.disponible / calculo.total_necesario) * 100))}%
                   </span>
                 </div>
-                <div className="h-3 bg-[var(--border)] dark:bg-surface rounded-full overflow-hidden">
+                <div className="h-3 bg-[var(--border)] rounded-full overflow-hidden">
                   <div 
                     className={cn(
                       'h-full rounded-full transition-all',

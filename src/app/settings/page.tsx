@@ -179,7 +179,7 @@ export default function SettingsPage() {
               )
             }
             rightContent={
-              <span className="font-mono text-sm bg-[var(--border)] dark:bg-surface-elevated px-2 py-1 rounded">
+              <span className="font-mono text-sm bg-[var(--border)] px-2 py-1 rounded">
                 {inviteCode}
               </span>
             }

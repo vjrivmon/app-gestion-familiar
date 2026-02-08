@@ -13,46 +13,50 @@ interface PatrimonioCardProps {
 }
 
 /**
- * Card de patrimonio total
- * - Muestra patrimonio total grande
- * - Tabla con desglose por persona y tipo
- * - Link a configuración de saldos
+ * Card de patrimonio total - estilo neumórfico
  */
 export function PatrimonioCard({ onConfigClick, className }: PatrimonioCardProps) {
   const { patrimonio, loading } = usePatrimonio()
   const { config } = useConfigHogar()
-  
+
   const nombreM1 = getNombrePagador(config, 'm1')
   const nombreM2 = getNombrePagador(config, 'm2')
-  
+
   const personas = [
     { key: 'm1' as const, nombre: nombreM1, data: patrimonio.m1 },
     { key: 'm2' as const, nombre: nombreM2, data: patrimonio.m2 },
     { key: 'conjunta' as const, nombre: 'Conjunta', data: patrimonio.conjunta }
   ]
-  
-  // Verificar si hay saldos configurados
+
   const tieneSaldos = config?.saldos_iniciales !== undefined
-  
+
   return (
     <div className={cn('card', className)}>
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <PiggyBank className="w-5 h-5 text-accent" />
+          <div
+            className="w-8 h-8 rounded-full flex items-center justify-center"
+            style={{
+              background: 'linear-gradient(145deg, var(--secondary-light), var(--secondary))',
+              boxShadow: 'var(--shadow-neu-sm)'
+            }}
+          >
+            <PiggyBank className="w-4 h-4 text-[var(--text-inverse)]" />
+          </div>
           <span className="font-semibold">Patrimonio Total</span>
         </div>
         {onConfigClick && (
           <button
             onClick={onConfigClick}
-            className="p-2 -mr-2 text-[var(--text-muted)] active:text-[var(--text-secondary)] transition-colors"
+            className="p-2 -mr-2 text-[var(--text-muted)] active:text-[var(--text-secondary)] transition-colors rounded-full"
             aria-label="Configurar saldos"
           >
             <Settings className="w-5 h-5" />
           </button>
         )}
       </div>
-      
+
       {/* Patrimonio total */}
       {loading ? (
         <div className="flex items-center justify-center py-4">
@@ -66,33 +70,39 @@ export function PatrimonioCard({ onConfigClick, className }: PatrimonioCardProps
           )}>
             {formatMoney(patrimonio.total)}
           </p>
-          
+
           {/* Tabla de desglose */}
-          <div className="space-y-1">
+          <div
+            className="rounded-neu-md p-3"
+            style={{
+              background: 'var(--background)',
+              boxShadow: 'var(--shadow-neu-inset-sm)'
+            }}
+          >
             {/* Header de tabla */}
-            <div className="grid grid-cols-4 gap-2 text-xs text-[var(--text-secondary)] pb-1 border-b border-gray-100 dark:border-gray-800">
+            <div className="grid grid-cols-4 gap-2 text-xs text-[var(--text-secondary)] pb-2 border-b border-[var(--separator)]">
               <span></span>
-              <span className="text-center">Físico</span>
+              <span className="text-center">Fisico</span>
               <span className="text-center">Digital</span>
               <span className="text-center">Total</span>
             </div>
-            
+
             {/* Filas */}
             {personas.map(({ key, nombre, data }) => (
-              <div 
+              <div
                 key={key}
-                className="grid grid-cols-4 gap-2 text-sm py-1.5"
+                className="grid grid-cols-4 gap-2 text-sm py-2"
               >
                 <span className="font-medium truncate">{nombre}</span>
                 <span className={cn(
                   'text-center tabular-nums',
-                  data.fisico >= 0 ? 'text-[var(--text-secondary)] dark:text-[var(--text-muted)]' : 'text-negative'
+                  data.fisico >= 0 ? 'text-[var(--text-secondary)]' : 'text-negative'
                 )}>
                   {formatMoney(data.fisico)}
                 </span>
                 <span className={cn(
                   'text-center tabular-nums',
-                  data.digital >= 0 ? 'text-[var(--text-secondary)] dark:text-[var(--text-muted)]' : 'text-negative'
+                  data.digital >= 0 ? 'text-[var(--text-secondary)]' : 'text-negative'
                 )}>
                   {formatMoney(data.digital)}
                 </span>
@@ -105,14 +115,18 @@ export function PatrimonioCard({ onConfigClick, className }: PatrimonioCardProps
               </div>
             ))}
           </div>
-          
+
           {/* Nota si no hay saldos configurados */}
           {!tieneSaldos && (
             <button
               onClick={onConfigClick}
-              className="mt-4 w-full py-2 text-sm text-accent font-medium active:opacity-70"
+              className="mt-4 w-full py-2 text-sm text-primary font-medium active:opacity-70 rounded-full"
+              style={{
+                background: 'var(--background)',
+                boxShadow: 'var(--shadow-neu-sm)'
+              }}
             >
-              Configurar saldos iniciales →
+              Configurar saldos iniciales
             </button>
           )}
         </>

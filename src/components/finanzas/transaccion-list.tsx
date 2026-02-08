@@ -59,11 +59,11 @@ export function TransaccionList({
   if (loading) {
     return (
       <div className="space-y-4">
-        <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden">
+        <div className="bg-surface rounded-xl overflow-hidden">
           <TransaccionItemSkeleton />
           <TransaccionItemSkeleton />
         </div>
-        <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden">
+        <div className="bg-surface rounded-xl overflow-hidden">
           <TransaccionItemSkeleton />
         </div>
       </div>
@@ -122,7 +122,7 @@ function PersonaGroup({
       <div className="flex items-center justify-between px-4 pb-2">
         <div className="flex items-center gap-2">
           <PersonaAvatar persona={persona} size="sm" />
-          <span className="text-sm font-medium text-[var(--text-secondary)] dark:text-[var(--text-muted)]">
+          <span className="text-sm font-medium text-[var(--text-secondary)]">
             {nombres[persona]}
           </span>
         </div>
@@ -138,8 +138,8 @@ function PersonaGroup({
       </div>
 
       {/* Items */}
-      <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-100 dark:divide-gray-800">
-        {items.map((item) => (
+      <div className="bg-surface rounded-xl overflow-hidden divide-y divide-[var(--separator)]">
+        {items.map(item => (
           <TransaccionItem
             key={item.id}
             tipo={tipo}
@@ -162,20 +162,18 @@ function EmptyState({ tipo }: EmptyStateProps) {
 
   return (
     <div className="flex flex-col items-center justify-center py-12 px-4">
-      <div
-        className={cn(
-          "w-16 h-16 rounded-full flex items-center justify-center mb-4",
-          tipo === "ingreso"
-            ? "bg-green-100 dark:bg-green-900/30"
-            : "bg-red-100 dark:bg-red-900/30",
-        )}
-      >
-        <Icon
-          className={cn(
-            "w-8 h-8",
-            tipo === "ingreso" ? "text-green-500" : "text-red-500",
-          )}
-        />
+      <div className={cn(
+        'w-16 h-16 rounded-full flex items-center justify-center mb-4',
+        tipo === 'ingreso'
+          ? 'bg-green-100'
+          : 'bg-red-100'
+      )}>
+        <Icon className={cn(
+          'w-8 h-8',
+          tipo === 'ingreso' 
+            ? 'text-green-500'
+            : 'text-red-500'
+        )} />
       </div>
 
       <p className="text-[var(--text-secondary)] text-center mb-2">
@@ -208,17 +206,15 @@ export function ResumenTotales({
   const isIngreso = tipo === "ingreso";
 
   return (
-    <div
-      className={cn(
-        "rounded-xl p-4 mb-4",
-        isIngreso
-          ? "bg-green-50 dark:bg-green-900/20"
-          : "bg-red-50 dark:bg-red-900/20",
-      )}
-    >
+    <div className={cn(
+      'rounded-xl p-4 mb-4',
+      isIngreso
+        ? 'bg-green-50'
+        : 'bg-red-50'
+    )}>
       <div className="flex items-center justify-between mb-3">
-        <span className="text-sm text-[var(--text-secondary)] dark:text-[var(--text-muted)]">
-          Total {isIngreso ? "ingresos" : "gastos"}
+        <span className="text-sm text-[var(--text-secondary)]">
+          Total {isIngreso ? 'ingresos' : 'gastos'}
         </span>
         <span
           className={cn(

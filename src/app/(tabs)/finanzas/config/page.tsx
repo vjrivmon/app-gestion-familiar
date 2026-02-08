@@ -74,7 +74,7 @@ export default function ConfigSaldosPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-surface dark:bg-surface shadow-sm sticky top-0 z-10">
+      <div className="bg-surface shadow-sm sticky top-0 z-10">
         <div className="flex items-center justify-between px-4 h-14">
           {/* Back button */}
           <button

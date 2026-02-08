@@ -15,22 +15,22 @@ interface TareaDetailSheetProps {
   onDelete: (tareaId: string) => Promise<boolean>
 }
 
-// Colores según estado
+// Colores segun estado (pastel neumorficos)
 const stateColors: Record<EstadoTarea, { bg: string; text: string; label: string }> = {
-  overdue: { 
-    bg: 'bg-red-100 dark:bg-red-900/30', 
-    text: 'text-red-600 dark:text-red-400',
+  overdue: {
+    bg: 'bg-negative-light',
+    text: 'text-negative-dark',
     label: 'Atrasada'
   },
-  warning: { 
-    bg: 'bg-yellow-100 dark:bg-yellow-900/30', 
-    text: 'text-yellow-600 dark:text-yellow-400',
-    label: 'Próxima'
+  warning: {
+    bg: 'bg-warning-light',
+    text: 'text-warning-dark',
+    label: 'Proxima'
   },
-  ok: { 
-    bg: 'bg-green-100 dark:bg-green-900/30', 
-    text: 'text-green-600 dark:text-green-400',
-    label: 'Al día'
+  ok: {
+    bg: 'bg-positive-light',
+    text: 'text-positive-dark',
+    label: 'Al dia'
   }
 }
 
@@ -109,16 +109,19 @@ export function TareaDetailSheet({
       />
       
       {/* Sheet */}
-      <div className={cn(
-        'fixed bottom-0 left-0 right-0 z-50',
-        'bg-[var(--surface)] rounded-t-3xl',
-        'p-4 pb-8 space-y-4',
-        'animate-slideUp',
-        'max-h-[80vh] overflow-y-auto'
-      )}>
+      <div
+        className={cn(
+          'fixed bottom-0 left-0 right-0 z-50',
+          'rounded-t-neu-xl',
+          'p-4 pb-8 space-y-4',
+          'animate-slideUp',
+          'max-h-[80vh] overflow-y-auto'
+        )}
+        style={{ background: 'var(--background)' }}
+      >
         {/* Handle */}
         <div className="flex justify-center">
-          <div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full" />
+          <div className="w-10 h-1 rounded-full" style={{ background: 'var(--border)' }} />
         </div>
         
         {/* Close button */}
@@ -190,14 +193,14 @@ export function TareaDetailSheet({
           ) : (
             <div className="space-y-2">
               {historial.map((h) => (
-                <div 
+                <div
                   key={h.id}
                   className="flex items-center gap-3 text-sm"
                 >
-                  <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                    <Check className="w-4 h-4 text-green-600" />
+                  <div className="w-8 h-8 rounded-full bg-positive-light flex items-center justify-center">
+                    <Check className="w-4 h-4 text-positive-dark" />
                   </div>
-                  <span className="text-[var(--text-secondary)] dark:text-[var(--text-muted)]">
+                  <span className="text-[var(--text-secondary)]">
                     {new Date(h.completada_at).toLocaleDateString('es-ES', {
                       weekday: 'short',
                       day: 'numeric',
@@ -212,17 +215,18 @@ export function TareaDetailSheet({
           )}
         </div>
         
-        {/* Botones de acción */}
+        {/* Botones de accion */}
         <div className="flex gap-3 pt-2">
           <button
             onClick={handleComplete}
             disabled={completing}
             className={cn(
-              'flex-1 py-3.5 px-4 rounded-xl font-semibold',
-              'bg-accent text-white',
+              'flex-1 py-3.5 px-4 rounded-neu-md font-semibold',
+              'bg-primary text-[var(--text-inverse)]',
               'active:scale-98 transition-transform',
               'flex items-center justify-center gap-2',
-              'disabled:opacity-70'
+              'disabled:opacity-70',
+              'shadow-neu-sm active:shadow-neu-pressed'
             )}
           >
             {completing ? (
@@ -239,13 +243,14 @@ export function TareaDetailSheet({
             onClick={handleDelete}
             disabled={deleting}
             className={cn(
-              'py-3.5 px-4 rounded-xl font-semibold',
-              confirmDelete 
-                ? 'bg-red-500 text-white' 
-                : 'bg-red-100 dark:bg-red-900/30 text-red-600',
+              'py-3.5 px-4 rounded-neu-md font-semibold',
+              confirmDelete
+                ? 'bg-negative text-[var(--text-inverse)]'
+                : 'bg-negative-light text-negative-dark',
               'active:scale-98 transition-all',
               'flex items-center justify-center',
-              'disabled:opacity-70'
+              'disabled:opacity-70',
+              'shadow-neu-sm'
             )}
           >
             {deleting ? (
@@ -257,8 +262,8 @@ export function TareaDetailSheet({
         </div>
         
         {confirmDelete && (
-          <p className="text-center text-sm text-red-500">
-            Toca de nuevo para confirmar eliminación
+          <p className="text-center text-sm text-negative-dark">
+            Toca de nuevo para confirmar eliminacion
           </p>
         )}
       </div>

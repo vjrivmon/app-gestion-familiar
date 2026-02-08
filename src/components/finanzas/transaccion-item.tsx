@@ -87,9 +87,9 @@ export function TransaccionItem({ tipo, data, onEdit, onDelete }: TransaccionIte
         {...handlers}
         onClick={handleClick}
         className={cn(
-          'relative bg-surface dark:bg-surface',
+          'relative bg-surface',
           'flex items-center gap-3 px-4 min-h-[64px] py-3',
-          'active:bg-gray-50 dark:active:bg-gray-800',
+          'active:bg-[var(--background)]',
           'transition-all duration-200',
           swiped && '-translate-x-20',
           deleting && 'opacity-50'
@@ -98,7 +98,7 @@ export function TransaccionItem({ tipo, data, onEdit, onDelete }: TransaccionIte
         {/* Icono categoría */}
         <div className={cn(
           'w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0',
-          isIngreso ? 'bg-green-100 dark:bg-green-900/30' : 'bg-red-100 dark:bg-red-900/30'
+          isIngreso ? 'bg-green-100' : 'bg-red-100'
         )}>
           <CategoriaIcon
             tipo={tipo}
@@ -118,16 +118,16 @@ export function TransaccionItem({ tipo, data, onEdit, onDelete }: TransaccionIte
             {/* Tipo dinero badge */}
             <span className={cn(
               'text-xs px-1.5 py-0.5 rounded',
-              data.tipo_dinero === 'efectivo' 
-                ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
-                : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+              data.tipo_dinero === 'efectivo'
+                ? 'bg-amber-100 text-amber-700'
+                : 'bg-blue-100 text-blue-700'
             )}>
               {data.tipo_dinero === 'efectivo' ? '' : ''}
             </span>
             
             {/* Es fijo badge (solo ingresos) */}
             {ingreso?.es_fijo && (
-              <span className="text-xs px-1.5 py-0.5 rounded bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
+              <span className="text-xs px-1.5 py-0.5 rounded bg-purple-100 text-purple-700">
                 Fijo
               </span>
             )}
@@ -158,13 +158,13 @@ export function TransaccionItem({ tipo, data, onEdit, onDelete }: TransaccionIte
  */
 export function TransaccionItemSkeleton() {
   return (
-    <div className="flex items-center gap-3 px-4 py-3 bg-surface dark:bg-surface animate-pulse">
-      <div className="w-10 h-10 rounded-full bg-[var(--border)] dark:bg-surface" />
+    <div className="flex items-center gap-3 px-4 py-3 bg-surface animate-pulse">
+      <div className="w-10 h-10 rounded-full bg-[var(--border)]" />
       <div className="flex-1">
-        <div className="h-4 bg-[var(--border)] dark:bg-surface rounded w-2/3 mb-2" />
-        <div className="h-3 bg-[var(--border)] dark:bg-surface rounded w-1/3" />
+        <div className="h-4 bg-[var(--border)] rounded w-2/3 mb-2" />
+        <div className="h-3 bg-[var(--border)] rounded w-1/3" />
       </div>
-      <div className="h-4 bg-[var(--border)] dark:bg-surface rounded w-16" />
+      <div className="h-4 bg-[var(--border)] rounded w-16" />
     </div>
   )
 }

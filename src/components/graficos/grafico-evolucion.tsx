@@ -53,10 +53,7 @@ export function GraficoEvolucion({
   if (loading) {
     return (
       <div
-        className={cn(
-          "animate-pulse bg-[var(--border)] dark:bg-surface rounded-lg",
-          className,
-        )}
+        className={cn('animate-pulse bg-[var(--border)] rounded-lg', className)}
         style={{ height: altura }}
       />
     );
@@ -133,28 +130,29 @@ export function GraficoEvolucion({
               />
             </linearGradient>
           </defs>
-
+          
           <XAxis
             dataKey="mes"
             axisLine={false}
             tickLine={false}
-            tick={{ fontSize: 11, fill: "#9ca3af" }}
+            tick={{ fontSize: 11, fill: 'var(--text-secondary)' }}
           />
           <YAxis
             axisLine={false}
             tickLine={false}
-            tick={{ fontSize: 10, fill: "#9ca3af" }}
+            tick={{ fontSize: 10, fill: 'var(--text-secondary)' }}
             tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
             width={40}
           />
 
           <Tooltip
             contentStyle={{
-              backgroundColor: "var(--color-surface, #fff)",
-              border: "none",
+              backgroundColor: 'var(--background)',
+              border: 'none',
               borderRadius: 12,
-              boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-              padding: "12px",
+              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+              padding: '12px',
+              color: 'var(--text-primary)'
             }}
             labelStyle={{ fontWeight: 600, marginBottom: 8 }}
             formatter={(value: number, name: string) => [

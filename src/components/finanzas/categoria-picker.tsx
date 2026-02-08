@@ -48,8 +48,8 @@ export function CategoriaPicker({
         onClick={() => setIsOpen(true)}
         className={cn(
           'flex items-center gap-2 px-3 py-2',
-          'bg-[var(--border)] dark:bg-surface-elevated rounded-lg',
-          'active:bg-[var(--border)] dark:active:bg-gray-700',
+          'bg-[var(--border)] rounded-lg',
+          'active:bg-[var(--background)]',
           'transition-colors duration-75',
           className
         )}
@@ -69,29 +69,32 @@ export function CategoriaPicker({
           />
           
           {/* Sheet */}
-          <div className={cn(
-            'fixed bottom-0 left-0 right-0 z-50',
-            'bg-surface dark:bg-surface',
-            'rounded-t-[12px] shadow-xl',
-            'max-h-[70vh] overflow-auto',
-            'pb-[env(safe-area-inset-bottom)]',
-            // Animación
-            'animate-in slide-in-from-bottom duration-200'
-          )}>
+          <div
+            className={cn(
+              'fixed bottom-0 left-0 right-0 z-50',
+              'rounded-t-neu-xl shadow-xl',
+              'max-h-[70vh] overflow-auto',
+              'pb-[env(safe-area-inset-bottom)]',
+              // Animacion
+              'animate-in slide-in-from-bottom duration-200'
+            )}
+            style={{ background: 'var(--background)' }}
+          >
             {/* Handle */}
             <div className="flex justify-center py-3">
-              <div className="w-9 h-1 bg-gray-300 dark:bg-gray-600 rounded-full" />
+              <div className="w-10 h-1.5 rounded-full bg-[var(--neu-shadow-dark)]/20"
+                   style={{ boxShadow: 'inset 1px 1px 2px var(--neu-shadow-dark), inset -1px -1px 2px var(--neu-shadow-light)' }} />
             </div>
             
             {/* Header */}
-            <div className="px-4 pb-3 border-b border-gray-200 dark:border-gray-700">
+            <div className="px-4 pb-3 border-b border-[var(--separator)]">
               <h2 className="text-lg font-semibold text-center">
                 {tipo === 'ingreso' ? 'Tipo de ingreso' : 'Categoría de gasto'}
               </h2>
             </div>
             
             {/* Lista */}
-            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+            <div className="divide-y divide-[var(--separator)]">
               {categorias.map((categoria) => (
                 <button
                   key={categoria.value}
@@ -99,7 +102,7 @@ export function CategoriaPicker({
                   onClick={() => handleSelect(categoria.value)}
                   className={cn(
                     'w-full flex items-center gap-3 px-4 py-3',
-                    'active:bg-[var(--border)] dark:active:bg-gray-800',
+                    'active:bg-[var(--border)]',
                     'transition-colors duration-75'
                   )}
                 >
@@ -152,7 +155,7 @@ export function CategoriaIcon({
     <span className={cn('flex items-center gap-1.5', className)}>
       <span className={sizeClasses[size]}>{categoria.icon}</span>
       {showLabel && (
-        <span className="text-sm text-[var(--text-secondary)] dark:text-[var(--text-muted)]">
+        <span className="text-sm text-[var(--text-secondary)]">
           {categoria.label}
         </span>
       )}

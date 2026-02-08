@@ -88,17 +88,18 @@ export function TransferenciaForm({
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-40" />
         <Drawer.Content
           className={cn(
-            "fixed bottom-0 left-0 right-0 z-50",
-            "bg-background",
-            "rounded-t-[12px]",
-            "max-h-[90vh]",
-            "flex flex-col",
-            "outline-none",
+            'fixed bottom-0 left-0 right-0 z-50',
+            'rounded-t-neu-xl',
+            'max-h-[90vh]',
+            'flex flex-col',
+            'outline-none'
           )}
+          style={{ background: 'var(--background)' }}
         >
           {/* Handle */}
           <div className="flex justify-center py-3 flex-shrink-0">
-            <div className="w-9 h-1 bg-gray-300 dark:bg-gray-600 rounded-full" />
+            <div className="w-10 h-1.5 rounded-full bg-[var(--neu-shadow-dark)]/20"
+                 style={{ boxShadow: 'inset 1px 1px 2px var(--neu-shadow-dark), inset -1px -1px 2px var(--neu-shadow-light)' }} />
           </div>
 
           {/* Header */}
@@ -135,7 +136,7 @@ export function TransferenciaForm({
           <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-6">
             {/* Error */}
             {error && (
-              <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg text-sm">
+              <div className="bg-red-50 text-red-600 px-4 py-3 rounded-lg text-sm">
                 {error}
               </div>
             )}
@@ -179,7 +180,7 @@ export function TransferenciaForm({
 
             {/* Desde */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
                 Desde
               </label>
               <PersonaPicker
@@ -192,7 +193,7 @@ export function TransferenciaForm({
 
             {/* Hacia */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
                 Hacia
               </label>
               <PersonaPicker
@@ -212,7 +213,7 @@ export function TransferenciaForm({
 
             {/* Importe */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
                 Importe
               </label>
               <NumericInput
@@ -225,7 +226,7 @@ export function TransferenciaForm({
 
             {/* Concepto */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
                 Concepto (opcional)
               </label>
               <input
@@ -234,11 +235,11 @@ export function TransferenciaForm({
                 onChange={(e) => setConcepto(e.target.value)}
                 placeholder="Transferencia"
                 className={cn(
-                  "w-full px-4 py-3 rounded-lg",
-                  "bg-surface dark:bg-surface-elevated",
-                  "border border-gray-200 dark:border-gray-700",
-                  "text-base placeholder:text-[var(--text-muted)]",
-                  "focus:outline-none focus:ring-2 focus:ring-accent/50",
+                  'w-full px-4 py-3 rounded-lg',
+                  'bg-surface',
+                  'border border-[var(--separator)]',
+                  'text-base placeholder:text-[var(--text-muted)]',
+                  'focus:outline-none focus:ring-2 focus:ring-accent/50'
                 )}
               />
             </div>

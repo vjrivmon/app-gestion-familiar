@@ -97,12 +97,12 @@ export function PrestamoItem({
         {...handlers}
         onClick={handleClick}
         className={cn(
-          "relative bg-surface dark:bg-surface",
-          "flex items-center gap-3 px-4 min-h-[72px] py-3",
-          "active:bg-gray-50 dark:active:bg-gray-800",
-          "transition-all duration-200",
-          swiped && "-translate-x-20",
-          deleting && "opacity-50",
+          'relative bg-surface',
+          'flex items-center gap-3 px-4 min-h-[72px] py-3',
+          'active:bg-[var(--background)]',
+          'transition-all duration-200',
+          swiped && '-translate-x-20',
+          deleting && 'opacity-50'
         )}
       >
         {/* Avatares con flecha */}
@@ -115,24 +115,21 @@ export function PrestamoItem({
         {/* Contenido central */}
         <div className="flex-1 min-w-0">
           <p className="text-[15px] font-medium">
-            <span className="text-[var(--text-secondary)] dark:text-[var(--text-muted)]">
-              {NOMBRES_MAP[prestamo.de_quien]} prestó a{" "}
-              {NOMBRES_MAP[prestamo.a_quien]}
+            <span className="text-[var(--text-secondary)]">
+              {NOMBRES_MAP[prestamo.de_quien]} presto a {NOMBRES_MAP[prestamo.a_quien]}
             </span>
           </p>
 
           {/* Concepto y badges */}
           <div className="flex items-center gap-2 mt-1 flex-wrap">
             {/* Estado badge */}
-            <span
-              className={cn(
-                "text-xs px-2 py-0.5 rounded-full font-medium",
-                prestamo.pagado
-                  ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                  : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
-              )}
-            >
-              {prestamo.pagado ? " Pagado" : " Pendiente"}
+            <span className={cn(
+              'text-xs px-2 py-0.5 rounded-full font-medium',
+              prestamo.pagado
+                ? 'bg-green-100 text-green-700'
+                : 'bg-yellow-100 text-yellow-700'
+            )}>
+              {prestamo.pagado ? ' Pagado' : ' Pendiente'}
             </span>
 
             {/* Fecha */}
@@ -199,17 +196,17 @@ export function PrestamoItem({
  */
 export function PrestamoItemSkeleton() {
   return (
-    <div className="flex items-center gap-3 px-4 py-3 bg-surface dark:bg-surface animate-pulse">
+    <div className="flex items-center gap-3 px-4 py-3 bg-surface animate-pulse">
       <div className="flex items-center gap-1">
-        <div className="w-8 h-8 rounded-full bg-[var(--border)] dark:bg-surface" />
-        <div className="w-4 h-4 bg-[var(--border)] dark:bg-surface rounded" />
-        <div className="w-8 h-8 rounded-full bg-[var(--border)] dark:bg-surface" />
+        <div className="w-8 h-8 rounded-full bg-[var(--border)]" />
+        <div className="w-4 h-4 bg-[var(--border)] rounded" />
+        <div className="w-8 h-8 rounded-full bg-[var(--border)]" />
       </div>
       <div className="flex-1">
-        <div className="h-4 bg-[var(--border)] dark:bg-surface rounded w-3/4 mb-2" />
-        <div className="h-3 bg-[var(--border)] dark:bg-surface rounded w-1/3" />
+        <div className="h-4 bg-[var(--border)] rounded w-3/4 mb-2" />
+        <div className="h-3 bg-[var(--border)] rounded w-1/3" />
       </div>
-      <div className="h-4 bg-[var(--border)] dark:bg-surface rounded w-16" />
+      <div className="h-4 bg-[var(--border)] rounded w-16" />
     </div>
   );
 }

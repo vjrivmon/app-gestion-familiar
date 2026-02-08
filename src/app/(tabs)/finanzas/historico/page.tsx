@@ -55,7 +55,7 @@ export default function HistoricoAnualPage() {
   return (
     <div className="min-h-screen bg-background pb-20">
       {/* Header */}
-      <div className="bg-surface dark:bg-surface p-4 shadow-sm sticky top-0 z-10">
+      <div className="bg-surface p-4 shadow-sm sticky top-0 z-10">
         <div className="flex items-center gap-3 mb-4">
           <button
             onClick={() => router.back()}
@@ -73,7 +73,7 @@ export default function HistoricoAnualPage() {
         <div className="flex items-center justify-center gap-4 mb-4">
           <button
             onClick={handlePrevYear}
-            className="p-2 text-[var(--text-secondary)] active:bg-[var(--border)] dark:active:bg-gray-800 rounded-full"
+            className="p-2 text-[var(--text-secondary)] active:bg-[var(--border)] rounded-full"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -86,10 +86,10 @@ export default function HistoricoAnualPage() {
             onClick={handleNextYear}
             disabled={año >= añoActual}
             className={cn(
-              "p-2 rounded-full",
+              'p-2 rounded-full',
               año >= añoActual
-                ? "text-gray-300 dark:text-[var(--text-secondary)] cursor-not-allowed"
-                : "text-[var(--text-secondary)] active:bg-[var(--border)] dark:active:bg-gray-800",
+                ? 'text-[var(--text-muted)] cursor-not-allowed'
+                : 'text-[var(--text-secondary)] active:bg-[var(--border)]'
             )}
           >
             <ChevronRight className="w-6 h-6" />
@@ -233,7 +233,7 @@ export default function HistoricoAnualPage() {
                     return (
                       <div
                         key={persona}
-                        className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-800 last:border-0"
+                        className="flex items-center justify-between py-2 border-b border-[var(--separator)] last:border-0"
                       >
                         <span className="font-medium">{nombre}</span>
                         <div className="flex items-center gap-4 text-sm">
@@ -279,7 +279,7 @@ export default function HistoricoAnualPage() {
                         -{formatMoney(Math.round(datos.totalGastos / 12))}
                       </span>
                     </div>
-                    <div className="flex justify-between pt-2 border-t border-gray-100 dark:border-gray-800">
+                    <div className="flex justify-between pt-2 border-t border-[var(--separator)]">
                       <span className="font-semibold">Ahorro medio</span>
                       <span
                         className={cn(

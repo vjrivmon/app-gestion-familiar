@@ -30,12 +30,12 @@ export function TransferenciasList({
         {[1, 2, 3].map(i => (
           <div key={i} className="card animate-pulse">
             <div className="flex items-center gap-3 py-3">
-              <div className="w-10 h-10 rounded-full bg-[var(--border)] dark:bg-surface" />
+              <div className="w-10 h-10 rounded-full bg-[var(--border)]" />
               <div className="flex-1 space-y-2">
-                <div className="h-4 bg-[var(--border)] dark:bg-surface rounded w-3/4" />
-                <div className="h-3 bg-[var(--border)] dark:bg-surface rounded w-1/2" />
+                <div className="h-4 bg-[var(--border)] rounded w-3/4" />
+                <div className="h-3 bg-[var(--border)] rounded w-1/2" />
               </div>
-              <div className="h-4 bg-[var(--border)] dark:bg-surface rounded w-16" />
+              <div className="h-4 bg-[var(--border)] rounded w-16" />
             </div>
           </div>
         ))}
@@ -50,7 +50,7 @@ export function TransferenciasList({
         'card py-8 flex flex-col items-center justify-center text-center',
         className
       )}>
-        <div className="w-14 h-14 rounded-full bg-[var(--border)] dark:bg-surface-elevated flex items-center justify-center mb-3">
+        <div className="w-14 h-14 rounded-full bg-[var(--border)] flex items-center justify-center mb-3">
           <ArrowLeftRight className="w-7 h-7 text-[var(--text-muted)]" />
         </div>
         <p className="text-[var(--text-secondary)] text-sm">{emptyMessage}</p>

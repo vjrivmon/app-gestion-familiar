@@ -7,7 +7,7 @@ import { Home, ShoppingCart, UtensilsCrossed, Wallet } from 'lucide-react'
 const tabs = [
   { href: '/home', icon: Home, label: 'Home' },
   { href: '/compra', icon: ShoppingCart, label: 'Compra' },
-  { href: '/menu', icon: UtensilsCrossed, label: 'Menú' },
+  { href: '/menu', icon: UtensilsCrossed, label: 'Menu' },
   { href: '/finanzas', icon: Wallet, label: 'Finanzas' },
 ]
 
@@ -19,22 +19,45 @@ export function BottomNav() {
   if (hideRoutes.some(r => pathname?.includes(r))) return null
 
   return (
-    <nav 
-      className="fixed bottom-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-xl border-t border-[var(--separator)]"
-      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+    <nav
+      className="fixed bottom-4 left-4 right-4 z-50 rounded-neu-xl"
+      style={{
+        background: 'var(--background)',
+        boxShadow: 'var(--shadow-neu-lg)',
+        paddingBottom: 'max(8px, env(safe-area-inset-bottom))'
+      }}
     >
-      <div className="flex h-[49px]">
+      <div className="flex h-[56px]">
         {tabs.map(({ href, icon: Icon, label }) => {
           const active = pathname?.startsWith(href)
           return (
-            <Link 
-              key={href} 
+            <Link
+              key={href}
               href={href}
-              className={`flex-1 flex flex-col items-center justify-center gap-0.5 transition-colors
-                ${active ? 'text-primary' : 'text-[var(--text-muted)]'}`}
+              className="flex-1 flex flex-col items-center justify-center gap-1 transition-all duration-150"
+              style={{
+                color: active ? 'var(--primary)' : 'var(--text-muted)'
+              }}
             >
-              <Icon size={24} strokeWidth={active ? 2.5 : 1.5} />
-              <span className="text-[10px] font-medium">{label}</span>
+              <div
+                className="flex items-center justify-center w-10 h-10 rounded-full transition-all duration-150"
+                style={{
+                  background: active ? 'linear-gradient(145deg, var(--primary-light), var(--primary))' : 'transparent',
+                  boxShadow: active ? 'var(--shadow-neu-sm)' : 'none'
+                }}
+              >
+                <Icon
+                  size={22}
+                  strokeWidth={active ? 2 : 1.5}
+                  style={{ color: active ? 'var(--text-inverse)' : 'var(--text-muted)' }}
+                />
+              </div>
+              <span
+                className="text-[10px] font-medium"
+                style={{ color: active ? 'var(--primary)' : 'var(--text-muted)' }}
+              >
+                {label}
+              </span>
             </Link>
           )
         })}

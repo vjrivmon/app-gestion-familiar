@@ -38,9 +38,9 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
   }
   
   return (
-    <div 
+    <div
       className={cn(
-        'bg-surface dark:bg-surface rounded-xl p-4 shadow-sm',
+        'bg-surface rounded-xl p-4 shadow-sm',
         'border-l-4 transition-all',
         completada && 'ring-2 ring-green-500/30'
       )}
@@ -78,7 +78,7 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
       
       {/* Barra de progreso */}
       <div className="mb-3">
-        <div className="h-4 bg-[var(--border)] dark:bg-surface rounded-full overflow-hidden">
+        <div className="h-4 bg-[var(--border)] rounded-full overflow-hidden">
           <div 
             className="h-full rounded-full transition-all duration-500 relative"
             style={{ 
@@ -115,8 +115,8 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
       )}
       
       {completada && (
-        <p className="text-sm text-green-600 dark:text-green-400 mb-4 font-medium">
-          ¡Meta completada!
+        <p className="text-sm text-green-600 mb-4 font-medium">
+          Meta completada!
         </p>
       )}
       
@@ -130,7 +130,7 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
             'flex items-center justify-center gap-2',
             'transition-colors',
             completada
-              ? 'bg-[var(--border)] dark:bg-surface-elevated text-[var(--text-secondary)]'
+              ? 'bg-[var(--border)] text-[var(--text-secondary)]'
               : 'text-white',
           )}
           style={{ backgroundColor: completada ? undefined : meta.color }}
@@ -144,8 +144,8 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
           onClick={onEditar}
           className={cn(
             'py-2.5 px-3 rounded-lg',
-            'bg-[var(--border)] dark:bg-surface-elevated text-[var(--text-secondary)] dark:text-[var(--text-muted)]',
-            'active:bg-[var(--border)] dark:active:bg-gray-700',
+            'bg-[var(--border)] text-[var(--text-secondary)]',
+            'active:bg-[var(--background)]',
             'transition-colors'
           )}
           aria-label="Editar meta"
@@ -158,8 +158,8 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
           onClick={onEliminar}
           className={cn(
             'py-2.5 px-3 rounded-lg',
-            'bg-red-50 dark:bg-red-900/20 text-red-500',
-            'active:bg-red-100 dark:active:bg-red-900/40',
+            'bg-red-50 text-red-500',
+            'active:bg-red-100',
             'transition-colors'
           )}
           aria-label="Eliminar meta"
@@ -176,17 +176,17 @@ export function MetaCard({ meta, onAportar, onEditar, onEliminar }: MetaCardProp
  */
 export function MetaCardSkeleton() {
   return (
-    <div className="bg-surface dark:bg-surface rounded-xl p-4 shadow-sm border-l-4 border-gray-200 animate-pulse">
-      <div className="h-6 bg-[var(--border)] dark:bg-surface rounded w-2/3 mb-3" />
-      <div className="h-4 bg-[var(--border)] dark:bg-surface rounded-full mb-3" />
+    <div className="bg-surface rounded-xl p-4 shadow-sm border-l-4 border-[var(--separator)] animate-pulse">
+      <div className="h-6 bg-[var(--border)] rounded w-2/3 mb-3" />
+      <div className="h-4 bg-[var(--border)] rounded-full mb-3" />
       <div className="flex justify-between mb-4">
-        <div className="h-5 bg-[var(--border)] dark:bg-surface rounded w-1/3" />
-        <div className="h-5 bg-[var(--border)] dark:bg-surface rounded w-12" />
+        <div className="h-5 bg-[var(--border)] rounded w-1/3" />
+        <div className="h-5 bg-[var(--border)] rounded w-12" />
       </div>
       <div className="flex gap-2">
-        <div className="flex-1 h-10 bg-[var(--border)] dark:bg-surface rounded-lg" />
-        <div className="w-10 h-10 bg-[var(--border)] dark:bg-surface rounded-lg" />
-        <div className="w-10 h-10 bg-[var(--border)] dark:bg-surface rounded-lg" />
+        <div className="flex-1 h-10 bg-[var(--border)] rounded-lg" />
+        <div className="w-10 h-10 bg-[var(--border)] rounded-lg" />
+        <div className="w-10 h-10 bg-[var(--border)] rounded-lg" />
       </div>
     </div>
   )
@@ -198,7 +198,7 @@ export function MetaCardSkeleton() {
 export function MetasEmptyState({ onCrear }: { onCrear: () => void }) {
   return (
     <div className="text-center py-12 px-4">
-      <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-full flex items-center justify-center">
+      <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-100 to-blue-100 rounded-full flex items-center justify-center">
         <span className="text-4xl"></span>
       </div>
       <h3 className="text-xl font-semibold mb-2">

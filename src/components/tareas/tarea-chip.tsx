@@ -12,25 +12,25 @@ interface TareaChipProps {
   onViewDetail: (tarea: TareaConEstado) => void
 }
 
-// Colores de fondo según estado
+// Colores de fondo segun estado (pastel neumorficos)
 const bgColors: Record<EstadoTarea, string> = {
-  overdue: 'bg-red-100 dark:bg-red-900/30',
-  warning: 'bg-yellow-100 dark:bg-yellow-900/30',
-  ok: 'bg-green-100 dark:bg-green-900/30'
+  overdue: 'bg-negative-light',
+  warning: 'bg-warning-light',
+  ok: 'bg-positive-light'
 }
 
-// Colores de badge según estado
+// Colores de badge segun estado (pastel)
 const badgeColors: Record<EstadoTarea, string> = {
-  overdue: 'bg-red-500 text-white',
-  warning: 'bg-yellow-500 text-white',
-  ok: 'bg-green-500 text-white'
+  overdue: 'bg-negative text-[var(--text-inverse)]',
+  warning: 'bg-warning text-[var(--text-primary)]',
+  ok: 'bg-positive text-[var(--text-inverse)]'
 }
 
-// Colores de borde según estado
+// Colores de borde segun estado (pastel)
 const borderColors: Record<EstadoTarea, string> = {
-  overdue: 'border-red-200 dark:border-red-800',
-  warning: 'border-yellow-200 dark:border-yellow-800',
-  ok: 'border-green-200 dark:border-green-800'
+  overdue: 'border-negative',
+  warning: 'border-warning',
+  ok: 'border-positive'
 }
 
 /**
@@ -109,16 +109,17 @@ export function TareaChip({ tarea, onComplete, onViewDetail }: TareaChipProps) {
       className={cn(
         // Base
         'relative flex flex-col items-center justify-center',
-        'w-[72px] h-[72px] rounded-2xl',
+        'w-[72px] h-[72px] rounded-neu-md',
         'border-2 shrink-0',
         'transition-all duration-150',
         'active:scale-95',
         'select-none',
+        'shadow-neu-sm',
         // Estado
         bgColors[tarea.estado],
         borderColors[tarea.estado],
         // Completado
-        completed && 'bg-green-500 border-green-500'
+        completed && 'bg-positive border-positive'
       )}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -140,7 +141,7 @@ export function TareaChip({ tarea, onComplete, onViewDetail }: TareaChipProps) {
       {!completed && (
         <span className={cn(
           'text-[10px] font-medium mt-1 max-w-[60px] truncate',
-          'text-gray-700 dark:text-gray-300'
+          'text-[var(--text-primary)]'
         )}>
           {tarea.nombre.split(' ')[0]}
         </span>

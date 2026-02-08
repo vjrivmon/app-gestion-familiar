@@ -76,16 +76,19 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
       />
       
       {/* Sheet */}
-      <div className={cn(
-        'fixed bottom-0 left-0 right-0 z-50',
-        'bg-[var(--surface)] rounded-t-3xl',
-        'p-4 pb-8 space-y-4',
-        'animate-slideUp',
-        'max-h-[85vh] overflow-y-auto'
-      )}>
+      <div
+        className={cn(
+          'fixed bottom-0 left-0 right-0 z-50',
+          'rounded-t-neu-xl',
+          'p-4 pb-8 space-y-4',
+          'animate-slideUp',
+          'max-h-[85vh] overflow-y-auto'
+        )}
+        style={{ background: 'var(--background)' }}
+      >
         {/* Handle */}
         <div className="flex justify-center">
-          <div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full" />
+          <div className="w-10 h-1 rounded-full" style={{ background: 'var(--border)' }} />
         </div>
         
         {/* Header */}
@@ -108,11 +111,12 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
               onChange={(e) => setNombre(e.target.value)}
               placeholder="Ej: Limpiar ventanas"
               className={cn(
-                'w-full px-4 py-3 rounded-xl',
-                'bg-[var(--background)] border border-gray-200 dark:border-gray-700',
+                'w-full px-4 py-3 rounded-neu-md',
                 'text-[17px] placeholder:text-[var(--text-muted)]',
-                'focus:outline-none focus:ring-2 focus:ring-accent/50'
+                'focus:outline-none focus:ring-2 focus:ring-primary-light/50',
+                'shadow-neu-inset-sm'
               )}
+              style={{ background: 'var(--background)', border: 'none' }}
               autoFocus
             />
           </div>
@@ -129,12 +133,12 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
                   type="button"
                   onClick={() => setIcono(emoji)}
                   className={cn(
-                    'w-11 h-11 rounded-xl text-2xl',
+                    'w-11 h-11 rounded-neu-sm text-2xl',
                     'flex items-center justify-center',
                     'transition-all',
                     icono === emoji
-                      ? 'bg-accent text-white scale-110 ring-2 ring-accent ring-offset-2'
-                      : 'bg-[var(--border)] dark:bg-surface-elevated active:scale-95'
+                      ? 'bg-primary text-[var(--text-inverse)] scale-110 ring-2 ring-primary ring-offset-2 shadow-neu-sm'
+                      : 'bg-[var(--background)] shadow-neu-sm active:scale-95 active:shadow-neu-pressed'
                   )}
                 >
                   {emoji}
@@ -157,11 +161,11 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
                     type="button"
                     onClick={() => setFrecuencia(f.value)}
                     className={cn(
-                      'py-2.5 px-3 rounded-xl text-sm font-medium',
+                      'py-2.5 px-3 rounded-neu-sm text-sm font-medium',
                       'transition-all',
                       frecuencia === f.value
-                        ? 'bg-accent text-white'
-                        : 'bg-[var(--border)] dark:bg-surface-elevated active:scale-95'
+                        ? 'bg-primary text-[var(--text-inverse)] shadow-neu-sm'
+                        : 'bg-[var(--background)] shadow-neu-sm active:scale-95 active:shadow-neu-pressed'
                     )}
                   >
                     {f.label}
@@ -178,13 +182,14 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
                   max="365"
                   placeholder="7"
                   className={cn(
-                    'w-20 px-4 py-3 rounded-xl text-center',
-                    'bg-[var(--background)] border border-gray-200 dark:border-gray-700',
+                    'w-20 px-4 py-3 rounded-neu-md text-center',
                     'text-[17px]',
-                    'focus:outline-none focus:ring-2 focus:ring-accent/50'
+                    'focus:outline-none focus:ring-2 focus:ring-primary-light/50',
+                    'shadow-neu-inset-sm'
                   )}
+                  style={{ background: 'var(--background)', border: 'none' }}
                 />
-                <span className="text-[var(--text-secondary)]">días</span>
+                <span className="text-[var(--text-secondary)]">dias</span>
               </div>
             )}
             
@@ -199,18 +204,18 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
           
           {/* Error */}
           {error && (
-            <p className="text-red-500 text-sm">{error}</p>
+            <p className="text-negative-dark text-sm">{error}</p>
           )}
           
           {/* Preview */}
           <div className="card p-3 flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-[var(--border)] dark:bg-surface-elevated flex items-center justify-center text-2xl">
+            <div className="w-12 h-12 rounded-neu-md bg-[var(--background)] shadow-neu-sm flex items-center justify-center text-2xl">
               {icono}
             </div>
             <div>
               <p className="font-semibold">{nombre || 'Nueva tarea'}</p>
               <p className="text-sm text-[var(--text-secondary)]">
-                Cada {showCustomFrecuencia ? (parseInt(frecuenciaCustom) || '?') : frecuencia} días
+                Cada {showCustomFrecuencia ? (parseInt(frecuenciaCustom) || '?') : frecuencia} dias
               </p>
             </div>
           </div>
@@ -220,11 +225,12 @@ export function NuevaTareaForm({ onClose, onSubmit }: NuevaTareaFormProps) {
             type="submit"
             disabled={submitting || !nombre.trim()}
             className={cn(
-              'w-full py-4 rounded-xl font-semibold',
-              'bg-accent text-white',
+              'w-full py-4 rounded-neu-md font-semibold',
+              'bg-primary text-[var(--text-inverse)]',
               'active:scale-98 transition-transform',
               'flex items-center justify-center gap-2',
-              'disabled:opacity-50'
+              'disabled:opacity-50',
+              'shadow-neu-sm active:shadow-neu-pressed'
             )}
           >
             {submitting ? (

@@ -82,7 +82,7 @@ export default function BecasPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-surface dark:bg-surface p-4 pt-2 shadow-sm">
+      <div className="bg-surface p-4 pt-2 shadow-sm">
         <div className="flex items-center gap-3 mb-4">
           <button
             onClick={() => router.back()}
@@ -118,15 +118,13 @@ export default function BecasPage() {
       {/* Resumen */}
       <div className="p-4">
         <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="bg-surface dark:bg-surface rounded-xl p-4">
-            <p className="text-sm text-[var(--text-secondary)] mb-1">
-              Pendiente
-            </p>
+          <div className="card rounded-xl p-4">
+            <p className="text-sm text-[var(--text-secondary)] mb-1">Pendiente</p>
             <p className="text-xl font-bold text-yellow-600">
               {formatMoney(totalPendiente)}
             </p>
           </div>
-          <div className="bg-surface dark:bg-surface rounded-xl p-4">
+          <div className="card rounded-xl p-4">
             <p className="text-sm text-[var(--text-secondary)] mb-1">Mensual</p>
             <p className="text-xl font-bold text-blue-600">
               {formatMoney(totalMensual)}
@@ -136,17 +134,15 @@ export default function BecasPage() {
 
         {/* Loading */}
         {loading && (
-          <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
-            {[1, 2, 3].map((i) => (
-              <BecaItemSkeleton key={i} />
-            ))}
+          <div className="card rounded-xl overflow-hidden divide-y divide-[var(--separator)]">
+            {[1, 2, 3].map(i => <BecaItemSkeleton key={i} />)}
           </div>
         )}
 
         {/* Empty state */}
         {!loading && becasFiltradas.length === 0 && (
           <div className="text-center py-12">
-            <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
               <span className="text-3xl"></span>
             </div>
             <h3 className="text-lg font-semibold mb-2">
@@ -163,36 +159,35 @@ export default function BecasPage() {
         )}
 
         {/* Lista agrupada por persona */}
-        {!loading &&
-          personasConBecas.map((persona) => (
-            <div key={persona} className="mb-4">
-              <h3 className="text-sm font-medium text-[var(--text-secondary)] px-1 mb-2">
-                {NOMBRES_MAP[persona]}
-              </h3>
-              <div className="bg-surface dark:bg-surface rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
-                {becasAgrupadas[persona].map((beca) => (
-                  <BecaItem
-                    key={beca.id}
-                    beca={beca}
-                    onEdit={() => handleEdit(beca)}
-                    onDelete={() => eliminarBeca(beca.id)}
-                    onCobrar={() => cobrarBeca(beca)}
-                  />
-                ))}
-              </div>
+        {!loading && personasConBecas.map(persona => (
+          <div key={persona} className="mb-4">
+            <h3 className="text-sm font-medium text-[var(--text-secondary)] px-1 mb-2">
+              {NOMBRES_MAP[persona]}
+            </h3>
+            <div className="card rounded-xl overflow-hidden divide-y divide-[var(--separator)]">
+              {becasAgrupadas[persona].map(beca => (
+                <BecaItem
+                  key={beca.id}
+                  beca={beca}
+                  onEdit={() => handleEdit(beca)}
+                  onDelete={() => eliminarBeca(beca.id)}
+                  onCobrar={() => cobrarBeca(beca)}
+                />
+              ))}
             </div>
-          ))}
+          </div>
+        ))}
       </div>
 
       {/* FAB */}
       <button
         onClick={() => setShowForm(true)}
         className={cn(
-          "fixed bottom-24 right-4 z-30",
-          "w-14 h-14 rounded-full",
-          "bg-purple-500 text-white shadow-lg",
-          "flex items-center justify-center",
-          "active:scale-95 transition-transform",
+          'fixed bottom-24 right-4 z-30',
+          'w-14 h-14 rounded-full',
+          'bg-gradient-to-br from-purple-500 to-purple-500/80 text-white shadow-neu-sm',
+          'flex items-center justify-center',
+          'active:scale-95 transition-transform'
         )}
         aria-label="Añadir beca"
       >

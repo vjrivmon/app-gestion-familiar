@@ -11,18 +11,18 @@ import { NuevaTareaForm } from '@/components/tareas/nueva-tarea-form'
 // Colores de estado para cards
 const stateStyles: Record<EstadoTarea, { bg: string; border: string; badge: string }> = {
   overdue: {
-    bg: 'bg-red-50 dark:bg-red-900/20',
-    border: 'border-red-200 dark:border-red-800',
+    bg: 'bg-red-50',
+    border: 'border-red-200',
     badge: 'bg-red-500'
   },
   warning: {
-    bg: 'bg-yellow-50 dark:bg-yellow-900/20',
-    border: 'border-yellow-200 dark:border-yellow-800',
+    bg: 'bg-yellow-50',
+    border: 'border-yellow-200',
     badge: 'bg-yellow-500'
   },
   ok: {
-    bg: 'bg-green-50 dark:bg-green-900/20',
-    border: 'border-green-200 dark:border-green-800',
+    bg: 'bg-green-50',
+    border: 'border-green-200',
     badge: 'bg-green-500'
   }
 }
@@ -156,21 +156,21 @@ export default function TareasPage() {
             <div className="flex gap-3">
               <div className={cn(
                 'flex-1 p-3 rounded-xl text-center',
-                'bg-red-100 dark:bg-red-900/30'
+                'bg-red-100'
               )}>
                 <p className="text-2xl font-bold text-red-600">{tareasOverdue.length}</p>
                 <p className="text-xs text-red-600/70">Atrasadas</p>
               </div>
               <div className={cn(
                 'flex-1 p-3 rounded-xl text-center',
-                'bg-yellow-100 dark:bg-yellow-900/30'
+                'bg-yellow-100'
               )}>
                 <p className="text-2xl font-bold text-yellow-600">{tareasWarning.length}</p>
                 <p className="text-xs text-yellow-600/70">Próximas</p>
               </div>
               <div className={cn(
                 'flex-1 p-3 rounded-xl text-center',
-                'bg-green-100 dark:bg-green-900/30'
+                'bg-green-100'
               )}>
                 <p className="text-2xl font-bold text-green-600">{tareasOk.length}</p>
                 <p className="text-xs text-green-600/70">Al día</p>
@@ -217,7 +217,7 @@ export default function TareasPage() {
         className={cn(
           'fixed bottom-24 right-4 z-20',
           'w-14 h-14 rounded-full',
-          'bg-accent text-white shadow-lg',
+          'bg-gradient-to-br from-accent to-accent/80 text-white shadow-neu-sm',
           'flex items-center justify-center',
           'active:scale-95 transition-transform'
         )}
@@ -312,7 +312,7 @@ function TareaCard({ tarea, completing, onComplete, onDetail }: TareaCardProps) 
       {/* Icono */}
       <div className={cn(
         'w-12 h-12 rounded-xl flex items-center justify-center text-2xl',
-        'bg-surface dark:bg-surface-elevated'
+        'bg-surface'
       )}>
         {tarea.icono}
       </div>
@@ -342,9 +342,9 @@ function TareaCard({ tarea, completing, onComplete, onDetail }: TareaCardProps) 
           'w-10 h-10 rounded-full',
           'flex items-center justify-center',
           'transition-all',
-          completed 
+          completed
             ? 'bg-green-500 text-white'
-            : 'bg-surface dark:bg-surface-elevated border border-gray-200 dark:border-gray-700',
+            : 'bg-surface border border-[var(--border)]',
           'active:scale-95'
         )}
       >

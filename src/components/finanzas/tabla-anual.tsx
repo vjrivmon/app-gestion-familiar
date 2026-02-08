@@ -57,9 +57,9 @@ export function TablaAnual({ grupos, tipo, totalAnual, className }: TablaAnualPr
     <div className={cn('overflow-x-auto -mx-4', className)}>
       <table className="min-w-full text-sm">
         <thead>
-          <tr className="bg-[var(--border)] dark:bg-surface-elevated">
-            {/* Columna sticky de categoría */}
-            <th className="sticky left-0 bg-[var(--border)] dark:bg-surface-elevated py-2 px-3 text-left font-semibold min-w-[120px] z-10">
+          <tr className="bg-[var(--border)]">
+            {/* Columna sticky de categoria */}
+            <th className="sticky left-0 bg-[var(--border)] py-2 px-3 text-left font-semibold min-w-[120px] z-10">
               {tipo === 'ingresos' && 'Ingresos'}
               {tipo === 'gastos' && 'Gastos'}
               {tipo === 'balance' && 'Balance'}
@@ -76,7 +76,7 @@ export function TablaAnual({ grupos, tipo, totalAnual, className }: TablaAnualPr
             ))}
             
             {/* Columna de total */}
-            <th className="py-2 px-3 text-center font-semibold min-w-[80px] bg-[var(--border)] dark:bg-surface">
+            <th className="py-2 px-3 text-center font-semibold min-w-[80px] bg-[var(--border)]">
               Total
             </th>
           </tr>
@@ -87,13 +87,13 @@ export function TablaAnual({ grupos, tipo, totalAnual, className }: TablaAnualPr
             <>
               {/* Header del grupo */}
               {grupos.length > 1 && (
-                <tr 
+                <tr
                   key={`grupo-${grupoIdx}`}
-                  className="bg-gray-50 dark:bg-gray-900"
+                  className="bg-[var(--background)]"
                 >
-                  <td 
-                    colSpan={14} 
-                    className="sticky left-0 bg-gray-50 dark:bg-gray-900 py-2 px-3 font-semibold text-gray-700 dark:text-gray-300"
+                  <td
+                    colSpan={14}
+                    className="sticky left-0 bg-[var(--background)] py-2 px-3 font-semibold text-[var(--text-secondary)]"
                   >
                     {grupo.titulo}
                   </td>
@@ -106,16 +106,16 @@ export function TablaAnual({ grupos, tipo, totalAnual, className }: TablaAnualPr
                 const isEven = catIdx % 2 === 0
                 
                 return (
-                  <tr 
+                  <tr
                     key={`${grupoIdx}-${catIdx}`}
                     className={cn(
-                      isEven ? 'bg-surface dark:bg-surface' : 'bg-gray-50/50 dark:bg-gray-900/50'
+                      isEven ? 'bg-surface' : 'bg-[var(--background)]'
                     )}
                   >
-                    {/* Categoría (sticky) */}
+                    {/* Categoria (sticky) */}
                     <td className={cn(
                       'sticky left-0 py-2 px-3 font-medium truncate',
-                      isEven ? 'bg-surface dark:bg-surface' : 'bg-gray-50/50 dark:bg-gray-900/50'
+                      isEven ? 'bg-surface' : 'bg-[var(--background)]'
                     )}>
                       <span className="flex items-center gap-1.5">
                         {cat.icono && <span>{cat.icono}</span>}
@@ -129,7 +129,7 @@ export function TablaAnual({ grupos, tipo, totalAnual, className }: TablaAnualPr
                         key={mesIdx}
                         className={cn(
                           'py-2 px-2 text-center tabular-nums',
-                          val === 0 && 'text-gray-300 dark:text-[var(--text-secondary)]',
+                          val === 0 && 'text-[var(--text-muted)]',
                           val > 0 && tipo === 'ingresos' && 'text-positive',
                           val > 0 && tipo === 'gastos' && 'text-negative',
                           val > 0 && tipo === 'balance' && 'text-positive',
@@ -140,9 +140,9 @@ export function TablaAnual({ grupos, tipo, totalAnual, className }: TablaAnualPr
                       </td>
                     ))}
                     
-                    {/* Total categoría */}
+                    {/* Total categoria */}
                     <td className={cn(
-                      'py-2 px-3 text-center tabular-nums font-medium bg-[var(--border)] dark:bg-surface-elevated',
+                      'py-2 px-3 text-center tabular-nums font-medium bg-[var(--border)]',
                       totalCat === 0 && 'text-[var(--text-muted)]',
                       totalCat > 0 && tipo === 'ingresos' && 'text-positive',
                       totalCat > 0 && tipo === 'gastos' && 'text-negative',
@@ -155,10 +155,10 @@ export function TablaAnual({ grupos, tipo, totalAnual, className }: TablaAnualPr
                 )
               })}
               
-              {/* Subtotal del grupo (si hay más de un grupo) */}
+              {/* Subtotal del grupo (si hay mas de un grupo) */}
               {grupos.length > 1 && grupo.subtotal && (
-                <tr className="bg-[var(--border)]/80 dark:bg-surface-elevated/80 border-t border-gray-200 dark:border-gray-700">
-                  <td className="sticky left-0 bg-[var(--border)]/80 dark:bg-surface-elevated/80 py-2 px-3 font-semibold">
+                <tr className="bg-[var(--border)]/80 border-t border-[var(--separator)]">
+                  <td className="sticky left-0 bg-[var(--border)]/80 py-2 px-3 font-semibold">
                     Subtotal {grupo.titulo}
                   </td>
                   
@@ -175,7 +175,7 @@ export function TablaAnual({ grupos, tipo, totalAnual, className }: TablaAnualPr
                     </td>
                   ))}
                   
-                  <td className="py-2 px-3 text-center tabular-nums font-bold bg-[var(--border)] dark:bg-surface">
+                  <td className="py-2 px-3 text-center tabular-nums font-bold bg-[var(--border)]">
                     {formatMoneyCompact(grupo.subtotal.reduce((a, b) => a + b, 0))}
                   </td>
                 </tr>
@@ -184,8 +184,8 @@ export function TablaAnual({ grupos, tipo, totalAnual, className }: TablaAnualPr
           ))}
           
           {/* TOTAL GENERAL */}
-          <tr className="bg-accent/10 dark:bg-accent/20 border-t-2 border-accent/30">
-            <td className="sticky left-0 bg-accent/10 dark:bg-accent/20 py-3 px-3 font-bold text-accent">
+          <tr className="bg-accent/10 border-t-2 border-accent/30">
+            <td className="sticky left-0 bg-accent/10 py-3 px-3 font-bold text-accent">
               TOTAL
             </td>
             
@@ -245,8 +245,8 @@ export function TablaBalance({ ingresosPorMes, gastosPorMes, className }: TablaB
     <div className={cn('overflow-x-auto -mx-4', className)}>
       <table className="min-w-full text-sm">
         <thead>
-          <tr className="bg-[var(--border)] dark:bg-surface-elevated">
-            <th className="sticky left-0 bg-[var(--border)] dark:bg-surface-elevated py-2 px-3 text-left font-semibold min-w-[100px]">
+          <tr className="bg-[var(--border)]">
+            <th className="sticky left-0 bg-[var(--border)] py-2 px-3 text-left font-semibold min-w-[100px]">
               Concepto
             </th>
             {MESES_CORTOS.map((mes, i) => (
@@ -254,7 +254,7 @@ export function TablaBalance({ ingresosPorMes, gastosPorMes, className }: TablaB
                 {mes}
               </th>
             ))}
-            <th className="py-2 px-3 text-center font-semibold min-w-[75px] bg-[var(--border)] dark:bg-surface">
+            <th className="py-2 px-3 text-center font-semibold min-w-[75px] bg-[var(--border)]">
               Total
             </th>
           </tr>
@@ -262,8 +262,8 @@ export function TablaBalance({ ingresosPorMes, gastosPorMes, className }: TablaB
         
         <tbody>
           {/* Ingresos */}
-          <tr className="bg-green-50/50 dark:bg-green-900/10">
-            <td className="sticky left-0 bg-green-50/50 dark:bg-green-900/10 py-2 px-3 font-medium text-positive">
+          <tr className="bg-green-50/50">
+            <td className="sticky left-0 bg-green-50/50 py-2 px-3 font-medium text-positive">
               Ingresos
             </td>
             {ingresosPorMes.map((val, i) => (
@@ -271,14 +271,14 @@ export function TablaBalance({ ingresosPorMes, gastosPorMes, className }: TablaB
                 {val === 0 ? '-' : formatMoneyCompact(val)}
               </td>
             ))}
-            <td className="py-2 px-3 text-center tabular-nums font-bold text-positive bg-green-100 dark:bg-green-900/20">
+            <td className="py-2 px-3 text-center tabular-nums font-bold text-positive bg-green-100">
               {formatMoneyCompact(ingresosPorMes.reduce((a, b) => a + b, 0))}
             </td>
           </tr>
           
           {/* Gastos */}
-          <tr className="bg-red-50/50 dark:bg-red-900/10">
-            <td className="sticky left-0 bg-red-50/50 dark:bg-red-900/10 py-2 px-3 font-medium text-negative">
+          <tr className="bg-red-50/50">
+            <td className="sticky left-0 bg-red-50/50 py-2 px-3 font-medium text-negative">
               Gastos
             </td>
             {gastosPorMes.map((val, i) => (
@@ -286,19 +286,19 @@ export function TablaBalance({ ingresosPorMes, gastosPorMes, className }: TablaB
                 {val === 0 ? '-' : formatMoneyCompact(val)}
               </td>
             ))}
-            <td className="py-2 px-3 text-center tabular-nums font-bold text-negative bg-red-100 dark:bg-red-900/20">
+            <td className="py-2 px-3 text-center tabular-nums font-bold text-negative bg-red-100">
               {formatMoneyCompact(gastosPorMes.reduce((a, b) => a + b, 0))}
             </td>
           </tr>
           
           {/* Balance */}
-          <tr className="bg-[var(--border)] dark:bg-surface-elevated border-t-2 border-gray-300 dark:border-gray-600">
-            <td className="sticky left-0 bg-[var(--border)] dark:bg-surface-elevated py-2 px-3 font-semibold">
+          <tr className="bg-[var(--border)] border-t-2 border-[var(--separator)]">
+            <td className="sticky left-0 bg-[var(--border)] py-2 px-3 font-semibold">
               Ahorro
             </td>
             {balancePorMes.map((val, i) => (
-              <td 
-                key={i} 
+              <td
+                key={i}
                 className={cn(
                   'py-2 px-2 text-center tabular-nums font-medium',
                   val >= 0 ? 'text-positive' : 'text-negative'
@@ -308,7 +308,7 @@ export function TablaBalance({ ingresosPorMes, gastosPorMes, className }: TablaB
               </td>
             ))}
             <td className={cn(
-              'py-2 px-3 text-center tabular-nums font-bold bg-[var(--border)] dark:bg-surface',
+              'py-2 px-3 text-center tabular-nums font-bold bg-[var(--border)]',
               balancePorMes.reduce((a, b) => a + b, 0) >= 0 ? 'text-positive' : 'text-negative'
             )}>
               {formatMoneyCompact(Math.abs(balancePorMes.reduce((a, b) => a + b, 0)))}
@@ -316,8 +316,8 @@ export function TablaBalance({ ingresosPorMes, gastosPorMes, className }: TablaB
           </tr>
           
           {/* Acumulado */}
-          <tr className="bg-accent/10 dark:bg-accent/20">
-            <td className="sticky left-0 bg-accent/10 dark:bg-accent/20 py-2 px-3 font-semibold text-accent">
+          <tr className="bg-accent/10">
+            <td className="sticky left-0 bg-accent/10 py-2 px-3 font-semibold text-accent">
               Acumulado
             </td>
             {acumulado.map((val, i) => (

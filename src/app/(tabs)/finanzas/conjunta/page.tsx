@@ -77,7 +77,7 @@ export default function CuentaConjuntaPage() {
   return (
     <div className="min-h-screen bg-background pb-24">
       {/* Header */}
-      <div className="bg-surface dark:bg-surface shadow-sm sticky top-0 z-10">
+      <div className="bg-surface shadow-sm sticky top-0 z-10">
         <div className="flex items-center px-4 h-14">
           <button
             onClick={() => router.back()}
@@ -224,10 +224,10 @@ export default function CuentaConjuntaPage() {
             </p>
           ) : (
             <div className="space-y-2 max-h-48 overflow-y-auto">
-              {gastosMes.slice(0, 5).map((gasto) => (
+              {gastosMes.slice(0, 5).map(gasto => (
                 <div
                   key={gasto.id}
-                  className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-800 last:border-0"
+                  className="flex items-center justify-between py-2 border-b border-[var(--separator)] last:border-0"
                 >
                   <div>
                     <p className="font-medium text-sm">{gasto.concepto}</p>
@@ -268,16 +268,11 @@ export default function CuentaConjuntaPage() {
                 const isLast = i === evolucion.length - 1;
 
                 return (
-                  <div
-                    key={i}
-                    className="flex-1 flex flex-col items-center gap-1"
-                  >
+                  <div key={i} className="flex-1 flex flex-col items-center gap-1">
                     <div
                       className={cn(
-                        "w-full rounded-t transition-all",
-                        isLast
-                          ? "bg-purple-500"
-                          : "bg-purple-200 dark:bg-purple-800",
+                        'w-full rounded-t transition-all',
+                        isLast ? 'bg-purple-500' : 'bg-purple-200'
                       )}
                       style={{ height: `${height}%` }}
                     />

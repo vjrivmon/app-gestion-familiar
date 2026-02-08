@@ -42,8 +42,8 @@ export function GraficoDistribucion({
   
   if (loading) {
     return (
-      <div 
-        className={cn('animate-pulse bg-[var(--border)] dark:bg-surface rounded-lg', className)}
+      <div
+        className={cn('animate-pulse bg-[var(--border)] rounded-lg', className)}
         style={{ height: altura }}
       />
     )
@@ -125,11 +125,12 @@ export function GraficoDistribucion({
           
           <Tooltip
             contentStyle={{
-              backgroundColor: 'var(--color-surface, #fff)',
+              backgroundColor: 'var(--background)',
               border: 'none',
               borderRadius: 12,
-              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-              padding: '12px'
+              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+              padding: '12px',
+              color: 'var(--text-primary)'
             }}
             formatter={(value: number, name: string, props) => {
               const payload = props?.payload as DatoDistribucion | undefined
@@ -161,7 +162,7 @@ export function GraficoDistribucion({
             y="42%"
             textAnchor="middle"
             dominantBaseline="central"
-            className="fill-gray-500 dark:fill-gray-400"
+            fill="var(--text-secondary)"
             fontSize={11}
           >
             Total
@@ -171,7 +172,7 @@ export function GraficoDistribucion({
             y="50%"
             textAnchor="middle"
             dominantBaseline="central"
-            className="fill-gray-900 dark:fill-white"
+            fill="var(--text-primary)"
             fontSize={16}
             fontWeight={700}
           >

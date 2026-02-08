@@ -74,17 +74,18 @@ export function AporteMetaForm({
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-40" />
         <Drawer.Content
           className={cn(
-            "fixed bottom-0 left-0 right-0 z-50",
-            "bg-background",
-            "rounded-t-[12px]",
-            "max-h-[70vh]",
-            "flex flex-col",
-            "outline-none",
+            'fixed bottom-0 left-0 right-0 z-50',
+            'rounded-t-neu-xl',
+            'max-h-[70vh]',
+            'flex flex-col',
+            'outline-none'
           )}
+          style={{ background: 'var(--background)' }}
         >
           {/* Handle */}
           <div className="flex justify-center py-3 flex-shrink-0">
-            <div className="w-9 h-1 bg-gray-300 dark:bg-gray-600 rounded-full" />
+            <div className="w-10 h-1.5 rounded-full bg-[var(--neu-shadow-dark)]/20"
+                 style={{ boxShadow: 'inset 1px 1px 2px var(--neu-shadow-dark), inset -1px -1px 2px var(--neu-shadow-light)' }} />
           </div>
 
           {/* Header */}
@@ -118,7 +119,7 @@ export function AporteMetaForm({
           {/* Content */}
           <div className="flex-1 overflow-y-auto px-4 pb-4">
             {/* Input de cantidad */}
-            <div className="bg-surface dark:bg-surface rounded-xl p-4 mb-4">
+            <div className="bg-surface rounded-xl p-4 mb-4">
               <label className="block text-sm text-[var(--text-secondary)] mb-2 text-center">
                 Cantidad a aportar
               </label>
@@ -138,11 +139,10 @@ export function AporteMetaForm({
                     type="button"
                     onClick={() => setCantidad(atajo)}
                     className={cn(
-                      "px-3 py-1.5 rounded-full text-sm font-medium",
-                      "border border-gray-200 dark:border-gray-700",
-                      "active:bg-[var(--border)] dark:active:bg-gray-800",
-                      cantidad === atajo &&
-                        "bg-accent/10 border-accent text-accent",
+                      'px-3 py-1.5 rounded-full text-sm font-medium',
+                      'border border-[var(--separator)]',
+                      'active:bg-[var(--border)]',
+                      cantidad === atajo && 'bg-accent/10 border-accent text-accent'
                     )}
                   >
                     +{formatMoney(atajo, false)}
@@ -154,7 +154,7 @@ export function AporteMetaForm({
             {/* Preview del progreso */}
             {cantidad > 0 && (
               <div
-                className="bg-surface dark:bg-surface rounded-xl p-4 border-l-4"
+                className="bg-surface rounded-xl p-4 border-l-4"
                 style={{ borderLeftColor: meta.color }}
               >
                 <div className="flex items-center gap-2 mb-3">
@@ -166,7 +166,7 @@ export function AporteMetaForm({
                 </div>
 
                 {/* Barra de progreso comparativa */}
-                <div className="h-4 bg-[var(--border)] dark:bg-surface rounded-full overflow-hidden mb-3 relative">
+                <div className="h-4 bg-[var(--border)] rounded-full overflow-hidden mb-3 relative">
                   {/* Progreso actual (más oscuro) */}
                   <div
                     className="absolute h-full rounded-full opacity-50"
@@ -217,9 +217,9 @@ export function AporteMetaForm({
 
                 {/* Mensaje si completa la meta */}
                 {completaraLaMeta && (
-                  <div className="mt-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                    <p className="text-green-700 dark:text-green-300 text-sm font-medium text-center">
-                      ¡Este aporte completará tu meta!
+                  <div className="mt-3 p-3 bg-green-50 rounded-lg">
+                    <p className="text-green-700 text-sm font-medium text-center">
+                      Este aporte completara tu meta!
                     </p>
                   </div>
                 )}

@@ -80,8 +80,8 @@ export function ResumenMesCard({ mes, año, nombreMes, className }: ResumenMesCa
               ? 'bg-positive/10' 
               : 'bg-negative/10'
           )}>
-            <p className="text-sm text-[var(--text-secondary)] dark:text-[var(--text-muted)] mb-0.5">
-              {esPositivo ? 'Ahorrado este mes' : 'Pérdida este mes'}
+            <p className="text-sm text-[var(--text-secondary)] mb-0.5">
+              {esPositivo ? 'Ahorrado este mes' : 'Perdida este mes'}
             </p>
             <p className={cn(
               'text-2xl font-bold',

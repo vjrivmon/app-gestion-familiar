@@ -53,10 +53,7 @@ export function GraficoBalanceMensual({
   if (loading) {
     return (
       <div
-        className={cn(
-          "animate-pulse bg-[var(--border)] dark:bg-surface rounded-lg",
-          className,
-        )}
+        className={cn('animate-pulse bg-[var(--border)] rounded-lg', className)}
         style={{ height: altura }}
       />
     );
@@ -97,12 +94,12 @@ export function GraficoBalanceMensual({
             dataKey="mes"
             axisLine={false}
             tickLine={false}
-            tick={{ fontSize: 11, fill: "#9ca3af" }}
+            tick={{ fontSize: 11, fill: 'var(--text-secondary)' }}
           />
           <YAxis
             axisLine={false}
             tickLine={false}
-            tick={{ fontSize: 10, fill: "#9ca3af" }}
+            tick={{ fontSize: 10, fill: 'var(--text-secondary)' }}
             tickFormatter={(value) => {
               if (value === 0) return "0";
               const absValue = Math.abs(value);
@@ -116,11 +113,12 @@ export function GraficoBalanceMensual({
 
           <Tooltip
             contentStyle={{
-              backgroundColor: "var(--color-surface, #fff)",
-              border: "none",
+              backgroundColor: 'var(--background)',
+              border: 'none',
               borderRadius: 12,
-              boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-              padding: "12px",
+              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+              padding: '12px',
+              color: 'var(--text-primary)'
             }}
             labelStyle={{ fontWeight: 600, marginBottom: 8 }}
             formatter={(value: number, name: string) => {
@@ -167,9 +165,9 @@ export function GraficoBalanceMensual({
           {/* Barras de Vicente */}
           <Bar dataKey="vicente" radius={[4, 4, 0, 0]} maxBarSize={30}>
             {datosTransformados.map((entry, index) => (
-              <Cell
-                key={`cell-vicente-${index}`}
-                fill={entry.vicente >= 0 ? COLORES_GRAFICO.vicente : "#93c5fd"}
+              <Cell 
+                key={`cell-vicente-${index}`} 
+                fill={entry.vicente >= 0 ? COLORES_GRAFICO.vicente : '#C5D4E8'}
                 opacity={entry.vicente >= 0 ? 1 : 0.5}
               />
             ))}
@@ -178,9 +176,9 @@ export function GraficoBalanceMensual({
           {/* Barras de Irene */}
           <Bar dataKey="irene" radius={[4, 4, 0, 0]} maxBarSize={30}>
             {datosTransformados.map((entry, index) => (
-              <Cell
-                key={`cell-irene-${index}`}
-                fill={entry.irene >= 0 ? COLORES_GRAFICO.irene : "#f9a8d4"}
+              <Cell 
+                key={`cell-irene-${index}`} 
+                fill={entry.irene >= 0 ? COLORES_GRAFICO.irene : '#E8C5C5'}
                 opacity={entry.irene >= 0 ? 1 : 0.5}
               />
             ))}

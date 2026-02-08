@@ -15,39 +15,32 @@ interface BalanceCardProps {
 
 /**
  * Card principal mostrando el balance de pareja
- * - Quién debe a quién
- * - Botón liquidar si hay deuda
- * - Link a detalle
+ * Estilo neumórfico pastel
  */
 export function BalanceCard({ onDetailClick, className }: BalanceCardProps) {
   const { balance, loading, liquidarBalance } = useBalance()
   const { config } = useConfigHogar()
   const [liquidando, setLiquidando] = useState(false)
   const [liquidado, setLiquidado] = useState(false)
-  
+
   const handleLiquidar = async () => {
     if (liquidando || balance.enPaz) return
-    
+
     setLiquidando(true)
     const success = await liquidarBalance()
     setLiquidando(false)
-    
+
     if (success) {
       setLiquidado(true)
-      // Reset después de 2 segundos
       setTimeout(() => setLiquidado(false), 2000)
     }
   }
-  
-  // Nombres de los participantes
+
   const nombreDeudor = balance.deudor ? getNombrePagador(config, balance.deudor) : ''
   const nombreAcreedor = balance.acreedor ? getNombrePagador(config, balance.acreedor) : ''
-  
+
   return (
-    <div className={cn(
-      'card bg-surface border border-[var(--border)]',
-      className
-    )}>
+    <div className={cn('card', className)}>
       {/* Header */}
       <div className="flex justify-between items-start mb-3">
         <div>
@@ -58,21 +51,27 @@ export function BalanceCard({ onDetailClick, className }: BalanceCardProps) {
             </div>
           ) : (
             <p className="text-3xl font-bold text-primary">
-              {balance.enPaz ? '0,00€' : formatMoney(balance.cantidad)}
+              {balance.enPaz ? '0,00 EUR' : formatMoney(balance.cantidad)}
             </p>
           )}
         </div>
-        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-          <ArrowLeftRight className="w-5 h-5 text-primary" />
+        <div
+          className="w-12 h-12 rounded-full flex items-center justify-center"
+          style={{
+            background: 'linear-gradient(145deg, var(--primary-light), var(--primary))',
+            boxShadow: 'var(--shadow-neu-sm)'
+          }}
+        >
+          <ArrowLeftRight className="w-5 h-5 text-[var(--text-inverse)]" />
         </div>
       </div>
-      
+
       {/* Estado del balance */}
       {!loading && (
         <div className="mb-4">
           {balance.enPaz ? (
             <p className="text-[var(--text-secondary)]">
-              Estáis en paz 
+              Estais en paz
             </p>
           ) : (
             <p className="text-[var(--text-secondary)]">
@@ -85,22 +84,26 @@ export function BalanceCard({ onDetailClick, className }: BalanceCardProps) {
           )}
         </div>
       )}
-      
+
       {/* Botones */}
-      <div className="flex gap-2">
-        {/* Botón Liquidar */}
+      <div className="flex gap-3">
+        {/* Boton Liquidar */}
         {!balance.enPaz && !loading && (
           <button
             onClick={handleLiquidar}
             disabled={liquidando || liquidado}
             className={cn(
-              'flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm',
-              'bg-primary text-white',
-              'active:bg-primary-dark',
+              'flex-1 py-3 px-4 rounded-full font-semibold text-sm',
               'transition-all duration-150',
               'flex items-center justify-center gap-2',
-              'disabled:opacity-70'
+              'disabled:opacity-70',
+              'active:scale-98'
             )}
+            style={{
+              background: 'linear-gradient(145deg, var(--primary), var(--primary-dark))',
+              color: 'var(--text-inverse)',
+              boxShadow: 'var(--shadow-neu-sm)'
+            }}
           >
             {liquidando ? (
               <>
@@ -110,26 +113,30 @@ export function BalanceCard({ onDetailClick, className }: BalanceCardProps) {
             ) : liquidado ? (
               <>
                 <Check className="w-4 h-4" />
-                ¡Liquidado!
+                Liquidado!
               </>
             ) : (
               'Liquidar'
             )}
           </button>
         )}
-        
-        {/* Botón Detalle */}
+
+        {/* Boton Detalle */}
         {onDetailClick && (
           <button
             onClick={onDetailClick}
             className={cn(
-              'py-2.5 px-4 rounded-xl font-semibold text-sm',
-              'bg-primary/10 text-primary',
-              'active:bg-primary/20',
+              'py-3 px-4 rounded-full font-semibold text-sm',
               'transition-all duration-150',
               'flex items-center gap-1',
+              'active:scale-98',
               balance.enPaz && 'flex-1 justify-center'
             )}
+            style={{
+              background: 'var(--background)',
+              color: 'var(--primary)',
+              boxShadow: 'var(--shadow-neu-sm)'
+            }}
           >
             Detalle
             <ChevronRight className="w-4 h-4" />

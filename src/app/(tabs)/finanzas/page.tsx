@@ -143,7 +143,7 @@ function BalanceTab({ mesState }: BalanceTabProps) {
       {/* Link a configuración */}
       <button
         onClick={handleConfigClick}
-        className="w-full card flex items-center justify-between active:bg-gray-50 dark:active:bg-gray-800"
+        className="w-full card flex items-center justify-between active:bg-[var(--border)]"
       >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center">
@@ -234,7 +234,7 @@ function IngresosTab({ mesState }: IngresosTabProps) {
         className={cn(
           'fixed bottom-24 right-4 z-30',
           'w-14 h-14 rounded-full',
-          'bg-positive text-white shadow-lg',
+          'bg-gradient-to-br from-positive to-positive/80 text-white shadow-neu-sm',
           'flex items-center justify-center',
           'active:scale-95 transition-transform'
         )}
@@ -331,7 +331,7 @@ function GastosTab({ mesState }: GastosTabProps) {
         className={cn(
           'fixed bottom-24 right-4 z-30',
           'w-14 h-14 rounded-full',
-          'bg-negative text-white shadow-lg',
+          'bg-gradient-to-br from-negative to-negative/80 text-white shadow-neu-sm',
           'flex items-center justify-center',
           'active:scale-95 transition-transform'
         )}
@@ -373,7 +373,7 @@ function MasTab() {
         <a
           key={href}
           href={href}
-          className="card flex items-center gap-4 active:bg-gray-50 dark:active:bg-gray-800 transition-colors"
+          className="card flex items-center gap-4 active:bg-[var(--border)] transition-colors"
         >
           <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center">
             <Icon className="w-5 h-5 text-accent" />

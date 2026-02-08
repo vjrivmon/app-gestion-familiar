@@ -33,12 +33,9 @@ export function TransferenciaItem({
   // Colores por persona
   const getColor = (persona: Pagador): string => {
     switch (persona) {
-      case "m1":
-        return "text-blue-600 dark:text-blue-400";
-      case "m2":
-        return "text-pink-600 dark:text-pink-400";
-      case "conjunta":
-        return "text-purple-600 dark:text-purple-400";
+      case 'm1': return 'text-blue-600'
+      case 'm2': return 'text-pink-600'
+      case 'conjunta': return 'text-purple-600'
     }
   };
 
@@ -47,13 +44,13 @@ export function TransferenciaItem({
       role={onClick ? "button" : undefined}
       onClick={onClick}
       className={cn(
-        "card flex items-center gap-3 py-3",
-        onClick && "active:bg-gray-50 dark:active:bg-gray-800 cursor-pointer",
-        className,
+        'card flex items-center gap-3 py-3',
+        onClick && 'active:bg-[var(--background)] cursor-pointer',
+        className
       )}
     >
       {/* Icono */}
-      <div className="w-10 h-10 rounded-full bg-[var(--border)] dark:bg-surface-elevated flex items-center justify-center shrink-0">
+      <div className="w-10 h-10 rounded-full bg-[var(--border)] flex items-center justify-center shrink-0">
         <ArrowRight className="w-5 h-5 text-[var(--text-secondary)]" />
       </div>
 
