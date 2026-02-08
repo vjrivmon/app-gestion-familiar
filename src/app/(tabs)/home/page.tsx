@@ -45,9 +45,10 @@ export default function HomePage() {
     preventScrollOnSwipe: true,
   });
 
-  // Mostrar nombre del miembro actual (no siempre m1)
+  // Mostrar nombre del miembro actual (config > user_metadata > fallback)
   const userName =
     config?.nombres?.[miembroActual] ||
+    user?.user_metadata?.name ||
     (miembroActual === "m1" ? "Vicente" : "Irene");
 
   // Handlers para tareas

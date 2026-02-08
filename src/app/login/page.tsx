@@ -1,34 +1,82 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useSupabase } from "@/providers/supabase-provider";
-import { Loader2, Mail } from "lucide-react";
+import { Loader2, Eye, EyeOff } from "lucide-react";
+
+type Mode = "login" | "register";
 
 export default function LoginPage() {
   const { supabase } = useSupabase();
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const [mode, setMode] = useState<Mode>("login");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setSuccess(null);
 
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
-      },
-    });
+    if (mode === "register") {
+      if (!name.trim()) {
+        setError("El nombre es obligatorio");
+        setLoading(false);
+        return;
+      }
+      if (password.length < 6) {
+        setError("La contraseña debe tener al menos 6 caracteres");
+        setLoading(false);
+        return;
+      }
 
-    if (error) {
-      setError(error.message);
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { name: name.trim() },
+        },
+      });
+
+      if (error) {
+        setError(error.message);
+      } else {
+        setSuccess("¡Cuenta creada! Revisa tu email para confirmarla.");
+      }
     } else {
-      setSent(true);
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        if (error.message === "Invalid login credentials") {
+          setError("Email o contraseña incorrectos");
+        } else if (error.message === "Email not confirmed") {
+          setError("Confirma tu email antes de iniciar sesión");
+        } else {
+          setError(error.message);
+        }
+      } else {
+        router.push("/home");
+      }
     }
+
     setLoading(false);
+  };
+
+  const switchMode = () => {
+    setMode(mode === "login" ? "register" : "login");
+    setError(null);
+    setSuccess(null);
   };
 
   return (
@@ -45,64 +93,175 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {sent ? (
-          <div className="card text-center">
-            <Mail className="w-12 h-12 mx-auto mb-4 text-accent" />
-            <h2 className="text-xl font-semibold mb-2">¡Email enviado!</h2>
-            <p className="text-[var(--text-secondary)]">
-              Revisa tu bandeja de entrada y haz clic en el enlace para entrar.
-            </p>
-            <button
-              onClick={() => setSent(false)}
-              className="mt-4 text-accent underline"
-            >
-              Usar otro email
-            </button>
-          </div>
-        ) : (
-          <form onSubmit={handleLogin} className="space-y-4">
+        {/* Tabs */}
+        <div className="flex bg-[var(--separator)] rounded-xl p-1">
+          <button
+            type="button"
+            onClick={() => {
+              setMode("login");
+              setError(null);
+              setSuccess(null);
+            }}
+            className={`flex-1 py-2.5 rounded-lg text-[15px] font-medium transition-all ${
+              mode === "login"
+                ? "bg-[var(--surface)] text-[var(--text-primary)] shadow-sm"
+                : "text-[var(--text-muted)]"
+            }`}
+          >
+            Iniciar sesión
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setMode("register");
+              setError(null);
+              setSuccess(null);
+            }}
+            className={`flex-1 py-2.5 rounded-lg text-[15px] font-medium transition-all ${
+              mode === "register"
+                ? "bg-[var(--surface)] text-[var(--text-primary)] shadow-sm"
+                : "text-[var(--text-muted)]"
+            }`}
+          >
+            Crear cuenta
+          </button>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {mode === "register" && (
             <div>
               <label
-                htmlFor="email"
+                htmlFor="name"
                 className="block text-[15px] font-medium mb-2"
               >
-                Tu email
+                Tu nombre
               </label>
               <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="vicente@ejemplo.com"
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Vicente"
                 required
                 className="input"
-                autoComplete="email"
-                autoFocus
+                autoComplete="name"
+                maxLength={30}
               />
             </div>
+          )}
 
-            {error && <p className="text-negative text-sm">{error}</p>}
-
-            <button
-              type="submit"
-              disabled={loading || !email}
-              className="btn-primary w-full flex items-center justify-center gap-2"
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-[15px] font-medium mb-2"
             >
-              {loading ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  Enviando...
-                </>
-              ) : (
-                "Entrar con Magic Link"
-              )}
-            </button>
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="vicente@ejemplo.com"
+              required
+              className="input"
+              autoComplete="email"
+              autoFocus={mode === "login"}
+            />
+          </div>
 
-            <p className="text-center text-[13px] text-[var(--text-muted)]">
-              Sin contraseñas. Te enviaremos un enlace seguro a tu email.
-            </p>
-          </form>
-        )}
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-[15px] font-medium mb-2"
+            >
+              Contraseña
+            </label>
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder={
+                  mode === "register" ? "Mínimo 6 caracteres" : "Tu contraseña"
+                }
+                required
+                minLength={mode === "register" ? 6 : undefined}
+                className="input pr-12"
+                autoComplete={
+                  mode === "register" ? "new-password" : "current-password"
+                }
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[var(--text-muted)]"
+              >
+                {showPassword ? (
+                  <EyeOff className="w-5 h-5" />
+                ) : (
+                  <Eye className="w-5 h-5" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {error && <p className="text-negative text-sm">{error}</p>}
+          {success && (
+            <p className="text-[var(--positive)] text-sm">{success}</p>
+          )}
+
+          <button
+            type="submit"
+            disabled={
+              loading ||
+              !email ||
+              !password ||
+              (mode === "register" && !name.trim())
+            }
+            className="btn-primary w-full flex items-center justify-center gap-2"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                {mode === "register" ? "Creando cuenta..." : "Entrando..."}
+              </>
+            ) : mode === "register" ? (
+              "Crear cuenta"
+            ) : (
+              "Iniciar sesión"
+            )}
+          </button>
+        </form>
+
+        {/* Switch mode link */}
+        <p className="text-center text-[13px] text-[var(--text-muted)]">
+          {mode === "login" ? (
+            <>
+              ¿No tienes cuenta?{" "}
+              <button
+                type="button"
+                onClick={switchMode}
+                className="text-accent font-medium"
+              >
+                Regístrate
+              </button>
+            </>
+          ) : (
+            <>
+              ¿Ya tienes cuenta?{" "}
+              <button
+                type="button"
+                onClick={switchMode}
+                className="text-accent font-medium"
+              >
+                Inicia sesión
+              </button>
+            </>
+          )}
+        </p>
       </div>
     </div>
   );
